@@ -14,16 +14,21 @@ class Sprite_Character < Sprite_Base
   # * Object Initialization
   #     character : Game_Character
   #--------------------------------------------------------------------------
-  def initialize(viewport, character = nil)
+  def initialize(viewport, light_viewport, character = nil)
     super(viewport)
     @character = character
     @balloon_duration = 0
+    @sprite = Sprite.new(viewport)
+    @light_sprite = Sprite.new(light_viewport)
+    @light_sprite.blend_type = 1
     update
   end
   #--------------------------------------------------------------------------
   # * Free
   #--------------------------------------------------------------------------
   def dispose
+    @light_sprite.dispose
+    @light_sprite = nil
     end_animation
     end_balloon
     super
@@ -73,28 +78,41 @@ class Sprite_Character < Sprite_Base
   # * Set Tile Bitmap
   #--------------------------------------------------------------------------
   def set_tile_bitmap
+    @light_sprite.visible = false
     sx = (@tile_id / 128 % 2 * 8 + @tile_id % 8) * 32;
     sy = @tile_id % 256 / 8 % 16 * 32;
-    self.bitmap = tileset_bitmap(@tile_id)
-    self.src_rect.set(sx, sy, 32, 32)
-    self.ox = 16
-    self.oy = 32
+    @sprite.bitmap = tileset_bitmap(@tile_id)
+    @sprite.src_rect.set(sx, sy, 32, 32)
+    @sprite.ox = 16
+    @sprite.oy = 32
   end
   #--------------------------------------------------------------------------
   # * Set Character Bitmap
   #--------------------------------------------------------------------------
   def set_character_bitmap
-    self.bitmap = Cache.character(@character_name)
+    @sprite.bitmap = Cache.character(@character_name)
     sign = @character_name[/^[\!\$]./]
     if sign && sign.include?("$")
-      @cw = bitmap.width / 3
-      @ch = bitmap.height / 4
+      @cw = @sprite.bitmap.width / 3
+      @ch = @sprite.bitmap.height / 4
     else
-      @cw = bitmap.width / 12
-      @ch = bitmap.height / 8
+      @cw = @sprite.bitmap.width / 12
+      @ch = @sprite.bitmap.height / 8
     end
-    self.ox = @cw / 2
-    self.oy = @ch
+
+    begin
+      @light_sprite.bitmap = Cache.lightmap(@character.character_name)
+      @light_sprite.visible = true
+    rescue
+      puts "LIGHTMAP CANNOT BE LOADED FOR " + @character.character_name
+      @light_sprite.bitmap = nil
+      @light_sprite.visible = false
+    end
+
+    @sprite.ox = @cw / 2
+    @sprite.oy = @ch
+    @light_sprite.ox = @cw / 2
+    @light_sprite.oy = @ch
   end
   #--------------------------------------------------------------------------
   # * Update Transfer Origin Rectangle
@@ -105,7 +123,8 @@ class Sprite_Character < Sprite_Base
       pattern = @character.pattern < 3 ? @character.pattern : 1
       sx = (index % 4 * 3 + pattern) * @cw
       sy = (index / 4 * 4 + (@character.direction - 2) / 2) * @ch
-      self.src_rect.set(sx, sy, @cw, @ch)
+      @sprite.src_rect.set(sx, sy, @cw, @ch)
+      @light_sprite.src_rect.set(sx, sy, @cw, @ch)
     end
   end
   #--------------------------------------------------------------------------
@@ -113,18 +132,28 @@ class Sprite_Character < Sprite_Base
   #--------------------------------------------------------------------------
   def update_position
     move_animation(@character.screen_x - x, @character.screen_y - y)
-    self.x = @character.screen_x
-    self.y = @character.screen_y
-    self.z = @character.screen_z
+    @light_sprite.x = @character.screen_x
+    @light_sprite.y = @character.screen_y
+    @light_sprite.z = @character.screen_z
+    @sprite.x = @character.screen_x
+    @sprite.y = @character.screen_y
+    @sprite.z = @character.screen_z
   end
   #--------------------------------------------------------------------------
   # * Update Other
   #--------------------------------------------------------------------------
   def update_other
-    self.opacity = @character.opacity
-    self.blend_type = @character.blend_type
-    self.bush_depth = @character.bush_depth
-    self.visible = !@character.transparent
+    @sprite.opacity = @character.opacity
+    @sprite.blend_type = @character.blend_type
+    @sprite.bush_depth = @character.bush_depth
+    @sprite.visible = !@character.transparent
+  end
+
+  def self.sprite_attr(*args)
+    args.each do |arg|
+      class_eval("def #{arg};@sprite.#{arg};end")
+      class_eval("def #{arg}=(val);@sprite.#{arg}=val;@light_sprite.#{arg}=val;end")
+    end
   end
   #--------------------------------------------------------------------------
   # * Set New Effect
@@ -223,4 +252,15 @@ class Sprite_Character < Sprite_Base
   def balloon_frame_index
     return 7 - [(@balloon_duration - balloon_wait) / balloon_speed, 0].max
   end
+  sprite_attr :src_rect
+  sprite_attr :visible
+  sprite_attr :x, :y, :z
+  sprite_attr :ox, :oy
+  sprite_attr :zoom_x, :zoom_y
+  sprite_attr :angle
+  sprite_attr :mirror
+  sprite_attr :bush_depth
+  sprite_attr :opacity
+  sprite_attr :color
+  sprite_attr :tone
 end

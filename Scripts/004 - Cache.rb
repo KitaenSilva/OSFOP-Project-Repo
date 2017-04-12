@@ -80,6 +80,10 @@ module Cache
   def self.title2(filename)
     load_bitmap("Graphics/Titles2/", filename)
   end
+
+  def self.lightmap(filename)
+    self.load_bitmap("Graphics/Lightmaps/", filename)
+  end
   #--------------------------------------------------------------------------
   # * Load Bitmap
   #--------------------------------------------------------------------------

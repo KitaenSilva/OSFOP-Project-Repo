@@ -27,6 +27,8 @@ class Spriteset_Map
     @viewport1 = Viewport.new
     @viewport2 = Viewport.new
     @viewport3 = Viewport.new
+    @viewport_lights = Viewport.new(0, 0, 640, 480)
+    @viewport_lights.z = 1
     @viewport2.z = 50
     @viewport3.z = 100
   end
@@ -61,15 +63,15 @@ class Spriteset_Map
   def create_characters
     @character_sprites = []
     $game_map.events.values.each do |event|
-      @character_sprites.push(Sprite_Character.new(@viewport1, event))
+      @character_sprites.push(Sprite_Character.new(@viewport1, @viewport_lights, event))
     end
     $game_map.vehicles.each do |vehicle|
-      @character_sprites.push(Sprite_Character.new(@viewport1, vehicle))
+      @character_sprites.push(Sprite_Character.new(@viewport1, @viewport_lights, vehicle))
     end
     $game_player.followers.reverse_each do |follower|
-      @character_sprites.push(Sprite_Character.new(@viewport1, follower))
+      @character_sprites.push(Sprite_Character.new(@viewport1, @viewport_lights, follower))
     end
-    @character_sprites.push(Sprite_Character.new(@viewport1, $game_player))
+    @character_sprites.push(Sprite_Character.new(@viewport1, @viewport_lights, $game_player))
     @map_id = $game_map.map_id
   end
   #--------------------------------------------------------------------------
