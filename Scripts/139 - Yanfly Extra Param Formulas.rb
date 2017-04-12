@@ -223,7 +223,7 @@ class Game_BattlerBase
       return eval(YEA::XPARAM::FORMULA[:#{xparam}_formula])
     end
     )
-  module_eval(aStr)
+    module_eval(aStr)
   } # Do not remove this.
 
 end # Game_BattlerBase

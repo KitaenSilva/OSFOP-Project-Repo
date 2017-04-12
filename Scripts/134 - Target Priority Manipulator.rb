@@ -103,7 +103,7 @@ if $imported && $imported[:SHD_TargetingManipulator]
 else
 
   $imported = {} if $imported.nil?
-$imported[:SHD_TargetingManipulator] = true
+  $imported[:SHD_TargetingManipulator] = true
 
 #===============================================================================
 # Configuration Module
@@ -146,14 +146,14 @@ $imported[:SHD_TargetingManipulator] = true
 # Module SHD
 # Mainly contains Regular Expressions.
 #
-module SHD
+  module SHD
 
-  module REGEXP
-    ENEMY_TARG_EVAL = /<targ(?:et){,1}?[-_ ]?eval[: ]+(\d+)[ ]*>(.*?)<\/targ(:?et){,1}?[-_ ]?eval>/im
-    ENEMY_TARG_SHORTCUT = /<targ(?:et){,1}?[: ]+(\d+)[, ]+(\w+)>/i
+    module REGEXP
+      ENEMY_TARG_EVAL = /<targ(?:et){,1}?[-_ ]?eval[: ]+(\d+)[ ]*>(.*?)<\/targ(:?et){,1}?[-_ ]?eval>/im
+      ENEMY_TARG_SHORTCUT = /<targ(?:et){,1}?[: ]+(\d+)[, ]+(\w+)>/i
+    end
+
   end
-
-end
 #
 # End Module SHD
 #-------------------------------------------------------------------------------
@@ -163,25 +163,25 @@ end
 # Module DataManager
 # Adding methods for reading enemy notetags.
 #
-module DataManager
+  module DataManager
 
-  class <<self
-    alias :load_database_adv_ai_target :load_database
-  end
-
-  def self.load_database
-    load_database_adv_ai_target
-    load_notetags_adv_ai_target
-  end
-
-  def self.load_notetags_adv_ai_target
-    $data_enemies.each do |o|
-      next if o.nil?
-      o.load_notetags_adv_ai_target
+    class <<self
+      alias :load_database_adv_ai_target :load_database
     end
-  end
 
-end
+    def self.load_database
+      load_database_adv_ai_target
+      load_notetags_adv_ai_target
+    end
+
+    def self.load_notetags_adv_ai_target
+      $data_enemies.each do |o|
+        next if o.nil?
+        o.load_notetags_adv_ai_target
+      end
+    end
+
+  end
 #
 # End Module DataManager
 #-------------------------------------------------------------------------------
@@ -190,26 +190,26 @@ end
 #-------------------------------------------------------------------------------
 # Class RPG::Enemy
 #
-class RPG::Enemy < RPG::BaseItem
+  class RPG::Enemy < RPG::BaseItem
 
-  def load_notetags_adv_ai_target
-    self.note.split(/[\r\n]+/).each { |line|
-      if line =~ SHD::REGEXP::ENEMY_TARG_SHORTCUT
-        action_id = $1.to_i - 1
-        if @actions[action_id]
-          @actions[action_id].targeting_shortcut = $2.downcase.to_sym
+    def load_notetags_adv_ai_target
+      self.note.split(/[\r\n]+/).each { |line|
+        if line =~ SHD::REGEXP::ENEMY_TARG_SHORTCUT
+          action_id = $1.to_i - 1
+          if @actions[action_id]
+            @actions[action_id].targeting_shortcut = $2.downcase.to_sym
+          end
         end
-      end
-    }
-    self.note.scan(SHD::REGEXP::ENEMY_TARG_EVAL).each { |match|
-      action_id = match[0].to_i - 1
-      if @actions[action_id]
-        @actions[action_id].targeting_eval = match[1]
-      end
-    }
-  end
+      }
+      self.note.scan(SHD::REGEXP::ENEMY_TARG_EVAL).each { |match|
+        action_id = match[0].to_i - 1
+        if @actions[action_id]
+          @actions[action_id].targeting_eval = match[1]
+        end
+      }
+    end
 
-end
+  end
 #
 # End Class RPG::Enemy
 #-------------------------------------------------------------------------------
@@ -218,27 +218,27 @@ end
 #-------------------------------------------------------------------------------
 # Class RPG::Enemy::Action
 #
-class RPG::Enemy::Action
+  class RPG::Enemy::Action
 
-  attr_reader :targeting_shortcut
-  attr_reader :targeting_eval
+    attr_reader :targeting_shortcut
+    attr_reader :targeting_eval
 
-  def use_adv_targeting?
-    @use_adv_targeting
+    def use_adv_targeting?
+      @use_adv_targeting
+    end
+
+    def targeting_shortcut=(symbol)
+      @targeting_shortcut = symbol
+      @use_adv_targeting = true
+    end
+
+    def targeting_eval=(string)
+      @targeting_shortcut = :eval
+      @targeting_eval = string
+      @use_adv_targeting = true
+    end
+
   end
-
-  def targeting_shortcut=(symbol)
-    @targeting_shortcut = symbol
-    @use_adv_targeting = true
-  end
-
-  def targeting_eval=(string)
-    @targeting_shortcut = :eval
-    @targeting_eval = string
-    @use_adv_targeting = true
-  end
-
-end
 #
 # End Class RPG::Enemy::Action
 #-------------------------------------------------------------------------------
@@ -247,117 +247,117 @@ end
 #-------------------------------------------------------------------------------
 # Class Game_Action
 #
-class Game_Action
+  class Game_Action
 
-  #-----------------------------------------------------------------------------
-  # Alias Method: set_enemy_action
-  #
-  alias :set_enemy_action_ai_prio :set_enemy_action
-  def set_enemy_action(action)
-    set_enemy_action_ai_prio(action)
-    set_ai_target(action) if action
-  end
-
-  #-----------------------------------------------------------------------------
-  # New Method: set_ai_target
-  #
-  def set_ai_target(action)
-    return unless action.use_adv_targeting?
-    if item.for_opponent?
-      set_ai_opponent_target(action)
-    elsif item.for_friend?
-      set_ai_friend_target(action)
+    #-----------------------------------------------------------------------------
+    # Alias Method: set_enemy_action
+    #
+    alias :set_enemy_action_ai_prio :set_enemy_action
+    def set_enemy_action(action)
+      set_enemy_action_ai_prio(action)
+      set_ai_target(action) if action
     end
-  end
 
-  #-----------------------------------------------------------------------------
-  # New Method: set_ai_opponent_target
-  #
-  def set_ai_opponent_target(action)
-    candidates = opponents_unit.alive_members
-    candidates.sort! { |a, b| ai_sorting(a, b, action) }
-    @target_index = candidates[0].index
-  end
-
-  #-----------------------------------------------------------------------------
-  # New Method: set_ai_friend_target
-  #
-  def set_ai_friend_target(action)
-    if item.for_dead_friend?
-      candidates = friends_unit.dead_members
-    else
-      candidates = friends_unit.alive_members
+    #-----------------------------------------------------------------------------
+    # New Method: set_ai_target
+    #
+    def set_ai_target(action)
+      return unless action.use_adv_targeting?
+      if item.for_opponent?
+        set_ai_opponent_target(action)
+      elsif item.for_friend?
+        set_ai_friend_target(action)
+      end
     end
-    candidates.sort! { |a, b| ai_sorting(a, b, action) }
-    @target_index = candidates[0].index
-  end
 
-  #-----------------------------------------------------------------------------
-  # New Method: ai_sorting
-  #
-  def ai_sorting(a, b, action)
-    case action.targeting_shortcut
-
-    when :low_hp
-      return a.hp <=> b.hp
-
-    when :high_hp
-      return b.hp <=> a.hp
-
-    when :low_hp_rate
-      return a.hp_rate <=> b.hp_rate
-
-    when :high_hp_rate
-      return b.hp_rate <=> a.hp_rate
-
-    when :low_mp
-      return a.mp <=> b.mp
-
-    when :high_mp
-      return b.mp <=> a.mp
-
-    when :low_mp_rate
-      return a.mp_rate <=> b.mp_rate
-
-    when :high_mp_rate
-      return b.mp_rate <=> a.mp_rate
-
-    when :low_tp
-      return a.tp <=> b.tp
-
-    when :high_tp
-      return b.tp <=> a.tp
-
-    when :low_tp_rate
-      return a.tp_rate <=> b.tp_rate
-
-    when :high_tp_rate
-      return b.tp_rate <=> a.tp_rate
-
-    when :self
-      return a == subject ? -1 : rand(2)
-
-    when :not_self
-      return a != subject ? rand(2) - 1 : 1
-
-    when :eval
-      return eval(action.targeting_eval)
-
-    else
-      return ai_sorting_extension(a, b, action)
-
+    #-----------------------------------------------------------------------------
+    # New Method: set_ai_opponent_target
+    #
+    def set_ai_opponent_target(action)
+      candidates = opponents_unit.alive_members
+      candidates.sort! { |a, b| ai_sorting(a, b, action) }
+      @target_index = candidates[0].index
     end
-  end
 
-  #-----------------------------------------------------------------------------
-  # New Method: ai_sorting_extension
-  # To be aliased by script extensions.
-  #
-  def ai_sorting_extension(a, b, action)
-    return 0
-  end
+    #-----------------------------------------------------------------------------
+    # New Method: set_ai_friend_target
+    #
+    def set_ai_friend_target(action)
+      if item.for_dead_friend?
+        candidates = friends_unit.dead_members
+      else
+        candidates = friends_unit.alive_members
+      end
+      candidates.sort! { |a, b| ai_sorting(a, b, action) }
+      @target_index = candidates[0].index
+    end
 
-end
+    #-----------------------------------------------------------------------------
+    # New Method: ai_sorting
+    #
+    def ai_sorting(a, b, action)
+      case action.targeting_shortcut
+
+      when :low_hp
+        return a.hp <=> b.hp
+
+      when :high_hp
+        return b.hp <=> a.hp
+
+      when :low_hp_rate
+        return a.hp_rate <=> b.hp_rate
+
+      when :high_hp_rate
+        return b.hp_rate <=> a.hp_rate
+
+      when :low_mp
+        return a.mp <=> b.mp
+
+      when :high_mp
+        return b.mp <=> a.mp
+
+      when :low_mp_rate
+        return a.mp_rate <=> b.mp_rate
+
+      when :high_mp_rate
+        return b.mp_rate <=> a.mp_rate
+
+      when :low_tp
+        return a.tp <=> b.tp
+
+      when :high_tp
+        return b.tp <=> a.tp
+
+      when :low_tp_rate
+        return a.tp_rate <=> b.tp_rate
+
+      when :high_tp_rate
+        return b.tp_rate <=> a.tp_rate
+
+      when :self
+        return a == subject ? -1 : rand(2)
+
+      when :not_self
+        return a != subject ? rand(2) - 1 : 1
+
+      when :eval
+        return eval(action.targeting_eval)
+
+      else
+        return ai_sorting_extension(a, b, action)
+
+      end
+    end
+
+    #-----------------------------------------------------------------------------
+    # New Method: ai_sorting_extension
+    # To be aliased by script extensions.
+    #
+    def ai_sorting_extension(a, b, action)
+      return 0
+    end
+
+  end
 #
 # End Class Game_Action
 #-------------------------------------------------------------------------------

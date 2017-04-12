@@ -27,7 +27,7 @@ RAB_SPECIFIC_ACTORS_B = false
 #Array of actor id's
 RAB_ACTORS_B = []
 
-LEVELRESTORE  = true #Full restore Upon leveling
+LEVELRESTORE = true #Full restore Upon leveling
 PARTIALRESTORE = false #Restore only the hp/mp gained on a level
 BATTLERESTORE = true #Set restore Upon battle end
 
@@ -43,7 +43,7 @@ HPSET    = 100
 MPSET    = 100
 
 class Game_Actor < Game_Battler
-  attr_reader   :actor_id
+  attr_reader :actor_id
   alias recover_level_up level_up
   def level_up
     if PARTIALRESTORE
@@ -64,25 +64,25 @@ class Scene_Battle < Scene_Base
   def terminate
     if BATTLERESTORE != true then recover_terminate else
                                                       recover_terminate
-      for actor in $game_party.members
-        next if RAB_SPECIFIC_ACTORS_B and !RAB_ACTORS.include?(actor.actor_id)
-        case HPSETTYPE
-        when 0
-          actor.hp = HPSET
-        when 1
-          actor.hp = actor.mhp * HPSET / 100
-        when 2
-          actor.hp += actor.mhp * HPSET / 100
-        end
-        case MPSETTYPE
-        when 0
-          actor.mp = MPSET
-        when 1
-          actor.mp = actor.mmp * MPSET / 100
-        when 2
-          actor.mp += actor.mmp * MPSET / 100
-        end
-      end
+                                                      for actor in $game_party.members
+                                                        next if RAB_SPECIFIC_ACTORS_B and !RAB_ACTORS.include?(actor.actor_id)
+                                                        case HPSETTYPE
+                                                        when 0
+                                                          actor.hp = HPSET
+                                                        when 1
+                                                          actor.hp = actor.mhp * HPSET / 100
+                                                        when 2
+                                                          actor.hp += actor.mhp * HPSET / 100
+                                                        end
+                                                        case MPSETTYPE
+                                                        when 0
+                                                          actor.mp = MPSET
+                                                        when 1
+                                                          actor.mp = actor.mmp * MPSET / 100
+                                                        when 2
+                                                          actor.mp += actor.mmp * MPSET / 100
+                                                        end
+                                                      end
     end
   end
 end

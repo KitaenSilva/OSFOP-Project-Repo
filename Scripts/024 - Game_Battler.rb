@@ -25,7 +25,7 @@ class Game_Battler < Game_BattlerBase
   #--------------------------------------------------------------------------
   # * Constants (Special Effects)
   #--------------------------------------------------------------------------
-  SPECIAL_EFFECT_ESCAPE = 0               # Escape
+  SPECIAL_EFFECT_ESCAPE = 0 # Escape
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
@@ -464,7 +464,7 @@ class Game_Battler < Game_BattlerBase
   # * Calculate Reflection Rate of Skill/Item
   #--------------------------------------------------------------------------
   def item_mrf(user, item)
-    return mrf if item.magical?     # Return magic reflection if magic attack
+    return mrf if item.magical? # Return magic reflection if magic attack
     return 0
   end
   #--------------------------------------------------------------------------

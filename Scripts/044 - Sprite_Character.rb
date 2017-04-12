@@ -66,8 +66,8 @@ class Sprite_Character < Sprite_Base
   #--------------------------------------------------------------------------
   def graphic_changed?
     @tile_id != @character.tile_id ||
-    @character_name != @character.character_name ||
-    @character_index != @character.character_index
+      @character_name != @character.character_name ||
+      @character_index != @character.character_index
   end
   #--------------------------------------------------------------------------
   # * Set Tile Bitmap

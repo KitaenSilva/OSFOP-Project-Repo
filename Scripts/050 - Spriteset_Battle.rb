@@ -118,16 +118,16 @@ class Spriteset_Battle
   #--------------------------------------------------------------------------
   def normal_battleback1_name
     terrain_battleback1_name(autotile_type(1)) ||
-    terrain_battleback1_name(autotile_type(0)) ||
-    default_battleback1_name
+      terrain_battleback1_name(autotile_type(0)) ||
+      default_battleback1_name
   end
   #--------------------------------------------------------------------------
   # * Get Filename of Normal Battle Background (Wall)
   #--------------------------------------------------------------------------
   def normal_battleback2_name
     terrain_battleback2_name(autotile_type(1)) ||
-    terrain_battleback2_name(autotile_type(0)) ||
-    default_battleback2_name
+      terrain_battleback2_name(autotile_type(0)) ||
+      default_battleback2_name
   end
   #--------------------------------------------------------------------------
   # * Get Filename of Battle Background (Floor) Corresponding to Terrain
@@ -144,11 +144,11 @@ class Spriteset_Battle
       "Lava1"
     when 35           # Rocks (lava)
       "Lava2"
-    when 40, 41        # Snowfield
+    when 40, 41 # Snowfield
       "Snowfield"
-    when 42           # Clouds
+    when 42 # Clouds
       "Clouds"
-    when 4, 5          # Poisonous swamp
+    when 4, 5 # Poisonous swamp
       "PoisonSwamp"
     end
   end
@@ -157,11 +157,11 @@ class Spriteset_Battle
   #--------------------------------------------------------------------------
   def terrain_battleback2_name(type)
     case type
-    when 20, 21        # Forest
+    when 20, 21 # Forest
       "Forest1"
-    when 22, 30, 38     # Low hill
+    when 22, 30, 38 # Low hill
       "Cliff"
-    when 24, 25, 26, 27  # Wasteland, dirt field
+    when 24, 25, 26, 27 # Wasteland, dirt field
       "Wasteland"
     when 32, 33        # Desert
       "Desert"
@@ -169,9 +169,9 @@ class Spriteset_Battle
       "Lava"
     when 40, 41        # Snowfield
       "Snowfield"
-    when 42           # Clouds
+    when 42 # Clouds
       "Clouds"
-    when 4, 5          # Poisonous swamp
+    when 4, 5 # Poisonous swamp
       "PoisonSwamp"
     end
   end

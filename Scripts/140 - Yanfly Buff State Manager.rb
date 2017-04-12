@@ -302,13 +302,13 @@ module YEA
       STATE_REAPPLY_TOTAL = /<(?:REAPPLY_TOTAL|reapply total)>/i
 
     end # BASEITEM
-  module USABLEITEM
+    module USABLEITEM
 
-    CHANGE_STATE_TURN = /<(?:state)[ ](\d+)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
-    CHANGE_BUFF_TURN = /<(?:buff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
-    CHANGE_DEBUFF_TURN = /<(?:debuff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
+      CHANGE_STATE_TURN = /<(?:state)[ ](\d+)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
+      CHANGE_BUFF_TURN = /<(?:buff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
+      CHANGE_DEBUFF_TURN = /<(?:debuff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
 
-  end # USABLEITEM
+    end # USABLEITEM
   end # REGEXP
 end # YEA
 
@@ -840,7 +840,7 @@ class Window_Base < Window
       next if state.icon_index <= 0
       turns = actor.state_turns(state.id).to_i
       if $imported["YEA-FieldStateEffects"] &&
-      BattleManager.field_state?(state.id)
+         BattleManager.field_state?(state.id)
         turns = BattleManager.field_state_turns(state.id)
       end
       if state.auto_removal_timing > 0 && turns < 100

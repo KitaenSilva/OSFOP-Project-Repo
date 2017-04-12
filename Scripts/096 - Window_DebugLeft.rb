@@ -13,7 +13,7 @@ class Window_DebugLeft < Window_Selectable
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :right_window             # Right window
+  attr_reader :right_window # Right window
   #--------------------------------------------------------------------------
   # * Object Initialization
   #--------------------------------------------------------------------------

@@ -242,7 +242,7 @@ module YEA
     #   :dtb               - Default Turn Battle. Default system.
     #   :ftb               - YEA Battle System Add-On: Free Turn Battle
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    DEFAULT_BATTLE_SYSTEM = :dtb     # Default battle system set.
+    DEFAULT_BATTLE_SYSTEM = :dtb # Default battle system set.
 
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Battle Status Window -
@@ -332,7 +332,7 @@ module YEA
     POPUP_RULES ={
       # Type     => [ Zoom1, Zoom2, Sz, Bold, Italic, Red, Grn, Blu, Font]
       "DEFAULT"  => [   2.0,   1.0, 24, true,  false, 255, 255, 255, DEFAULT],
-      "CRITICAL" => [   2.0,   1.0, 24, true,  false, 255,  80,  80, DEFAULT],
+      "CRITICAL" => [   2.0,   1.0, 24, true,  false, 255, 80, 80, DEFAULT],
       "HP_DMG"   => [   2.0,   1.0, 36, true,  false, 255, 255, 255, DEFAULT],
       "HP_HEAL"  => [   2.0,   1.0, 36, true,  false, 130, 250, 130, DEFAULT],
       "MP_DMG"   => [   2.0,   1.0, 36, true,  false, 220, 180, 255, DEFAULT],
@@ -345,7 +345,7 @@ module YEA
       "DRAIN"    => [   2.0,   1.0, 36, true,  false, 250, 190, 255, DEFAULT],
       "POSITIVE" => [   2.0,   1.0, 24, true,  false, 110, 210, 245, DEFAULT],
       "NEGATIVE" => [   2.0,   1.0, 24, true,  false, 245, 155, 195, DEFAULT],
-      "WEAK_ELE" => [   0.5,   1.0, 24, true,  false, 240, 110,  80, DEFAULT],
+      "WEAK_ELE" => [   0.5,   1.0, 24, true,  false, 240, 110, 80, DEFAULT],
       "IMMU_ELE" => [   0.5,   1.0, 24, true,  false, 185, 235, 255, DEFAULT],
       "REST_ELE" => [   0.5,   1.0, 24, true,  false, 145, 230, 180, DEFAULT],
       "ABSB_ELE" => [   0.5,   1.0, 24, true,  false, 250, 190, 255, DEFAULT],
@@ -394,22 +394,22 @@ module YEA
       ATK_ANI2 = /<(?:ATK_ANI_2|atk ani 2):[ ]*(\d+)>/i
 
     end # ENEMY
-  module USABLEITEM
+    module USABLEITEM
 
-    ONE_ANIMATION = /<(?:ONE_ANIMATION|one animation)>/i
+      ONE_ANIMATION = /<(?:ONE_ANIMATION|one animation)>/i
 
-  end # USABLEITEM
-  module STATE
+    end # USABLEITEM
+    module STATE
 
-    POPUP_ADD = /<(?:POPUP_ADD_RULE|popup add rule|popup add):[ ](.*)>/i
-    POPUP_REM = /<(?:POPUP_REM_RULE|popup rem rule|popup rem):[ ](.*)>/i
-    POPUP_DUR = /<(?:POPUP_DUR_RULE|popup dur rule|popup dur):[ ](.*)>/i
+      POPUP_ADD = /<(?:POPUP_ADD_RULE|popup add rule|popup add):[ ](.*)>/i
+      POPUP_REM = /<(?:POPUP_REM_RULE|popup rem rule|popup rem):[ ](.*)>/i
+      POPUP_DUR = /<(?:POPUP_DUR_RULE|popup dur rule|popup dur):[ ](.*)>/i
 
-    HIDE_ADD  = /<(?:POPUP_HIDE_ADD|popup hide add|hide add)>/i
-    HIDE_REM  = /<(?:POPUP_HIDE_REM|popup hide rem|hide rem)>/i
-    HIDE_DUR  = /<(?:POPUP_HIDE_DUR|popup hide dur|hide dur)>/i
+      HIDE_ADD  = /<(?:POPUP_HIDE_ADD|popup hide add|hide add)>/i
+      HIDE_REM  = /<(?:POPUP_HIDE_REM|popup hide rem|hide rem)>/i
+      HIDE_DUR  = /<(?:POPUP_HIDE_DUR|popup hide dur|hide dur)>/i
 
-  end # STATE
+    end # STATE
   end # REGEXP
 end # YEA
 
@@ -835,14 +835,14 @@ class Sprite_Battler < Sprite_Base
   #--------------------------------------------------------------------------
   unless $imported["YEA-CoreEngine"]
     alias sprite_battler_setup_new_animation_abe setup_new_animation
-  def setup_new_animation
-    sprite_battler_setup_new_animation_abe
-    return if @battler.pseudo_ani_id <= 0
-    animation = $data_animations[@battler.pseudo_ani_id]
-    mirror = @battler.animation_mirror
-    start_pseudo_animation(animation, mirror)
-    @battler.pseudo_ani_id = 0
-  end
+    def setup_new_animation
+      sprite_battler_setup_new_animation_abe
+      return if @battler.pseudo_ani_id <= 0
+      animation = $data_animations[@battler.pseudo_ani_id]
+      mirror = @battler.animation_mirror
+      start_pseudo_animation(animation, mirror)
+      @battler.pseudo_ani_id = 0
+    end
   end # $imported["YEA-CoreEngine"]
 
   #--------------------------------------------------------------------------

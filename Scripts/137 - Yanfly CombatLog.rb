@@ -117,184 +117,184 @@ class Window_BattleLog < Window_Selectable
   # alias method: display_current_state
   #--------------------------------------------------------------------------
     alias window_battlelog_display_current_state_cld display_current_state
-  def display_current_state(subject)
-    window_battlelog_display_current_state_cld(subject)
-    return if YEA::BATTLE::MSG_CURRENT_STATE
-    return if subject.most_important_state_text.empty?
-    combatlog(subject.name + subject.most_important_state_text)
-  end
+    def display_current_state(subject)
+      window_battlelog_display_current_state_cld(subject)
+      return if YEA::BATTLE::MSG_CURRENT_STATE
+      return if subject.most_important_state_text.empty?
+      combatlog(subject.name + subject.most_important_state_text)
+    end
 
   #--------------------------------------------------------------------------
   # alias method: display_use_item
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_use_item_cld display_use_item
-  def display_use_item(subject, item)
-    window_battlelog_display_use_item_cld(subject, item)
-    return if YEA::BATTLE::MSG_CURRENT_ACTION
-    if item.is_a?(RPG::Skill)
-      combatlog(subject.name + item.message1)
-      unless item.message2.empty?
-        combatlog(item.message2)
+    alias window_battlelog_display_use_item_cld display_use_item
+    def display_use_item(subject, item)
+      window_battlelog_display_use_item_cld(subject, item)
+      return if YEA::BATTLE::MSG_CURRENT_ACTION
+      if item.is_a?(RPG::Skill)
+        combatlog(subject.name + item.message1)
+        unless item.message2.empty?
+          combatlog(item.message2)
+        end
+      else
+        combatlog(sprintf(Vocab::UseItem, subject.name, item.name))
       end
-    else
-      combatlog(sprintf(Vocab::UseItem, subject.name, item.name))
     end
-  end
 
   #--------------------------------------------------------------------------
   # alias method: display_counter
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_counter_cld display_counter
-  def display_counter(target, item)
-    window_battlelog_display_counter_cld(target, item)
-    return if YEA::BATTLE::MSG_COUNTERATTACK
-    combatlog(sprintf(Vocab::CounterAttack, target.name))
-  end
+    alias window_battlelog_display_counter_cld display_counter
+    def display_counter(target, item)
+      window_battlelog_display_counter_cld(target, item)
+      return if YEA::BATTLE::MSG_COUNTERATTACK
+      combatlog(sprintf(Vocab::CounterAttack, target.name))
+    end
 
   #--------------------------------------------------------------------------
   # alias method: display_reflection
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_reflection_cld display_reflection
-  def display_reflection(target, item)
-    window_battlelog_display_reflection_cld(target, item)
-    return if YEA::BATTLE::MSG_REFLECT_MAGIC
-    combatlog(sprintf(Vocab::MagicReflection, target.name))
-  end
+    alias window_battlelog_display_reflection_cld display_reflection
+    def display_reflection(target, item)
+      window_battlelog_display_reflection_cld(target, item)
+      return if YEA::BATTLE::MSG_REFLECT_MAGIC
+      combatlog(sprintf(Vocab::MagicReflection, target.name))
+    end
 
   #--------------------------------------------------------------------------
   # alias method: display_substitute
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_substitute_cld display_substitute
-  def display_substitute(substitute, target)
-    window_battlelog_display_substitute_cld(substitute, target)
-    return if YEA::BATTLE::MSG_SUBSTITUTE_HIT
-    combatlog(sprintf(Vocab::Substitute, substitute.name, target.name))
-  end
+    alias window_battlelog_display_substitute_cld display_substitute
+    def display_substitute(substitute, target)
+      window_battlelog_display_substitute_cld(substitute, target)
+      return if YEA::BATTLE::MSG_SUBSTITUTE_HIT
+      combatlog(sprintf(Vocab::Substitute, substitute.name, target.name))
+    end
 
   #--------------------------------------------------------------------------
   # alias method: display_failure
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_failure_cld display_failure
-  def display_failure(target, item)
-    window_battlelog_display_failure_cld(target, item)
-    return if YEA::BATTLE::MSG_FAILURE_HIT
-    if target.result.hit? && !target.result.success
-      combatlog(sprintf(Vocab::ActionFailure, target.name))
+    alias window_battlelog_display_failure_cld display_failure
+    def display_failure(target, item)
+      window_battlelog_display_failure_cld(target, item)
+      return if YEA::BATTLE::MSG_FAILURE_HIT
+      if target.result.hit? && !target.result.success
+        combatlog(sprintf(Vocab::ActionFailure, target.name))
+      end
     end
-  end
 
   #--------------------------------------------------------------------------
   # alias method: display_critical
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_critical_cld display_critical
-  def display_critical(target, item)
-    window_battlelog_display_critical_cld(target, item)
-    return if YEA::BATTLE::MSG_CRITICAL_HIT
-    if target.result.critical
-      text = target.actor? ? Vocab::CriticalToActor : Vocab::CriticalToEnemy
-      combatlog(text)
+    alias window_battlelog_display_critical_cld display_critical
+    def display_critical(target, item)
+      window_battlelog_display_critical_cld(target, item)
+      return if YEA::BATTLE::MSG_CRITICAL_HIT
+      if target.result.critical
+        text = target.actor? ? Vocab::CriticalToActor : Vocab::CriticalToEnemy
+        combatlog(text)
+      end
     end
-  end
 
   #--------------------------------------------------------------------------
   # alias method: display_miss
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_miss_cld display_miss
-  def display_miss(target, item)
-    window_battlelog_display_miss_cld(target, item)
-    return if YEA::BATTLE::MSG_HIT_MISSED
-    if !item || item.physical?
-      fmt = target.actor? ? Vocab::ActorNoHit : Vocab::EnemyNoHit
-    else
-      fmt = Vocab::ActionFailure
+    alias window_battlelog_display_miss_cld display_miss
+    def display_miss(target, item)
+      window_battlelog_display_miss_cld(target, item)
+      return if YEA::BATTLE::MSG_HIT_MISSED
+      if !item || item.physical?
+        fmt = target.actor? ? Vocab::ActorNoHit : Vocab::EnemyNoHit
+      else
+        fmt = Vocab::ActionFailure
+      end
+      combatlog(sprintf(fmt, target.name))
     end
-    combatlog(sprintf(fmt, target.name))
-  end
 
   #--------------------------------------------------------------------------
   # alias method: display_evasion
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_evasion_cld display_evasion
-  def display_evasion(target, item)
-    window_battlelog_display_evasion_cld(target, item)
-    return if YEA::BATTLE::MSG_EVASION
-    if !item || item.physical?
-      fmt = Vocab::Evasion
-    else
-      fmt = Vocab::MagicEvasion
+    alias window_battlelog_display_evasion_cld display_evasion
+    def display_evasion(target, item)
+      window_battlelog_display_evasion_cld(target, item)
+      return if YEA::BATTLE::MSG_EVASION
+      if !item || item.physical?
+        fmt = Vocab::Evasion
+      else
+        fmt = Vocab::MagicEvasion
+      end
+      combatlog(sprintf(fmt, target.name))
     end
-    combatlog(sprintf(fmt, target.name))
-  end
 
   #--------------------------------------------------------------------------
   # alias method: display_hp_damage
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_hp_damage_cld display_hp_damage
-  def display_hp_damage(target, item)
-    window_battlelog_display_hp_damage_cld(target, item)
-    return if YEA::BATTLE::MSG_HP_DAMAGE
-    return if target.result.hp_damage == 0 && item && !item.damage.to_hp?
-    combatlog(target.result.hp_damage_text)
-  end
+    alias window_battlelog_display_hp_damage_cld display_hp_damage
+    def display_hp_damage(target, item)
+      window_battlelog_display_hp_damage_cld(target, item)
+      return if YEA::BATTLE::MSG_HP_DAMAGE
+      return if target.result.hp_damage == 0 && item && !item.damage.to_hp?
+      combatlog(target.result.hp_damage_text)
+    end
 
   #--------------------------------------------------------------------------
   # alias method: display_mp_damage
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_mp_damage_cld display_mp_damage
-  def display_mp_damage(target, item)
-    window_battlelog_display_mp_damage_cld(target, item)
-    return if YEA::BATTLE::MSG_MP_DAMAGE
-    combatlog(target.result.mp_damage_text)
-  end
+    alias window_battlelog_display_mp_damage_cld display_mp_damage
+    def display_mp_damage(target, item)
+      window_battlelog_display_mp_damage_cld(target, item)
+      return if YEA::BATTLE::MSG_MP_DAMAGE
+      combatlog(target.result.mp_damage_text)
+    end
 
   #--------------------------------------------------------------------------
   # alias method: display_tp_damage
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_tp_damage_cld display_tp_damage
-  def display_tp_damage(target, item)
-    window_battlelog_display_tp_damage_cld(target, item)
-    return if YEA::BATTLE::MSG_TP_DAMAGE
-    combatlog(target.result.tp_damage_text)
-  end
+    alias window_battlelog_display_tp_damage_cld display_tp_damage
+    def display_tp_damage(target, item)
+      window_battlelog_display_tp_damage_cld(target, item)
+      return if YEA::BATTLE::MSG_TP_DAMAGE
+      combatlog(target.result.tp_damage_text)
+    end
 
   #--------------------------------------------------------------------------
   # alias method: display_added_states
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_added_states_cld display_added_states
-  def display_added_states(target)
-    window_battlelog_display_added_states_cld(target)
-    return if YEA::BATTLE::MSG_ADDED_STATES
-    target.result.added_state_objects.each do |state|
-      state_msg = target.actor? ? state.message1 : state.message2
-      next if state_msg.empty?
-      combatlog(target.name + state_msg)
+    alias window_battlelog_display_added_states_cld display_added_states
+    def display_added_states(target)
+      window_battlelog_display_added_states_cld(target)
+      return if YEA::BATTLE::MSG_ADDED_STATES
+      target.result.added_state_objects.each do |state|
+        state_msg = target.actor? ? state.message1 : state.message2
+        next if state_msg.empty?
+        combatlog(target.name + state_msg)
+      end
     end
-  end
 
   #--------------------------------------------------------------------------
   # alias method: display_removed_states
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_removed_states_cld display_removed_states
-  def display_removed_states(target)
-    window_battlelog_display_removed_states_cld(target)
-    return if YEA::BATTLE::MSG_REMOVED_STATES
-    target.result.removed_state_objects.each do |state|
-      next if state.message4.empty?
-      combatlog(target.name + state.message4)
+    alias window_battlelog_display_removed_states_cld display_removed_states
+    def display_removed_states(target)
+      window_battlelog_display_removed_states_cld(target)
+      return if YEA::BATTLE::MSG_REMOVED_STATES
+      target.result.removed_state_objects.each do |state|
+        next if state.message4.empty?
+        combatlog(target.name + state.message4)
+      end
     end
-  end
 
   #--------------------------------------------------------------------------
   # alias method: display_buffs
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_buffs_cld display_buffs
-  def display_buffs(target, buffs, fmt)
-    window_battlelog_display_buffs_cld(target, buffs, fmt)
-    return if YEA::BATTLE::MSG_CHANGED_BUFFS
-    buffs.each do |param_id|
-      combatlog(sprintf(fmt, target.name, Vocab::param(param_id)))
+    alias window_battlelog_display_buffs_cld display_buffs
+    def display_buffs(target, buffs, fmt)
+      window_battlelog_display_buffs_cld(target, buffs, fmt)
+      return if YEA::BATTLE::MSG_CHANGED_BUFFS
+      buffs.each do |param_id|
+        combatlog(sprintf(fmt, target.name, Vocab::param(param_id)))
+      end
     end
-  end
 
   #--------------------------------------------------------------------------
   # End Ace Battle Engine Compatibility

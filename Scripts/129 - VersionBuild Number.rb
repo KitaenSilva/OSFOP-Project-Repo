@@ -20,15 +20,15 @@
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
 
 #FLAVORTEXT: Just any text before version number, not neccesary
-FLAVORTEXT   = ""
+FLAVORTEXT = ""
 #VERSION: The Version, however you want to display it
-VERSION   = "v0.0001"
+VERSION = "v0.0001"
 #VERSION_ONLY: Whether you want to show build number or not
 VERSION_ONLY = true
 #RELEASE: Set to true to prevent build from rising each time game is started
-RELEASE   = true
+RELEASE = true
 #VFONT_SIZE, VWINDOW_X, VWINDOW_Y, the font size, x, and y position of window
-VFONT_SIZE   = 18
+VFONT_SIZE = 18
 VWINDOW_X = -12
 VWINDOW_Y = 384
 
@@ -38,11 +38,11 @@ $build_number = 0
 module Version
   def self.init
     if File.exist?("System/Version.vmdt") then else Version.run_new end
-      File.open("System/Version.vmdt", "rb") do |file|
-          $build_number = Marshal.load(file)
-        end
-      $build_number += 1 if !RELEASE
-      File.open("System/Version.vmdt", "wb") do |file|
+    File.open("System/Version.vmdt", "rb") do |file|
+      $build_number = Marshal.load(file)
+    end
+    $build_number += 1 if !RELEASE
+    File.open("System/Version.vmdt", "wb") do |file|
       Marshal.dump($build_number, file)
     end
   end

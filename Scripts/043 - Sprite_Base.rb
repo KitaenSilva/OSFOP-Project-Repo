@@ -60,7 +60,7 @@ class Sprite_Base < Sprite
   # * Set Animation Speed
   #--------------------------------------------------------------------------
   def set_animation_rate
-    @ani_rate = 4     # Fixed value by default
+    @ani_rate = 4 # Fixed value by default
   end
   #--------------------------------------------------------------------------
   # * Read (Load) Animation Graphics

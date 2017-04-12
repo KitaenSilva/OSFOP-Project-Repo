@@ -106,6 +106,6 @@ class Window_BattleStatus < Window_Selectable
   #--------------------------------------------------------------------------
   def draw_gauge_area_without_tp(rect, actor)
     draw_actor_hp(actor, rect.x + 0, rect.y, 134)
-    draw_actor_mp(actor, rect.x + 144,  rect.y, 76)
+    draw_actor_mp(actor, rect.x + 144, rect.y, 76)
   end
 end

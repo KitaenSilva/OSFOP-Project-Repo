@@ -124,7 +124,7 @@ module YEA
     # Here, you can adjust global settings for TP including the maximum TP,
     # whether or not you want the player to change TP modes, and more.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    TP_LIMIT  = 100         # Sets the maximum TP. Default: 100
+    TP_LIMIT = 100 # Sets the maximum TP. Default: 100
     DEFAULT_TP_MODE = 0            # This is the TP mode everybody starts with
                                    # unless changed through notetags.
     DEFAULT_UNLOCKS = [0, 1, 2, 3] # These modes are unlocked for all actors
@@ -140,9 +140,9 @@ module YEA
     # TP Mode item will appear in the skill menu. If off, it won't appear.
     # If you set it to 0, then TP mode will always be enabled.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    MENU_NAME = "TP Mode"   # The displayed name for the TP Menu.
-    TP_MODE_SWITCH  = 1    # Switch ID used for enabling TP Mode menu.
-    DEFAULT_ENABLE  = false  # Enable switch by default?
+    MENU_NAME = "TP Mode" # The displayed name for the TP Menu.
+    TP_MODE_SWITCH  = 1 # Switch ID used for enabling TP Mode menu.
+    DEFAULT_ENABLE  = false # Enable switch by default?
     CHANGE_TP_RESET = true  # Reset TP to 0 whenever a mode is changed?
     EQUIPPED_COLOUR = 17    # Window text colour used for equipped TP mode.
 
@@ -669,18 +669,18 @@ module YEA
       UNLOCK_TP = /<(?:UNLOCK_TP|unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
 
     end # ACTOR
-  module ENEMY
+    module ENEMY
 
-    TP_MODE   = /<(?:TP_MODE|tp mode):[ ](\d+)>/i
+      TP_MODE   = /<(?:TP_MODE|tp mode):[ ](\d+)>/i
 
-  end # ENEMY
-  module BASEITEM
+    end # ENEMY
+    module BASEITEM
 
-    UNLOCK_TP = /<(?:UNLOCK_TP|unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    LEARN_TP = /<(?:LEARN_UNLOCK_TP|learn unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    TP_COST  = /<(?:TP_COST|tp cost):[ ](\d+)>/i
+      UNLOCK_TP = /<(?:UNLOCK_TP|unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+      LEARN_TP = /<(?:LEARN_UNLOCK_TP|learn unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+      TP_COST  = /<(?:TP_COST|tp cost):[ ](\d+)>/i
 
-  end # BASEITEM
+    end # BASEITEM
   end # REGEXP
 end # YEA
 
@@ -1422,7 +1422,7 @@ class Scene_Skill < Scene_ItemBase
   alias scene_skill_create_command_window_tpm create_command_window
   def create_command_window
     scene_skill_create_command_window_tpm
-    @command_window.set_handler(:tp_mode,    method(:command_skill))
+    @command_window.set_handler(:tp_mode, method(:command_skill))
   end
 
   #--------------------------------------------------------------------------

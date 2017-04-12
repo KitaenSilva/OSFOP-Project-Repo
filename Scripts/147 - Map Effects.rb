@@ -11,7 +11,7 @@ $imported[:Zeus_Map_Effects] = __FILE__
 
 def xp?() false end ; def vx?() false end ; def vxace?() false end
 RUBY_VERSION == "1.8.1" ? defined?(Hangup) ?
-def xp?() true  end : def vx?() true  end : def vxace?() true  end
+def xp?() true  end : def vx?() true end : def vxace?() true end
 
 class << Graphics
   def snap_elements_to_bitmap(*elements)
@@ -33,7 +33,7 @@ class << Graphics
 end
 
 module Math
-module_function
+  module_function
   def min(x, y) x < y ? x : y end
   def max(x, y) x < y ? y : x end
   def middle(min, x, max) x < max ? x < min ? min : x : max end
@@ -75,7 +75,7 @@ module Zeus
         data[2] == data[3]
       end
     end
-  private
+    private
     def calculate_next_value(base_value, target_value, duration, duration_total)
       base_value + (target_value - base_value) * duration / duration_total
     end
@@ -159,19 +159,19 @@ class Game_Map_Effects
   def active?
     return false unless @active
     animating? or blur? or @mirror or @blend_type != 0 or
-    @zoom_x != 1 or @zoom_y != 1 or @pixelize > 1 or
-    @angle % 360 != 0 or @hue.to_i % 360 != 0 or @color.alpha != 0 or
-    @tone.red != 0 or @tone.green != 0 or @tone.blue != 0 or @tone.gray != 0 or
-    (@wave_amp * @zoom_x >= 1 and @wave_length * @zoom_y >= 1)
+      @zoom_x != 1 or @zoom_y != 1 or @pixelize > 1 or
+      @angle % 360 != 0 or @hue.to_i % 360 != 0 or @color.alpha != 0 or
+      @tone.red != 0 or @tone.green != 0 or @tone.blue != 0 or @tone.gray != 0 or
+      (@wave_amp * @zoom_x >= 1 and @wave_length * @zoom_y >= 1)
   end
   def blur?
     return false if @blur_division < 1
     @gaussian_blur_length != 0 or @linear_blur_length != 0 or
-    @radial_blur_angle != 0 or @zoom_blur_length != 0 or @motion_blur_rate != 0
+      @radial_blur_angle != 0 or @zoom_blur_length != 0 or @motion_blur_rate != 0
   end
   def refresh_bitmap?
     @refresh_rate > 0 and
-    Graphics.frame_count % (Graphics.frame_rate / @refresh_rate.to_f) < 1
+      Graphics.frame_count % (Graphics.frame_rate / @refresh_rate.to_f) < 1
   end
   def tilemap_wave_sync(tilemap_oy)
     return 0 if @wave_length == 0
@@ -183,7 +183,7 @@ class Game_Map_Effects
   end
   def refresh_motion_blur?
     @blur_division >= 1 and @motion_blur_rate > 0 and
-    Graphics.frame_count % @motion_blur_rate < 1
+      Graphics.frame_count % @motion_blur_rate < 1
   end
   def set_origin(x, y, duration=0)
     x = x * Graphics.width  / 100

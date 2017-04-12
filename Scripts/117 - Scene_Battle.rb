@@ -482,7 +482,7 @@ class Scene_Battle < Scene_Base
     @party_command_window.close
     @actor_command_window.close
     @status_window.unselect
-    @subject =  nil
+    @subject = nil
     BattleManager.turn_start
     @log_window.wait
     @log_window.clear

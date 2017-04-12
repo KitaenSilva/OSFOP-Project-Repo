@@ -244,7 +244,7 @@ class Window_Message < Window_Base
   #--------------------------------------------------------------------------
   def all_close?
     close? && @choice_window.close? &&
-    @number_window.close? && @item_window.close?
+      @number_window.close? && @item_window.close?
   end
   #--------------------------------------------------------------------------
   # * Determine Whether to Continue Displaying Text
@@ -257,7 +257,7 @@ class Window_Message < Window_Base
   #--------------------------------------------------------------------------
   def settings_changed?
     @background != $game_message.background ||
-    @position != $game_message.position
+      @position != $game_message.position
   end
   #--------------------------------------------------------------------------
   # * Wait

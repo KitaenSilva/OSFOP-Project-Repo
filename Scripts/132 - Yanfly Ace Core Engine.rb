@@ -194,8 +194,8 @@ module YEA
     FONT_NAME = ["VL Gothic", "Verdana", "Arial", "Courier"]
     # This adjusts the fonts used for your game. If the font at the start of
     # the array doesn't exist on the player's computer, it'll use the next one.
-    FONT_SIZE = 24       # Adjusts font size. Default: 24
-    FONT_BOLD = false   # Makes font bold. Default: false
+    FONT_SIZE = 24 # Adjusts font size. Default: 24
+    FONT_BOLD = false # Makes font bold. Default: false
     FONT_ITALIC = false  # Makes font italic. Default: false
     FONT_SHADOW = false  # Gives font a shadow. Default: false
     FONT_OUTLINE = true  # Gives font an outline. Default: true

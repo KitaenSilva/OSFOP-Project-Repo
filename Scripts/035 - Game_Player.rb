@@ -10,7 +10,7 @@ class Game_Player < Game_Character
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :followers                # Followers (party members)
+  attr_reader :followers # Followers (party members)
   #--------------------------------------------------------------------------
   # * Object Initialization
   #--------------------------------------------------------------------------

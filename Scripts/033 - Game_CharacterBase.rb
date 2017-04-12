@@ -184,7 +184,7 @@ class Game_CharacterBase
     x2 = $game_map.round_x_with_direction(x, horz)
     y2 = $game_map.round_y_with_direction(y, vert)
     (passable?(x, y, vert) && passable?(x, y2, horz)) ||
-    (passable?(x, y, horz) && passable?(x2, y, vert))
+      (passable?(x, y, horz) && passable?(x2, y, vert))
   end
   #--------------------------------------------------------------------------
   # * Determine if Map is Passable

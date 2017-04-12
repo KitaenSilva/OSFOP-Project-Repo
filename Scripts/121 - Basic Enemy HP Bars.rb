@@ -250,7 +250,7 @@ class Sprite_Battler
 end
 
 class Scene_Battle
-  attr_reader  :enemy_window
+  attr_reader :enemy_window
   def target_window_index
     begin
       @enemy_window.enemy.index
@@ -262,7 +262,7 @@ end
 
 class Game_Party
   alias hp_bar_init initialize
-  attr_accessor  :monster_scans
+  attr_accessor :monster_scans
   def initialize
     hp_bar_init
     @monster_scans = []

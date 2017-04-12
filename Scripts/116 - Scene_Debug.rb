@@ -79,9 +79,9 @@ class Scene_Debug < Scene_MenuBase
       "C (Enter) : ON / OFF"
     else
       "← (Left)    :  -1\n" +
-      "→ (Right)   :  +1\n" +
-      "L (Pageup)   : -10\n" +
-      "R (Pagedown) : +10"
+        "→ (Right)   :  +1\n" +
+        "L (Pageup)   : -10\n" +
+        "R (Pagedown) : +10"
     end
   end
 end

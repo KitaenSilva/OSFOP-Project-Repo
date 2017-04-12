@@ -353,17 +353,17 @@ class Game_Action
   #--------------------------------------------------------------------------
   unless $imported["YEA-LunaticTargets"]
     alias game_action_make_targets_target make_targets
-  def make_targets
-    if !forcing && subject.confusion?
-      targets = [confusion_target]
-    elsif item.for_custom?
-      targets = make_custom_targets
-    else
-      targets = game_action_make_targets_target
+    def make_targets
+      if !forcing && subject.confusion?
+        targets = [confusion_target]
+      elsif item.for_custom?
+        targets = make_custom_targets
+      else
+        targets = game_action_make_targets_target
+      end
+      targets = aoe_targets(targets) if $imported["YEA-AreaofEffect"]
+      return targets
     end
-    targets = aoe_targets(targets) if $imported["YEA-AreaofEffect"]
-    return targets
-  end
   end # $imported["YEA-LunaticTargets"]
 
   #--------------------------------------------------------------------------
@@ -425,10 +425,10 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   unless $imported["YEA-BattleEngine"]
     alias scene_battle_invoke_item_target invoke_item
-  def invoke_item(target, item)
-    target = alive_random_target(target, item) if item.for_random?
-    scene_battle_invoke_item_target(target, item)
-  end
+    def invoke_item(target, item)
+      target = alive_random_target(target, item) if item.for_random?
+      scene_battle_invoke_item_target(target, item)
+    end
   end # $imported["YEA-BattleEngine"]
 
   #--------------------------------------------------------------------------

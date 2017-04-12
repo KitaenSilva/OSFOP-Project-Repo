@@ -264,7 +264,7 @@ class Game_Actor < Game_Battler
       next if !equip_change_ok?(i)
       items = $game_party.equip_items.select do |item|
         item.etype_id == equip_slots[i] &&
-        equippable?(item) && item.performance >= 0
+          equippable?(item) && item.performance >= 0
       end
       change_equip(i, items.max_by {|item| item.performance })
     end
@@ -358,14 +358,14 @@ class Game_Actor < Game_Battler
   #--------------------------------------------------------------------------
   def atk_elements
     set = super
-    set |= [1] if weapons.compact.empty?  # Unarmed: Physical element
+    set |= [1] if weapons.compact.empty? # Unarmed: Physical element
     return set
   end
   #--------------------------------------------------------------------------
   # * Get Maximum Value of Parameter
   #--------------------------------------------------------------------------
   def param_max(param_id)
-    return 9999 if param_id == 0  # MHP
+    return 9999 if param_id == 0 # MHP
     return super
   end
   #--------------------------------------------------------------------------

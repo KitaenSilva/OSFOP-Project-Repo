@@ -89,7 +89,7 @@ class Game_Battler < Game_BattlerBase
 
     end
 
- end
+  end
 
   def Warden_AI(a, b)
 
@@ -196,19 +196,19 @@ class Game_Battler < Game_BattlerBase
 
       end
 
-     end
+    end
 
   end
 
-   def Trickster_AI(a, b)
+  def Trickster_AI(a, b)
 
-     if $game_troop.alive_members.length > 1
+    if $game_troop.alive_members.length > 1
 
-       if a.ap == 9 && a.state?(4) == false
-         return 172 #Dispel.  ||
+      if a.ap == 9 && a.state?(4) == false
+        return 172 #Dispel.  ||
 
-       else
-         n = rand(3)
+      else
+        n = rand(3)
         case n
 
         when 3
@@ -218,28 +218,28 @@ class Game_Battler < Game_BattlerBase
           return 1 #Attack.
 
         end
-       end
+      end
 
-     else
+    else
 
-       if a.state?(4) == false
+      if a.state?(4) == false
 
-         return #EMP.
+        return #EMP.
 
-         return #Massive ATK buff.
-
-
+        return #Massive ATK buff.
 
 
-       else
-
-         return 112 #Thief's Luck.
 
 
-       end
+      else
 
-     end
+        return 112 #Thief's Luck.
 
-   end
+
+      end
+
+    end
+
+  end
 
 end

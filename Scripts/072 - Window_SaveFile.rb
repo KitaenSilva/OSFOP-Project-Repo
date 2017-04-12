@@ -8,7 +8,7 @@ class Window_SaveFile < Window_Base
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :selected                 # selected
+  attr_reader :selected # selected
   #--------------------------------------------------------------------------
   # * Object Initialization
   #     index : index of save files

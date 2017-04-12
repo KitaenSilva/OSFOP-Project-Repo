@@ -238,7 +238,7 @@ class Game_BattlerBase
   # * Get Reduced Value of Parameter
   #--------------------------------------------------------------------------
   def param_min(param_id)
-    return 0 if param_id == 1  # MMP
+    return 0 if param_id == 1 # MMP
     return 1
   end
   #--------------------------------------------------------------------------
@@ -677,8 +677,8 @@ class Game_BattlerBase
   #--------------------------------------------------------------------------
   def skill_conditions_met?(skill)
     usable_item_conditions_met?(skill) &&
-    skill_wtype_ok?(skill) && skill_cost_payable?(skill) &&
-    !skill_sealed?(skill.id) && !skill_type_sealed?(skill.stype_id)
+      skill_wtype_ok?(skill) && skill_cost_payable?(skill) &&
+      !skill_sealed?(skill.id) && !skill_type_sealed?(skill.stype_id)
   end
   #--------------------------------------------------------------------------
   # * Check Usability Conditions for Item

@@ -20,7 +20,7 @@ None
 =end
 class Game_Actor < Game_Battler
 
-  attr_reader   :skills_replaced
+  attr_reader :skills_replaced
 
   alias fsr_setup setup
   def setup(actor_id)
@@ -42,7 +42,7 @@ class Game_Actor < Game_Battler
   alias fsr_skill_learn? skill_learn?
   def skill_learn?(skill)
     return true if fsr_skill_learn?(skill)
-    return  (skill.is_a?(RPG::Skill) && @skills_replaced.include?(skill.id))
+    return (skill.is_a?(RPG::Skill) && @skills_replaced.include?(skill.id))
   end
 
 end
