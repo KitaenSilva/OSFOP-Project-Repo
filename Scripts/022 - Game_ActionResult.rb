@@ -2,7 +2,7 @@
 # ** Game_ActionResult
 #------------------------------------------------------------------------------
 #  This class handles the results of battle actions. It is used internally for
-# the Game_Battler class. 
+# the Game_Battler class.
 #==============================================================================
 
 class Game_ActionResult
@@ -102,7 +102,7 @@ class Game_ActionResult
       @added_buffs.empty? && @added_debuffs.empty? && @removed_buffs.empty?)
   end
   #--------------------------------------------------------------------------
-  # * Determine Final Hit 
+  # * Determine Final Hit
   #--------------------------------------------------------------------------
   def hit?
     @used && !@missed && !@evaded

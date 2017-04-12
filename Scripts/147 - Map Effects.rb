@@ -5,14 +5,14 @@
 # (fr) Manuel d'utilisation : https://www.dropbox.com/s/lb1d3q9jmx53taf/Map%20Effects%20Doc%20Fr.txt
 # (en) User Guide           : https://www.dropbox.com/s/sk3uwq2bleoxr7s/Map%20Effects%20Doc%20En.txt
 #      Demo : https://www.dropbox.com/s/2ex6906dyehl7an/Map%20Effects.zip
- 
+
 $imported ||= {}
 $imported[:Zeus_Map_Effects] = __FILE__
- 
+
 def xp?() false end ; def vx?() false end ; def vxace?() false end
-RUBY_VERSION == '1.8.1' ? defined?(Hangup) ?
+RUBY_VERSION == "1.8.1" ? defined?(Hangup) ?
 def xp?() true  end : def vx?() true  end : def vxace?() true  end
- 
+
 class << Graphics
   def snap_elements_to_bitmap(*elements)
     if !@snap_elements_back or @snap_elements_back.disposed?
@@ -31,14 +31,14 @@ class << Graphics
     return bmp
   end
 end
- 
+
 module Math
 module_function
   def min(x, y) x < y ? x : y end
   def max(x, y) x < y ? y : x end
   def middle(min, x, max) x < max ? x < min ? min : x : max end
 end
- 
+
 module Zeus
   module Animation
     def animate(variable, target_value, duration=0, ext=nil)
@@ -65,7 +65,7 @@ module Zeus
     end
     def restore_animations
       return unless @za_memorize
-      Marshal.load(@za_memorize).each {|var,value| instance_variable_set(var,value)}
+      Marshal.load(@za_memorize).each {|var, value| instance_variable_set(var, value)}
     end
     def update_animations
       return unless @za_animations
@@ -106,7 +106,7 @@ module Zeus
     alias update_animation_Bignum update_animation_Float
   end
 end
- 
+
 class Game_Map_Effects
   include Zeus::Animation
   attr_accessor :active, :refresh_rate, :back, :x, :y, :ox, :oy, :angle,
@@ -263,10 +263,10 @@ class Game_Map_Effects
     animate(:@motion_blur_rate, rate, duration)
   end
 end
- 
+
 class Spriteset_Map_Effects
-  Blur_Offset = [[0.7,0.7], [-0.7,-0.7], [-0.7,0.7], [0.7,-0.7],
-                 [0,1], [0,-1], [1,0], [-1,0]]
+  Blur_Offset = [[0.7, 0.7], [-0.7, -0.7], [-0.7, 0.7], [0.7, -0.7],
+                 [0, 1], [0, -1], [1, 0], [-1, 0]]
   def initialize(*viewports)
     @map_viewports    = viewports
     @viewport         = Viewport.new(viewports[0].rect)
@@ -419,7 +419,7 @@ class Spriteset_Map_Effects
     sprite.angle %= 360
   end
 end
- 
+
 class Game_Map
   if vx?
     def screen_tile_x() Graphics.width  / 32 end
@@ -470,19 +470,19 @@ class Game_Map
     effects.update
   end
 end
- 
+
 class Game_Interpreter
   def map_effects
     $game_map.effects
   end
 end
- 
+
 class Game_Player
   def center(x, y)
     $game_map.set_display_pos(x*256-CENTER_X, y*256-CENTER_Y)
   end
 end if vx?
- 
+
 class Spriteset_Map
   alias zeus_map_effects_update update
   def update
@@ -496,10 +496,10 @@ class Spriteset_Map
     @map_effects.dispose
   end
 end
- 
+
 $imported[:Zeus_Weather_Viewport] ||= __FILE__
 if $imported[:Zeus_Weather_Viewport] == __FILE__
-   
+
   class Spriteset_Map
     alias zeus_weather_viewport_create_weather create_weather
     def create_weather
@@ -507,7 +507,7 @@ if $imported[:Zeus_Weather_Viewport] == __FILE__
       @weather.weather_viewport = @viewport1
     end
   end
-   
+
   class Spriteset_Weather
     if vx?
       def weather_viewport=(viewport)
@@ -526,5 +526,5 @@ if $imported[:Zeus_Weather_Viewport] == __FILE__
       end
     end
   end
-   
+
 end

@@ -1,7 +1,7 @@
 #==============================================================================
 # ** Game_CharacterBase
 #------------------------------------------------------------------------------
-#  This base class handles characters. It retains basic information, such as 
+#  This base class handles characters. It retains basic information, such as
 # coordinates and graphics, shared by all characters.
 #==============================================================================
 
@@ -194,7 +194,7 @@ class Game_CharacterBase
     $game_map.passable?(x, y, d)
   end
   #--------------------------------------------------------------------------
-  # * Detect Collision with Character 
+  # * Detect Collision with Character
   #--------------------------------------------------------------------------
   def collide_with_characters?(x, y)
     collide_with_events?(x, y) || collide_with_vehicles?(x, y)
@@ -243,7 +243,7 @@ class Game_CharacterBase
   # * Determine Object Character
   #--------------------------------------------------------------------------
   def object_character?
-    @tile_id > 0 || @character_name[0, 1] == '!'
+    @tile_id > 0 || @character_name[0, 1] == "!"
   end
   #--------------------------------------------------------------------------
   # * Get Number of Pixels to Shift Up from Tile Position

@@ -1,10 +1,10 @@
 #==============================================================================
-# 
+#
 # Бе Yanfly Engine Ace - Ace Battle Engine v1.22
 # -- Last Updated: 2012.03.04
 # -- Level: Normal, Hard
 # -- Requires: n/a
-# 
+#
 #==============================================================================
 
 $imported = {} if $imported.nil?
@@ -55,7 +55,7 @@ $imported["YEA-BattleEngine"] = true
 #            - Bug fixed: Popups didn't show for straight recovery effects.
 # 2011.12.08 - Finished Script.
 # 2011.12.04 - Started Script.
-# 
+#
 #==============================================================================
 # Бе Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -64,9 +64,9 @@ $imported["YEA-BattleEngine"] = true
 # features, allowing users to customize what they want as they see fit. While
 # the Ace Battle Engine isn't an entirely new engine, it gives users control
 # that RPG Maker VX Ace didn't originally give them.
-# 
+#
 # Furthermore, this script provides some new features. They are as follows:
-# 
+#
 # -----------------------------------------------------------------------------
 # Animation Fixes
 # -----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ $imported["YEA-BattleEngine"] = true
 # Engine script. The animation fixes prevent excessive animation overlaying
 # (and making the screen look really ugly) and prevents animation clashing
 # between two dual wielding normal attack animations.
-# 
+#
 # -----------------------------------------------------------------------------
 # Enemy Animations
 # -----------------------------------------------------------------------------
@@ -84,7 +84,7 @@ $imported["YEA-BattleEngine"] = true
 # against the player's party. Before in RPG Maker VX Ace, it was nothing more
 # than just sound effects and the screen shaking. Now, animations play where
 # the status window is and relative to the position of each party member.
-# 
+#
 # -----------------------------------------------------------------------------
 # Left/Right Command Selection
 # -----------------------------------------------------------------------------
@@ -94,7 +94,7 @@ $imported["YEA-BattleEngine"] = true
 # On that note, there is now the option that when a battle starts or at the
 # end of a turn, players will start immediately at command selection rather
 # than needing to select "Fight" in the Party Command Window.
-# 
+#
 # -----------------------------------------------------------------------------
 # Popups
 # -----------------------------------------------------------------------------
@@ -102,7 +102,7 @@ $imported["YEA-BattleEngine"] = true
 # striking weaknesses, missing attacks, you name it, there's probably a popup
 # for it. Popups deliver information to the player in a quick or orderly
 # fashion without requiring the player to read lines of text.
-# 
+#
 # -----------------------------------------------------------------------------
 # Targeting Window
 # -----------------------------------------------------------------------------
@@ -114,7 +114,7 @@ $imported["YEA-BattleEngine"] = true
 # multiple targets are selected and in the help window would display the scope
 # of the skill (such as "All Foes" or "Random Foes"). RPG Maker VX Ace skipped
 # this step by default.
-# 
+#
 # -----------------------------------------------------------------------------
 # Toggling On and Off Special Effects and Text
 # -----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ $imported["YEA-BattleEngine"] = true
 # take damage. These effects can now be toggled on and off. Certain text can
 # also be toggled on and off from appearing. A lot of the displayed text has
 # been rendered redundant through the use of popups.
-# 
+#
 # -----------------------------------------------------------------------------
 # Visual Battle Status Window
 # -----------------------------------------------------------------------------
@@ -131,7 +131,7 @@ $imported["YEA-BattleEngine"] = true
 # the bottom. More status effects can be shown in addition to showing more
 # members on screen at once. The Battle Status Window is also optimized to
 # refresh less (thus, removing potential lag from the system).
-# 
+#
 # -----------------------------------------------------------------------------
 # Window Position Changes
 # -----------------------------------------------------------------------------
@@ -139,27 +139,27 @@ $imported["YEA-BattleEngine"] = true
 # always provide the player a clear view of the battlefield rather than opening
 # up and covering everything. As such, the window positions are placed at the
 # bottom of the screen and are repositioned.
-# 
+#
 #==============================================================================
 # Бе Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
 # to an open slot below Бе Materials/СfН▐ but above Бе Main. Remember to save.
-# 
+#
 # -----------------------------------------------------------------------------
 # Skill Notetags - These notetags go in the skills notebox in the database.
 # -----------------------------------------------------------------------------
 # <one animation>
 # Causes the action to display the action animation only once, even if it's a
 # multi-hit action. This is used primarily for non-all scope targeting.
-# 
+#
 # -----------------------------------------------------------------------------
 # Item Notetags - These notetags go in the items notebox in the database.
 # -----------------------------------------------------------------------------
 # <one animation>
 # Causes the action to display the action animation only once, even if it's a
 # multi-hit action. This is used primarily for non-all scope targeting.
-# 
+#
 # -----------------------------------------------------------------------------
 # Enemy Notetags - These notetags go in the enemy notebox in the database.
 # -----------------------------------------------------------------------------
@@ -168,7 +168,7 @@ $imported["YEA-BattleEngine"] = true
 # Changes the normal attack animation of the particular enemy to animation x.
 # Attack animation 1 is the first one that plays. If there's a second animation
 # then the second one will play after in mirrored form.
-# 
+#
 # -----------------------------------------------------------------------------
 # State Notetags - These notetags go in the state notebox in the database.
 # -----------------------------------------------------------------------------
@@ -179,41 +179,41 @@ $imported["YEA-BattleEngine"] = true
 # don't like that a certain status effect uses a particular colour setting,
 # change "string" to one of the rulesets below to cause that popup to use a
 # different ruleset.
-# 
+#
 # <popup hide add>
 # <popup hide rem>
 # <popup hide dur>
 # Not everybody wants status effects to show popups when inflicted. When this
 # is the case, insert the respective tag to hide popups from appearing when the
 # state is added, removed, or during the stand-by phases.
-# 
+#
 # -----------------------------------------------------------------------------
 # Debug Tools - These tools only work during Test Play.
 # -----------------------------------------------------------------------------
 # - F5 Key -
 # Recovers all actors. Restores their HP and MP to max. Does not affect TP.
 # All states and buffs are removed whether they are positive or negative.
-# 
+#
 # - F6 Key -
 # Sets all actors to have 1 HP, 0 MP, and 0 TP. States are unaffected.
-# 
+#
 # - F7 Key -
 # Sets all actors to have max TP. Everything else is unaffected.
-# 
+#
 # - F8 Key -
 # Kills all enemies in battle. Ends the battle quickly.
-# 
+#
 #==============================================================================
 # Бе Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
-# 
+#
 #==============================================================================
 
 module YEA
   module BATTLE
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - General Battle Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -227,23 +227,23 @@ module YEA
     SKIP_PARTY_COMMAND = true   # Skips the Fight/Escape menu.
     AUTO_FAST          = true   # Causes message windows to not wait.
     ENEMY_ATK_ANI      = 36     # Sets default attack animation for enemies.
-    
+
     # If this switch is ON, popups will be hidden. If OFF, the popups will be
     # shown. If you do not wish to use this switch, set it to 0.
     HIDE_POPUP_SWITCH  = 0
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Battle Status Window -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # This sets the default battle system your game will use. If your game
     # doesn't have any other battle systems installed, it will use :dtb.
-    # 
+    #
     # Battle System        Requirement
     #   :dtb               - Default Turn Battle. Default system.
     #   :ftb               - YEA Battle System Add-On: Free Turn Battle
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     DEFAULT_BATTLE_SYSTEM = :dtb     # Default battle system set.
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Battle Status Window -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -256,7 +256,7 @@ module YEA
 #    BATTLESTATUS_NO_ACTION_ICON = 185   # No action icon.
 #    BATTLESTATUS_HPGAUGE_Y_PLUS = 11    # Y Location buffer used for HP gauge.
 #    BATTLESTATUS_CENTER_FACES   = false # Center faces for the Battle Status.
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Help Window Text -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -271,7 +271,7 @@ module YEA
     HELP_TEXT_ALL_DEAD_ALLIES = "All Dead Allies"
     HELP_TEXT_ONE_RANDOM_ALLY = "One Random Ally"
     HELP_TEXT_RANDOM_ALLIES   = "%d Random Allies"
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Popup Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -281,7 +281,7 @@ module YEA
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     ENABLE_POPUPS  = true     # Set this to false if you wish to disable them.
     FLASH_CRITICAL = true     # Sets critical hits to flash.
-    
+
     # This hash adjusts the popup settings that will govern how popups appear.
     # Adjust them accordingly.
     POPUP_SETTINGS ={
@@ -312,11 +312,11 @@ module YEA
       :add_buff   => "%sБ{",      # Appears when a positive buff is applied.
       :add_debuff => "%sБ|",      # Appears when a negative buff is applied.
     } # Do not remove this.
-    
+
     # This is the default font used for the popups. Adjust them accordingly
     # or even add new ones.
     DEFAULT = ["VL Gothic", "Verdana", "Arial", "Courier"]
-    
+
     # The following are the various rules that govern the individual popup
     # types that will appear. Adjust them accordingly. Here is a list of what
     # each category does.
@@ -332,27 +332,27 @@ module YEA
     POPUP_RULES ={
       # Type     => [ Zoom1, Zoom2, Sz, Bold, Italic, Red, Grn, Blu, Font]
       "DEFAULT"  => [   2.0,   1.0, 24, true,  false, 255, 255, 255, DEFAULT],
-      "CRITICAL" => [   2.0,   1.0, 24, true,  false, 255,  80,  80, DEFAULT], 
-      "HP_DMG"   => [   2.0,   1.0, 36, true,  false, 255, 255, 255, DEFAULT], 
-      "HP_HEAL"  => [   2.0,   1.0, 36, true,  false, 130, 250, 130, DEFAULT], 
-      "MP_DMG"   => [   2.0,   1.0, 36, true,  false, 220, 180, 255, DEFAULT], 
-      "MP_HEAL"  => [   2.0,   1.0, 36, true,  false, 160, 230, 255, DEFAULT], 
-      "TP_DMG"   => [   2.0,   1.0, 36, true,  false, 242, 108,  78, DEFAULT], 
-      "TP_HEAL"  => [   2.0,   1.0, 36, true,  false, 251, 175,  92, DEFAULT], 
-      "ADDSTATE" => [   2.0,   1.0, 24, true,  false, 240, 100, 100, DEFAULT], 
-      "REMSTATE" => [   2.0,   1.0, 24, true,  false, 125, 170, 225, DEFAULT], 
-      "DURSTATE" => [   2.0,   1.0, 24, true,  false, 255, 240, 150, DEFAULT], 
-      "DRAIN"    => [   2.0,   1.0, 36, true,  false, 250, 190, 255, DEFAULT], 
-      "POSITIVE" => [   2.0,   1.0, 24, true,  false, 110, 210, 245, DEFAULT], 
-      "NEGATIVE" => [   2.0,   1.0, 24, true,  false, 245, 155, 195, DEFAULT], 
-      "WEAK_ELE" => [   0.5,   1.0, 24, true,  false, 240, 110,  80, DEFAULT], 
-      "IMMU_ELE" => [   0.5,   1.0, 24, true,  false, 185, 235, 255, DEFAULT], 
-      "REST_ELE" => [   0.5,   1.0, 24, true,  false, 145, 230, 180, DEFAULT], 
-      "ABSB_ELE" => [   0.5,   1.0, 24, true,  false, 250, 190, 255, DEFAULT], 
-      "BUFF"     => [   2.0,   1.0, 24, true,  false, 255, 240, 100, DEFAULT], 
-      "DEBUFF"   => [   2.0,   1.0, 24, true,  false, 160, 130, 200, DEFAULT], 
+      "CRITICAL" => [   2.0,   1.0, 24, true,  false, 255,  80,  80, DEFAULT],
+      "HP_DMG"   => [   2.0,   1.0, 36, true,  false, 255, 255, 255, DEFAULT],
+      "HP_HEAL"  => [   2.0,   1.0, 36, true,  false, 130, 250, 130, DEFAULT],
+      "MP_DMG"   => [   2.0,   1.0, 36, true,  false, 220, 180, 255, DEFAULT],
+      "MP_HEAL"  => [   2.0,   1.0, 36, true,  false, 160, 230, 255, DEFAULT],
+      "TP_DMG"   => [   2.0,   1.0, 36, true,  false, 242, 108,  78, DEFAULT],
+      "TP_HEAL"  => [   2.0,   1.0, 36, true,  false, 251, 175,  92, DEFAULT],
+      "ADDSTATE" => [   2.0,   1.0, 24, true,  false, 240, 100, 100, DEFAULT],
+      "REMSTATE" => [   2.0,   1.0, 24, true,  false, 125, 170, 225, DEFAULT],
+      "DURSTATE" => [   2.0,   1.0, 24, true,  false, 255, 240, 150, DEFAULT],
+      "DRAIN"    => [   2.0,   1.0, 36, true,  false, 250, 190, 255, DEFAULT],
+      "POSITIVE" => [   2.0,   1.0, 24, true,  false, 110, 210, 245, DEFAULT],
+      "NEGATIVE" => [   2.0,   1.0, 24, true,  false, 245, 155, 195, DEFAULT],
+      "WEAK_ELE" => [   0.5,   1.0, 24, true,  false, 240, 110,  80, DEFAULT],
+      "IMMU_ELE" => [   0.5,   1.0, 24, true,  false, 185, 235, 255, DEFAULT],
+      "REST_ELE" => [   0.5,   1.0, 24, true,  false, 145, 230, 180, DEFAULT],
+      "ABSB_ELE" => [   0.5,   1.0, 24, true,  false, 250, 190, 255, DEFAULT],
+      "BUFF"     => [   2.0,   1.0, 24, true,  false, 255, 240, 100, DEFAULT],
+      "DEBUFF"   => [   2.0,   1.0, 24, true,  false, 160, 130, 200, DEFAULT],
     } # Do not remove this.
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Streamlined Messages -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -376,7 +376,7 @@ module YEA
     MSG_ADDED_STATES   = false  # Show target's added states.
     MSG_REMOVED_STATES = false  # Show target's removed states.
     MSG_CHANGED_BUFFS  = false  # Show target's changed buffs.
-    
+
   end # BATTLE
 end # YEA
 
@@ -388,27 +388,27 @@ end # YEA
 
 module YEA
   module REGEXP
-  module ENEMY
-    
-    ATK_ANI1 = /<(?:ATK_ANI_1|atk ani 1):[ ]*(\d+)>/i
-    ATK_ANI2 = /<(?:ATK_ANI_2|atk ani 2):[ ]*(\d+)>/i
-    
-  end # ENEMY
+    module ENEMY
+
+      ATK_ANI1 = /<(?:ATK_ANI_1|atk ani 1):[ ]*(\d+)>/i
+      ATK_ANI2 = /<(?:ATK_ANI_2|atk ani 2):[ ]*(\d+)>/i
+
+    end # ENEMY
   module USABLEITEM
-    
+
     ONE_ANIMATION = /<(?:ONE_ANIMATION|one animation)>/i
-    
+
   end # USABLEITEM
   module STATE
-    
+
     POPUP_ADD = /<(?:POPUP_ADD_RULE|popup add rule|popup add):[ ](.*)>/i
     POPUP_REM = /<(?:POPUP_REM_RULE|popup rem rule|popup rem):[ ](.*)>/i
     POPUP_DUR = /<(?:POPUP_DUR_RULE|popup dur rule|popup dur):[ ](.*)>/i
-    
+
     HIDE_ADD  = /<(?:POPUP_HIDE_ADD|popup hide add|hide add)>/i
     HIDE_REM  = /<(?:POPUP_HIDE_REM|popup hide rem|hide rem)>/i
     HIDE_DUR  = /<(?:POPUP_HIDE_DUR|popup hide dur|hide dur)>/i
-    
+
   end # STATE
   end # REGEXP
 end # YEA
@@ -418,7 +418,7 @@ end # YEA
 #==============================================================================
 
 module Switch
-  
+
   #--------------------------------------------------------------------------
   # self.hide_popups
   #--------------------------------------------------------------------------
@@ -426,7 +426,7 @@ module Switch
     return false if YEA::BATTLE::HIDE_POPUP_SWITCH <= 0
     return $game_switches[YEA::BATTLE::HIDE_POPUP_SWITCH]
   end
-  
+
 end # Switch
 
 #==============================================================================
@@ -434,7 +434,7 @@ end # Switch
 #==============================================================================
 
 module Colour
-  
+
   #--------------------------------------------------------------------------
   # self.text_colour
   #--------------------------------------------------------------------------
@@ -444,7 +444,7 @@ module Colour
     y = 96 + (index / 8) * 8
     return windowskin.get_pixel(x, y)
   end
-  
+
 end # Colour
 
 #==============================================================================
@@ -452,12 +452,12 @@ end # Colour
 #==============================================================================
 
 module Icon
-  
+
   #--------------------------------------------------------------------------
   # self.no_action
   #--------------------------------------------------------------------------
   def self.no_action; return YEA::BATTLE::BATTLESTATUS_NO_ACTION_ICON; end
-    
+
 end # Icon
 
 #==============================================================================
@@ -465,14 +465,14 @@ end # Icon
 #==============================================================================
 
 class Numeric
-  
+
   #--------------------------------------------------------------------------
   # new method: group_digits
   #--------------------------------------------------------------------------
   unless $imported["YEA-CoreEngine"]
-  def group; return self.to_s; end
+    def group; return self.to_s; end
   end # $imported["YEA-CoreEngine"]
-    
+
 end # Numeric
 
 #==============================================================================
@@ -480,7 +480,7 @@ end # Numeric
 #==============================================================================
 
 module DataManager
-  
+
   #--------------------------------------------------------------------------
   # alias method: load_database
   #--------------------------------------------------------------------------
@@ -489,7 +489,7 @@ module DataManager
     load_database_abe
     load_notetags_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: load_notetags_abe
   #--------------------------------------------------------------------------
@@ -502,7 +502,7 @@ module DataManager
       end
     end
   end
-  
+
 end # DataManager
 
 #==============================================================================
@@ -510,12 +510,12 @@ end # DataManager
 #==============================================================================
 
 class RPG::UsableItem < RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :one_animation
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_abe
   #--------------------------------------------------------------------------
@@ -531,7 +531,7 @@ class RPG::UsableItem < RPG::BaseItem
     } # self.note.split
     #---
   end
-  
+
 end # RPG::UsableItem
 
 #==============================================================================
@@ -539,13 +539,13 @@ end # RPG::UsableItem
 #==============================================================================
 
 class RPG::Enemy < RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :atk_animation_id1
   attr_accessor :atk_animation_id2
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_abe
   #--------------------------------------------------------------------------
@@ -564,7 +564,7 @@ class RPG::Enemy < RPG::BaseItem
     } # self.note.split
     #---
   end
-  
+
 end # RPG::Enemy
 
 #==============================================================================
@@ -572,19 +572,19 @@ end # RPG::Enemy
 #==============================================================================
 
 class RPG::State < RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :popup_rules
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_abe
   #--------------------------------------------------------------------------
   def load_notetags_abe
-    @popup_rules = { 
-      :add_state => "ADDSTATE", 
-      :rem_state => "REMSTATE", 
+    @popup_rules = {
+      :add_state => "ADDSTATE",
+      :rem_state => "REMSTATE",
       :dur_state => nil
     } # Do not remove this.
     #---
@@ -607,7 +607,7 @@ class RPG::State < RPG::BaseItem
     } # self.note.split
     #---
   end
-  
+
 end # RPG::State
 
 #==============================================================================
@@ -615,7 +615,7 @@ end # RPG::State
 #==============================================================================
 
 module BattleManager
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: self.battle_start
   #--------------------------------------------------------------------------
@@ -634,14 +634,14 @@ module BattleManager
     end
     wait_for_message
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: make_action_orders
   #--------------------------------------------------------------------------
   def self.make_action_orders
     make_dtb_action_orders if btype?(:dtb)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: make_dtb_action_orders
   #--------------------------------------------------------------------------
@@ -650,9 +650,9 @@ module BattleManager
     @action_battlers += $game_party.members unless @surprise
     @action_battlers += $game_troop.members unless @preemptive
     @action_battlers.each {|battler| battler.make_speed }
-    @action_battlers.sort! {|a,b| b.speed - a.speed }
+    @action_battlers.sort! {|a, b| b.speed - a.speed }
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: turn_start
   #--------------------------------------------------------------------------
@@ -663,7 +663,7 @@ module BattleManager
     @performed_battlers = []
     make_action_orders
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: next_subject
   #--------------------------------------------------------------------------
@@ -678,7 +678,7 @@ module BattleManager
       return battler
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: force_action
   #--------------------------------------------------------------------------
@@ -688,21 +688,21 @@ module BattleManager
     return unless Switch.forced_action_remove
     @action_battlers.delete(battler)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: action_forced?
   #--------------------------------------------------------------------------
   def self.action_forced?
     @action_forced != nil
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: action_forced_battler
   #--------------------------------------------------------------------------
   def self.action_forced_battler
     @action_forced.shift
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: clear_action_force
   #--------------------------------------------------------------------------
@@ -710,28 +710,28 @@ module BattleManager
     return if @action_forced.nil?
     @action_forced = nil if @action_forced.empty?
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: self.init_battle_type
   #--------------------------------------------------------------------------
   def self.init_battle_type
     set_btype($game_system.battle_system)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: self.set_btype
   #--------------------------------------------------------------------------
   def self.set_btype(btype = :dtb)
     @battle_type = btype
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: self.btype?
   #--------------------------------------------------------------------------
   def self.btype?(btype)
     return @battle_type == btype
   end
-  
+
 end # BattleManager
 
 #==============================================================================
@@ -739,7 +739,7 @@ end # BattleManager
 #==============================================================================
 
 class Game_System
-  
+
   #--------------------------------------------------------------------------
   # new method: battle_system
   #--------------------------------------------------------------------------
@@ -750,7 +750,7 @@ class Game_System
       return battle_system_corrected(@battle_system)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: set_battle_system
   #--------------------------------------------------------------------------
@@ -761,7 +761,7 @@ class Game_System
     else;      @battle_system = :dtb
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: battle_system_corrected
   #--------------------------------------------------------------------------
@@ -772,7 +772,7 @@ class Game_System
     else;      return :dtb
     end
   end
-  
+
 end # Game_System
 
 #==============================================================================
@@ -780,22 +780,22 @@ end # Game_System
 #==============================================================================
 
 class Sprite_Base < Sprite
-  
+
   #--------------------------------------------------------------------------
   # new method: start_pseudo_animation
   #--------------------------------------------------------------------------
   unless $imported["YEA-CoreEngine"]
-  def start_pseudo_animation(animation, mirror = false)
-    dispose_animation
-    @animation = animation
-    return if @animation.nil?
-    @ani_mirror = mirror
-    set_animation_rate
-    @ani_duration = @animation.frame_max * @ani_rate + 1
-    @ani_sprites = []
-  end
+    def start_pseudo_animation(animation, mirror = false)
+      dispose_animation
+      @animation = animation
+      return if @animation.nil?
+      @ani_mirror = mirror
+      set_animation_rate
+      @ani_duration = @animation.frame_max * @ani_rate + 1
+      @ani_sprites = []
+    end
   end # $imported["YEA-CoreEngine"]
-  
+
 end # Sprite_Base
 
 #==============================================================================
@@ -803,14 +803,14 @@ end # Sprite_Base
 #==============================================================================
 
 class Sprite_Battler < Sprite_Base
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :effect_type
   attr_accessor :battler_visible
   attr_accessor :popups
-  
+
   #--------------------------------------------------------------------------
   # alias method: initialize
   #--------------------------------------------------------------------------
@@ -820,7 +820,7 @@ class Sprite_Battler < Sprite_Base
     @popups = []
     @popup_flags = []
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: update_bitmap
   #--------------------------------------------------------------------------
@@ -829,12 +829,12 @@ class Sprite_Battler < Sprite_Base
     return if @battler.actor? && @battler.battler_name == ""
     sprite_battler_update_bitmap_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: setup_new_animation
   #--------------------------------------------------------------------------
   unless $imported["YEA-CoreEngine"]
-  alias sprite_battler_setup_new_animation_abe setup_new_animation
+    alias sprite_battler_setup_new_animation_abe setup_new_animation
   def setup_new_animation
     sprite_battler_setup_new_animation_abe
     return if @battler.pseudo_ani_id <= 0
@@ -844,7 +844,7 @@ class Sprite_Battler < Sprite_Base
     @battler.pseudo_ani_id = 0
   end
   end # $imported["YEA-CoreEngine"]
-  
+
   #--------------------------------------------------------------------------
   # alias method: setup_new_effect
   #--------------------------------------------------------------------------
@@ -853,7 +853,7 @@ class Sprite_Battler < Sprite_Base
     sprite_battler_setup_new_effect_abe
     setup_popups
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: setup_popups
   #--------------------------------------------------------------------------
@@ -864,7 +864,7 @@ class Sprite_Battler < Sprite_Base
     array = @battler.popups.shift
     create_new_popup(array[0], array[1], array[2])
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: create_new_popup
   #--------------------------------------------------------------------------
@@ -885,7 +885,7 @@ class Sprite_Battler < Sprite_Base
     @popup_flags.push("immune") if flags.include?("immune")
     @popup_flags.push("absorbed") if flags.include?("absorbed")
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: update_effect
   #--------------------------------------------------------------------------
@@ -894,7 +894,7 @@ class Sprite_Battler < Sprite_Base
     sprite_battler_update_effect_abe
     update_popups
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: update_popups
   #--------------------------------------------------------------------------
@@ -914,7 +914,7 @@ class Sprite_Battler < Sprite_Base
       @popup_flags = []
     end
   end
-  
+
 end # Sprite_Battler
 
 #==============================================================================
@@ -922,12 +922,12 @@ end # Sprite_Battler
 #==============================================================================
 
 class Sprite_Popup < Sprite_Base
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :flags
-  
+
   #--------------------------------------------------------------------------
   # initialize
   #--------------------------------------------------------------------------
@@ -942,7 +942,7 @@ class Sprite_Popup < Sprite_Base
     @battler = battler
     create_popup_bitmap
   end
-  
+
   #--------------------------------------------------------------------------
   # create_popup_bitmap
   #--------------------------------------------------------------------------
@@ -991,7 +991,7 @@ class Sprite_Popup < Sprite_Base
     @zoom_direction = (self.zoom_x > @target_zoom) ? "down" : "up"
     self.z = 500
   end
-  
+
   #--------------------------------------------------------------------------
   # update
   #--------------------------------------------------------------------------
@@ -1017,7 +1017,7 @@ class Sprite_Popup < Sprite_Base
     self.y -= 1
     self.opacity -= @fade
   end
-  
+
   #--------------------------------------------------------------------------
   # flag_state_icon
   #--------------------------------------------------------------------------
@@ -1025,7 +1025,7 @@ class Sprite_Popup < Sprite_Base
     for item in @flags; return item if item.is_a?(Integer); end
     return 0
   end
-  
+
 end # Sprite_Popup
 
 #==============================================================================
@@ -1033,7 +1033,7 @@ end # Sprite_Popup
 #==============================================================================
 
 class Spriteset_Battle
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
@@ -1041,7 +1041,7 @@ class Spriteset_Battle
   attr_accessor :enemy_sprites
   attr_accessor :viewport1
   attr_accessor :viewportPopups
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_viewports
   #--------------------------------------------------------------------------
@@ -1051,7 +1051,7 @@ class Spriteset_Battle
     @viewportPopups = Viewport.new
     @viewportPopups.z = 200
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: dispose_viewports
   #--------------------------------------------------------------------------
@@ -1060,7 +1060,7 @@ class Spriteset_Battle
     spriteset_battle_dispose_viewports_abe
     @viewportPopups.dispose
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: update_viewports
   #--------------------------------------------------------------------------
@@ -1069,7 +1069,7 @@ class Spriteset_Battle
     spriteset_battle_update_viewports_abe
     @viewportPopups.update
   end
-  
+
 end # Spriteset_Battle
 
 #==============================================================================
@@ -1077,14 +1077,14 @@ end # Spriteset_Battle
 #==============================================================================
 
 class Game_Temp
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :battle_aid
   attr_accessor :evaluating
   attr_accessor :iconset
-  
+
   #--------------------------------------------------------------------------
   # alias method: initialize
   #--------------------------------------------------------------------------
@@ -1093,7 +1093,7 @@ class Game_Temp
     game_temp_initialize_abe
     @iconset = Cache.system("Iconset")
   end
-  
+
 end # Game_Temp
 
 #==============================================================================
@@ -1101,7 +1101,7 @@ end # Game_Temp
 #==============================================================================
 
 class Game_Action
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: speed
   #--------------------------------------------------------------------------
@@ -1111,7 +1111,7 @@ class Game_Action
     speed += subject.atk_speed if attack?
     return speed
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: evaluate_item_with_target
   #--------------------------------------------------------------------------
@@ -1122,7 +1122,7 @@ class Game_Action
     $game_temp.evaluating = false
     return result
   end
-  
+
 end # Game_Action
 
 #==============================================================================
@@ -1130,7 +1130,7 @@ end # Game_Action
 #==============================================================================
 
 class Game_ActionResult
-  
+
   #--------------------------------------------------------------------------
   # alias method: clear
   #--------------------------------------------------------------------------
@@ -1139,7 +1139,7 @@ class Game_ActionResult
     game_actionresult_clear_abe
     clear_stored_damage
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: clear_stored_damage
   #--------------------------------------------------------------------------
@@ -1150,7 +1150,7 @@ class Game_ActionResult
     @stored_hp_drain = 0
     @stored_mp_drain = 0
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: store_damage
   #--------------------------------------------------------------------------
@@ -1161,7 +1161,7 @@ class Game_ActionResult
     @stored_hp_drain += @hp_drain
     @stored_mp_drain += @mp_drain
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: restore_damage
   #--------------------------------------------------------------------------
@@ -1173,7 +1173,7 @@ class Game_ActionResult
     @mp_drain = @stored_mp_drain
     clear_stored_damage
   end
-  
+
 end # Game_ActionResult
 
 #==============================================================================
@@ -1181,12 +1181,12 @@ end # Game_ActionResult
 #==============================================================================
 
 class Game_BattlerBase
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :popups
-  
+
   #--------------------------------------------------------------------------
   # new method: create_popup
   #--------------------------------------------------------------------------
@@ -1197,7 +1197,7 @@ class Game_BattlerBase
     @popups = [] if @popups.nil?
     @popups.push([value, rules, flags])
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: make_damage_popups
   #--------------------------------------------------------------------------
@@ -1259,7 +1259,7 @@ class Game_BattlerBase
     @result.store_damage
     @result.clear_damage_values
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: erase_state
   #--------------------------------------------------------------------------
@@ -1268,7 +1268,7 @@ class Game_BattlerBase
     make_state_popup(state_id, :rem_state) if @states.include?(state_id)
     game_battlerbase_erase_state_abe(state_id)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: make_during_state_popup
   #--------------------------------------------------------------------------
@@ -1277,7 +1277,7 @@ class Game_BattlerBase
     return if state_id == 0
     make_state_popup(state_id, :dur_state)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: most_important_state_id
   #--------------------------------------------------------------------------
@@ -1285,7 +1285,7 @@ class Game_BattlerBase
     states.each {|state| return state.id unless state.message3.empty? }
     return 0
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: make_state_popup
   #--------------------------------------------------------------------------
@@ -1298,7 +1298,7 @@ class Game_BattlerBase
     flags = ["state", state.icon_index]
     create_popup(text, rules, flags)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: make_miss_popups
   #--------------------------------------------------------------------------
@@ -1327,7 +1327,7 @@ class Game_BattlerBase
       end
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: make_rate_popup
   #--------------------------------------------------------------------------
@@ -1353,7 +1353,7 @@ class Game_BattlerBase
     end
     create_popup(text, rules, flags)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: make_buff_popup
   #--------------------------------------------------------------------------
@@ -1375,7 +1375,7 @@ class Game_BattlerBase
     return if @popups.include?([text, rules, flags])
     create_popup(text, rules, flags)
   end
-  
+
 end # Game_BattlerBase
 
 #==============================================================================
@@ -1383,12 +1383,12 @@ end # Game_BattlerBase
 #==============================================================================
 
 class Game_Battler < Game_BattlerBase
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :pseudo_ani_id
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_battle_end
   #--------------------------------------------------------------------------
@@ -1397,7 +1397,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_on_battle_end_abe
     @popups = []
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: clear_sprite_effects
   #--------------------------------------------------------------------------
@@ -1406,7 +1406,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_clear_sprite_effects_abe
     @pseudo_ani_id = 0
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_apply
   #--------------------------------------------------------------------------
@@ -1415,7 +1415,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_item_apply_abe(user, item)
     make_miss_popups(user, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: make_damage_value
   #--------------------------------------------------------------------------
@@ -1425,7 +1425,7 @@ class Game_Battler < Game_BattlerBase
     rate = item_element_rate(user, item)
     make_rate_popup(rate) unless $game_temp.evaluating
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: execute_damage
   #--------------------------------------------------------------------------
@@ -1434,7 +1434,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_execute_damage_abe(user)
     make_damage_popups(user)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_effect_recover_hp
   #--------------------------------------------------------------------------
@@ -1443,7 +1443,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_item_effect_recover_hp_abe(user, item, effect)
     make_damage_popups(user)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_effect_recover_mp
   #--------------------------------------------------------------------------
@@ -1452,7 +1452,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_item_effect_recover_mp_abe(user, item, effect)
     make_damage_popups(user)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_effect_gain_tp
   #--------------------------------------------------------------------------
@@ -1461,7 +1461,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_item_effect_gain_tp_abe(user, item, effect)
     make_damage_popups(user)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_user_effect
   #--------------------------------------------------------------------------
@@ -1470,7 +1470,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_item_user_effect_abe(user, item)
     @result.restore_damage
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: add_new_state
   #--------------------------------------------------------------------------
@@ -1479,7 +1479,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_add_new_state_abe(state_id)
     make_state_popup(state_id, :add_state) if @states.include?(state_id)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: add_buff
   #--------------------------------------------------------------------------
@@ -1488,7 +1488,7 @@ class Game_Battler < Game_BattlerBase
     make_buff_popup(param_id, true)
     game_battler_add_buff_abe(param_id, turns)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: add_debuff
   #--------------------------------------------------------------------------
@@ -1497,7 +1497,7 @@ class Game_Battler < Game_BattlerBase
     make_buff_popup(param_id, false)
     game_battler_add_debuff_abe(param_id, turns)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: regenerate_all
   #--------------------------------------------------------------------------
@@ -1507,7 +1507,7 @@ class Game_Battler < Game_BattlerBase
     return unless alive?
     make_damage_popups(self)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: can_collapse?
   #--------------------------------------------------------------------------
@@ -1520,19 +1520,19 @@ class Game_Battler < Game_BattlerBase
     end
     return true
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_mp?
   #--------------------------------------------------------------------------
   def draw_mp?; return true; end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_tp?
   #--------------------------------------------------------------------------
   def draw_tp?
     return $data_system.opt_display_tp
   end
-  
+
 end # Game_Battler
 
 #==============================================================================
@@ -1540,7 +1540,7 @@ end # Game_Battler
 #==============================================================================
 
 class Game_Actor < Game_Battler
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: perform_damage_effect
   #--------------------------------------------------------------------------
@@ -1549,12 +1549,12 @@ class Game_Actor < Game_Battler
     @sprite_effect_type = :blink if YEA::BATTLE::BLINK_EFFECTS
     Sound.play_actor_damage
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: use_sprite?
   #--------------------------------------------------------------------------
   def use_sprite?; return true; end
-    
+
   #--------------------------------------------------------------------------
   # new method: screen_x
   #--------------------------------------------------------------------------
@@ -1568,7 +1568,7 @@ class Game_Actor < Game_Battler
     constant = 128 + 12
     return constant + rect.x + item_rect_width / 2 - ext
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: screen_y
   #--------------------------------------------------------------------------
@@ -1577,12 +1577,12 @@ class Game_Actor < Game_Battler
     return Graphics.height - 120 if SceneManager.scene.status_window.nil?
     return Graphics.height - (SceneManager.scene.status_window.height * 7/8)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: screen_z
   #--------------------------------------------------------------------------
   def screen_z; return 100; end
-  
+
   #--------------------------------------------------------------------------
   # new method: sprite
   #--------------------------------------------------------------------------
@@ -1590,7 +1590,7 @@ class Game_Actor < Game_Battler
     index = $game_party.battle_members.index(self)
     return SceneManager.scene.spriteset.actor_sprites[index]
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_mp?
   #--------------------------------------------------------------------------
@@ -1602,7 +1602,7 @@ class Game_Actor < Game_Battler
     end
     return false
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_tp?
   #--------------------------------------------------------------------------
@@ -1614,7 +1614,7 @@ class Game_Actor < Game_Battler
     end
     return false
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: input
   #--------------------------------------------------------------------------
@@ -1629,7 +1629,7 @@ class Game_Actor < Game_Battler
     end
     return game_actor_input_abe
   end
-  
+
 end # Game_Actor
 
 #==============================================================================
@@ -1637,7 +1637,7 @@ end # Game_Actor
 #==============================================================================
 
 class Game_Enemy < Game_Battler
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: perform_damage_effect
   #--------------------------------------------------------------------------
@@ -1645,20 +1645,20 @@ class Game_Enemy < Game_Battler
     @sprite_effect_type = :blink if YEA::BATTLE::BLINK_EFFECTS
     Sound.play_enemy_damage
   end
-  
+
   #--------------------------------------------------------------------------
   # new methods: attack_animation_id
   #--------------------------------------------------------------------------
   def atk_animation_id1; return enemy.atk_animation_id1; end
   def atk_animation_id2; return enemy.atk_animation_id2; end
-  
+
   #--------------------------------------------------------------------------
   # new method: sprite
   #--------------------------------------------------------------------------
   def sprite
     return SceneManager.scene.spriteset.enemy_sprites.reverse[self.index]
   end
-  
+
 end # Game_Enemy
 
 #==============================================================================
@@ -1666,7 +1666,7 @@ end # Game_Enemy
 #==============================================================================
 
 class Game_Unit
-  
+
   #--------------------------------------------------------------------------
   # alias method: make_actions
   #--------------------------------------------------------------------------
@@ -1675,7 +1675,7 @@ class Game_Unit
     game_unit_make_actions_abe
     refresh_autobattler_status_window
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: refresh_autobattler_status_window
   #--------------------------------------------------------------------------
@@ -1684,7 +1684,7 @@ class Game_Unit
     return unless self.is_a?(Game_Party)
     SceneManager.scene.refresh_autobattler_status_window
   end
-  
+
 end # Game_Unit
 
 #==============================================================================
@@ -1692,7 +1692,7 @@ end # Game_Unit
 #==============================================================================
 
 class Window_PartyCommand < Window_Command
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: process_handling
   #--------------------------------------------------------------------------
@@ -1701,7 +1701,7 @@ class Window_PartyCommand < Window_Command
     return process_dir6 if Input.repeat?(:RIGHT)
     return super
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: process_dir6
   #--------------------------------------------------------------------------
@@ -1711,7 +1711,7 @@ class Window_PartyCommand < Window_Command
     deactivate
     call_handler(:dir6)
   end
-  
+
 end # Window_PartyCommand
 
 #==============================================================================
@@ -1719,7 +1719,7 @@ end # Window_PartyCommand
 #==============================================================================
 
 class Window_ActorCommand < Window_Command
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: process_handling
   #--------------------------------------------------------------------------
@@ -1729,7 +1729,7 @@ class Window_ActorCommand < Window_Command
     return process_dir6 if Input.repeat?(:RIGHT)
     return super
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: process_dir4
   #--------------------------------------------------------------------------
@@ -1739,7 +1739,7 @@ class Window_ActorCommand < Window_Command
     deactivate
     call_handler(:cancel)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: process_dir6
   #--------------------------------------------------------------------------
@@ -1749,7 +1749,7 @@ class Window_ActorCommand < Window_Command
     deactivate
     call_handler(:dir6)
   end
-  
+
 end # Window_ActorCommand
 
 #==============================================================================
@@ -1757,7 +1757,7 @@ end # Window_ActorCommand
 #==============================================================================
 
 #class Window_BattleStatus < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: initialize
   #--------------------------------------------------------------------------
@@ -1766,22 +1766,22 @@ end # Window_ActorCommand
 #    self.openness = 0
 #    @party = $game_party.battle_members.clone
 #  end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: col_max
   #--------------------------------------------------------------------------
 #  def col_max; return $game_party.max_battle_members; end
-  
+
   #--------------------------------------------------------------------------
   # new method: battle_members
   #--------------------------------------------------------------------------
 #  def battle_members; return $game_party.battle_members; end
-  
+
   #--------------------------------------------------------------------------
   # new method: actor
   #--------------------------------------------------------------------------
 #  def actor; return battle_members[@index]; end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: update
   #--------------------------------------------------------------------------
@@ -1791,7 +1791,7 @@ end # Window_ActorCommand
 #    @party = $game_party.battle_members.clone
 #    refresh
 #  end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_item
   #--------------------------------------------------------------------------
@@ -1820,7 +1820,7 @@ end # Window_ActorCommand
 #      draw_actor_mp(actor, rect.x+2, line_height*3, rect.width-4)
 #    end
 #  end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: item_rect
   #--------------------------------------------------------------------------
@@ -1835,7 +1835,7 @@ end # Window_ActorCommand
 #    rect.y = 0
 #    return rect
 #  end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_face
   #--------------------------------------------------------------------------
@@ -1849,7 +1849,7 @@ end # Window_ActorCommand
 #    contents.blt(dx, dy, bitmap, rect, enabled ? 255 : translucent_alpha)
 #    bitmap.dispose
 #  end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_name
   #--------------------------------------------------------------------------
@@ -1859,14 +1859,14 @@ end # Window_ActorCommand
 #    change_color(hp_color(actor))
 #    draw_text(dx+24, dy, dw-24, line_height, actor.name)
 #  end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_actor_action
   #--------------------------------------------------------------------------
 #  def draw_actor_action(actor, dx, dy)
 #    draw_icon(action_icon(actor), dx, dy)
 #  end
-  
+
   #--------------------------------------------------------------------------
   # new method: action_icon
   #--------------------------------------------------------------------------
@@ -1875,21 +1875,21 @@ end # Window_ActorCommand
 #    return Icon.no_action if actor.current_action.item.nil?
 #    return actor.current_action.item.icon_index
 #  end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_tp?
   #--------------------------------------------------------------------------
 #  def draw_tp?(actor)
 #    return actor.draw_tp?
 #  end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_mp?
   #--------------------------------------------------------------------------
 #  def draw_mp?(actor)
 #    return actor.draw_mp?
 #  end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_current_and_max_values
   #--------------------------------------------------------------------------
@@ -1897,7 +1897,7 @@ end # Window_ActorCommand
 #    change_color(color1)
 #    draw_text(dx, dy, dw, line_height, current.group, 2)
 #  end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_hp
   #--------------------------------------------------------------------------
@@ -1909,7 +1909,7 @@ end # Window_ActorCommand
 #    draw_current_and_max_values(dx, dy+cy, width, actor.hp, actor.mhp,
 #      hp_color(actor), normal_color)
 #    end
-    
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_mp
   #--------------------------------------------------------------------------
@@ -1921,7 +1921,7 @@ end # Window_ActorCommand
 #    draw_current_and_max_values(dx, dy+cy, width, actor.mp, actor.mmp,
 #      mp_color(actor), normal_color)
 #    end
-    
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_tp
   #--------------------------------------------------------------------------
@@ -1933,7 +1933,7 @@ end # Window_ActorCommand
 #    change_color(tp_color(actor))
 #    draw_text(dx + width - 42, dy+cy, 42, line_height, actor.tp.to_i, 2)
 #  end
-  
+
 #end # Window_BattleStatus
 
 #==============================================================================
@@ -1941,7 +1941,7 @@ end # Window_ActorCommand
 #==============================================================================
 
 class Window_BattleActor < Window_BattleStatus
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: show
   #--------------------------------------------------------------------------
@@ -1949,7 +1949,7 @@ class Window_BattleActor < Window_BattleStatus
     create_flags
     super
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: create_flags
   #--------------------------------------------------------------------------
@@ -1974,7 +1974,7 @@ class Window_BattleActor < Window_BattleStatus
       set_select_flag(:random) if $game_temp.battle_aid.for_random?
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: set_flag
   #--------------------------------------------------------------------------
@@ -1987,7 +1987,7 @@ class Window_BattleActor < Window_BattleStatus
       @cursor_all = false
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: update_cursor
   #--------------------------------------------------------------------------
@@ -2002,7 +2002,7 @@ class Window_BattleActor < Window_BattleStatus
       cursor_rect.set(item_rect(@index))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: cursor_movable?
   #--------------------------------------------------------------------------
@@ -2010,7 +2010,7 @@ class Window_BattleActor < Window_BattleStatus
     return false if @select_flag == :user
     return super
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: current_item_enabled?
   #--------------------------------------------------------------------------
@@ -2027,7 +2027,7 @@ class Window_BattleActor < Window_BattleStatus
     end
     return true
   end
-  
+
 end # Window_BattleActor
 
 #==============================================================================
@@ -2035,12 +2035,12 @@ end # Window_BattleActor
 #==============================================================================
 
 class Window_BattleStatusAid < Window_BattleStatus
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :status_window
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: initialize
   #--------------------------------------------------------------------------
@@ -2049,12 +2049,12 @@ class Window_BattleStatusAid < Window_BattleStatus
     self.visible = false
     self.openness = 255
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: window_width
   #--------------------------------------------------------------------------
   def window_width; return 128; end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: show
   #--------------------------------------------------------------------------
@@ -2062,7 +2062,7 @@ class Window_BattleStatusAid < Window_BattleStatus
     super
     refresh
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: refresh
   #--------------------------------------------------------------------------
@@ -2071,14 +2071,14 @@ class Window_BattleStatusAid < Window_BattleStatus
     return if @status_window.nil?
     draw_item(@status_window.index)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: item_rect
   #--------------------------------------------------------------------------
   def item_rect(index)
     return Rect.new(0, 0, contents.width, contents.height)
   end
-  
+
 end # Window_BattleStatusAid
 
 #==============================================================================
@@ -2086,7 +2086,7 @@ end # Window_BattleStatusAid
 #==============================================================================
 
 class Window_BattleEnemy < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: initialize
   #--------------------------------------------------------------------------
@@ -2096,12 +2096,12 @@ class Window_BattleEnemy < Window_Selectable
     self.visible = false
     @info_viewport = info_viewport
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: col_max
   #--------------------------------------------------------------------------
   def col_max; return item_max; end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: show
   #--------------------------------------------------------------------------
@@ -2109,7 +2109,7 @@ class Window_BattleEnemy < Window_Selectable
     create_flags
     super
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: create_flags
   #--------------------------------------------------------------------------
@@ -2127,7 +2127,7 @@ class Window_BattleEnemy < Window_Selectable
       set_select_flag(:random)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: set_flag
   #--------------------------------------------------------------------------
@@ -2140,7 +2140,7 @@ class Window_BattleEnemy < Window_Selectable
       @cursor_all = false
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: select_all?
   #--------------------------------------------------------------------------
@@ -2149,7 +2149,7 @@ class Window_BattleEnemy < Window_Selectable
     return true if @select_flag == :random
     return false
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: update_cursor
   #--------------------------------------------------------------------------
@@ -2164,7 +2164,7 @@ class Window_BattleEnemy < Window_Selectable
       cursor_rect.set(item_rect(@index))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: cursor_movable?
   #--------------------------------------------------------------------------
@@ -2172,7 +2172,7 @@ class Window_BattleEnemy < Window_Selectable
     return false if @select_flag == :user
     return super
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: current_item_enabled?
   #--------------------------------------------------------------------------
@@ -2189,12 +2189,12 @@ class Window_BattleEnemy < Window_Selectable
     end
     return true
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: enemy
   #--------------------------------------------------------------------------
   def enemy; @data[index]; end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: refresh
   #--------------------------------------------------------------------------
@@ -2203,20 +2203,20 @@ class Window_BattleEnemy < Window_Selectable
     create_contents
     draw_all_items
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: make_item_list
   #--------------------------------------------------------------------------
   def make_item_list
     @data = $game_troop.alive_members
-    @data.sort! { |a,b| a.screen_x <=> b.screen_x }
+    @data.sort! { |a, b| a.screen_x <=> b.screen_x }
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_item
   #--------------------------------------------------------------------------
   def draw_item(index); return; end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: update
   #--------------------------------------------------------------------------
@@ -2229,7 +2229,7 @@ class Window_BattleEnemy < Window_Selectable
       enemy.sprite_effect_type = :whiten
     end
   end
-  
+
 end # Window_BattleEnemy
 
 #==============================================================================
@@ -2237,13 +2237,13 @@ end # Window_BattleEnemy
 #==============================================================================
 
 class Window_BattleHelp < Window_Help
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :actor_window
   attr_accessor :enemy_window
-  
+
   #--------------------------------------------------------------------------
   # update
   #--------------------------------------------------------------------------
@@ -2255,7 +2255,7 @@ class Window_BattleHelp < Window_Help
     end
     update_battler_name
   end
-  
+
   #--------------------------------------------------------------------------
   # update_battler_name
   #--------------------------------------------------------------------------
@@ -2272,7 +2272,7 @@ class Window_BattleHelp < Window_Help
       refresh_battler_name(battler) if battler_name(battler) != @text
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # battler_name
   #--------------------------------------------------------------------------
@@ -2280,7 +2280,7 @@ class Window_BattleHelp < Window_Help
     text = battler.name.clone
     return text
   end
-  
+
   #--------------------------------------------------------------------------
   # refresh_battler_name
   #--------------------------------------------------------------------------
@@ -2295,7 +2295,7 @@ class Window_BattleHelp < Window_Help
     dx = (contents.width - (icons.size * 24)) / 2
     draw_actor_icons(battler, dx, line_height, contents.width)
   end
-  
+
   #--------------------------------------------------------------------------
   # special_display?
   #--------------------------------------------------------------------------
@@ -2304,7 +2304,7 @@ class Window_BattleHelp < Window_Help
     return false if $game_temp.battle_aid.for_user?
     return !$game_temp.battle_aid.need_selection?
   end
-  
+
   #--------------------------------------------------------------------------
   # refresh_special_case
   #--------------------------------------------------------------------------
@@ -2342,7 +2342,7 @@ class Window_BattleHelp < Window_Help
     reset_font_settings
     draw_text(0, 0, contents.width, line_height*2, @text, 1)
   end
-  
+
 end # Window_BattleHelp
 
 #==============================================================================
@@ -2350,7 +2350,7 @@ end # Window_BattleHelp
 #==============================================================================
 
 class Window_BattleLog < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_current_state
   #--------------------------------------------------------------------------
@@ -2360,7 +2360,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_CURRENT_STATE
     window_battlelog_display_current_state_abe(subject)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_use_item
   #--------------------------------------------------------------------------
@@ -2369,7 +2369,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_CURRENT_ACTION
     window_battlelog_display_use_item_abe(subject, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_counter
   #--------------------------------------------------------------------------
@@ -2381,7 +2381,7 @@ class Window_BattleLog < Window_Selectable
       Sound.play_evasion
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_reflection
   #--------------------------------------------------------------------------
@@ -2393,7 +2393,7 @@ class Window_BattleLog < Window_Selectable
       Sound.play_reflection
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_substitute
   #--------------------------------------------------------------------------
@@ -2402,7 +2402,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_SUBSTITUTE_HIT
     window_battlelog_display_substitute_abe(substitute, target)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_failure
   #--------------------------------------------------------------------------
@@ -2411,7 +2411,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_FAILURE_HIT
     window_battlelog_display_failure_abe(target, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_critical
   #--------------------------------------------------------------------------
@@ -2420,7 +2420,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_CRITICAL_HIT
     window_battlelog_display_critical_abe(target, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_miss
   #--------------------------------------------------------------------------
@@ -2429,7 +2429,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_HIT_MISSED
     window_battlelog_display_miss_abe(target, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_evasion
   #--------------------------------------------------------------------------
@@ -2445,7 +2445,7 @@ class Window_BattleLog < Window_Selectable
       end
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: display_hp_damage
   #--------------------------------------------------------------------------
@@ -2459,7 +2459,7 @@ class Window_BattleLog < Window_Selectable
     add_text(target.result.hp_damage_text)
     wait
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: display_mp_damage
   #--------------------------------------------------------------------------
@@ -2470,7 +2470,7 @@ class Window_BattleLog < Window_Selectable
     add_text(target.result.mp_damage_text)
     wait
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: display_tp_damage
   #--------------------------------------------------------------------------
@@ -2481,7 +2481,7 @@ class Window_BattleLog < Window_Selectable
     add_text(target.result.tp_damage_text)
     wait
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_added_states
   #--------------------------------------------------------------------------
@@ -2490,7 +2490,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_ADDED_STATES
     window_battlelog_display_added_states_abe(target)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_removed_states
   #--------------------------------------------------------------------------
@@ -2499,7 +2499,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_REMOVED_STATES
     window_battlelog_display_removed_states_abe(target)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_changed_buffs
   #--------------------------------------------------------------------------
@@ -2508,7 +2508,7 @@ class Window_BattleLog < Window_Selectable
     return unless YEA::BATTLE::MSG_CHANGED_BUFFS
     window_battlelog_display_changed_buffs_abe(target)
   end
-  
+
 end # Window_BattleLog
 
 #==============================================================================
@@ -2516,7 +2516,7 @@ end # Window_BattleLog
 #==============================================================================
 
 class Window_SkillList < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: spacing
   #--------------------------------------------------------------------------
@@ -2524,7 +2524,7 @@ class Window_SkillList < Window_Selectable
     return 8 if $game_party.in_battle
     return super
   end
-  
+
 end # Window_SkillList
 
 #==============================================================================
@@ -2532,7 +2532,7 @@ end # Window_SkillList
 #==============================================================================
 
 class Window_ItemList < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: spacing
   #--------------------------------------------------------------------------
@@ -2540,7 +2540,7 @@ class Window_ItemList < Window_Selectable
     return 8 if $game_party.in_battle
     return super
   end
-  
+
 end # Window_ItemList
 
 #==============================================================================
@@ -2548,7 +2548,7 @@ end # Window_ItemList
 #==============================================================================
 
 class Scene_Battle < Scene_Base
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
@@ -2558,7 +2558,7 @@ class Scene_Battle < Scene_Base
   attr_accessor :status_window
   attr_accessor :status_aid_window
   attr_accessor :subject
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_spriteset
   #--------------------------------------------------------------------------
@@ -2567,7 +2567,7 @@ class Scene_Battle < Scene_Base
     BattleManager.init_battle_type
     scene_battle_create_spriteset_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: update_basic
   #--------------------------------------------------------------------------
@@ -2576,7 +2576,7 @@ class Scene_Battle < Scene_Base
     scene_battle_update_basic_abe
     update_debug
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: update_debug
   #--------------------------------------------------------------------------
@@ -2587,7 +2587,7 @@ class Scene_Battle < Scene_Base
     debug_fill_tp if Input.trigger?(:F7)
     debug_kill_all if Input.trigger?(:F8)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: debug_heal_party
   #--------------------------------------------------------------------------
@@ -2598,7 +2598,7 @@ class Scene_Battle < Scene_Base
     end
     @status_window.refresh
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: debug_damage_party
   #--------------------------------------------------------------------------
@@ -2611,7 +2611,7 @@ class Scene_Battle < Scene_Base
     end
     @status_window.refresh
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: debug_fill_tp
   #--------------------------------------------------------------------------
@@ -2622,7 +2622,7 @@ class Scene_Battle < Scene_Base
     end
     @status_window.refresh
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: debug_kill_all
   #--------------------------------------------------------------------------
@@ -2635,7 +2635,7 @@ class Scene_Battle < Scene_Base
     @log_window.wait
     @log_window.wait_for_effect
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_all_windows
   #--------------------------------------------------------------------------
@@ -2645,7 +2645,7 @@ class Scene_Battle < Scene_Base
     create_battle_status_aid_window
     set_help_window
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_info_viewport
   #--------------------------------------------------------------------------
@@ -2654,7 +2654,7 @@ class Scene_Battle < Scene_Base
     scene_battle_create_info_viewport_abe
     @status_window.refresh
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: create_battle_status_aid_window
   #--------------------------------------------------------------------------
@@ -2664,7 +2664,7 @@ class Scene_Battle < Scene_Base
     @status_aid_window.x = Graphics.width - @status_aid_window.width
     @status_aid_window.y = Graphics.height - @status_aid_window.height
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: create_help_window
   #--------------------------------------------------------------------------
@@ -2672,7 +2672,7 @@ class Scene_Battle < Scene_Base
     @help_window = Window_BattleHelp.new
     @help_window.hide
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: set_help_window
   #--------------------------------------------------------------------------
@@ -2680,7 +2680,7 @@ class Scene_Battle < Scene_Base
     @help_window.actor_window = @actor_window
     @help_window.enemy_window = @enemy_window
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_party_command_window
   #--------------------------------------------------------------------------
@@ -2689,7 +2689,7 @@ class Scene_Battle < Scene_Base
     scene_battle_create_party_command_window_abe
     @party_command_window.set_handler(:dir6, method(:command_fight))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_actor_command_window
   #--------------------------------------------------------------------------
@@ -2699,7 +2699,7 @@ class Scene_Battle < Scene_Base
     @actor_command_window.set_handler(:dir4, method(:prior_command))
     @actor_command_window.set_handler(:dir6, method(:next_command))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_skill_window
   #--------------------------------------------------------------------------
@@ -2710,7 +2710,7 @@ class Scene_Battle < Scene_Base
     @skill_window.width = Graphics.width - @actor_command_window.width
     @skill_window.y = Graphics.height - @skill_window.height
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_item_window
   #--------------------------------------------------------------------------
@@ -2721,7 +2721,7 @@ class Scene_Battle < Scene_Base
     @item_window.width = @skill_window.width
     @item_window.y = Graphics.height - @item_window.height
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: show_fast?
   #--------------------------------------------------------------------------
@@ -2730,7 +2730,7 @@ class Scene_Battle < Scene_Base
     return true if YEA::BATTLE::AUTO_FAST
     return scene_battle_show_fast_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: next_command
   #--------------------------------------------------------------------------
@@ -2742,7 +2742,7 @@ class Scene_Battle < Scene_Base
     @status_aid_window.hide
     scene_battle_next_command_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: prior_command
   #--------------------------------------------------------------------------
@@ -2751,7 +2751,7 @@ class Scene_Battle < Scene_Base
     redraw_current_status
     scene_battle_prior_command_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: redraw_current_status
   #--------------------------------------------------------------------------
@@ -2759,7 +2759,7 @@ class Scene_Battle < Scene_Base
     return if @status_window.index < 0
     @status_window.draw_item(@status_window.index)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: command_attack
   #--------------------------------------------------------------------------
@@ -2768,7 +2768,7 @@ class Scene_Battle < Scene_Base
     $game_temp.battle_aid = $data_skills[BattleManager.actor.attack_skill_id]
     scene_battle_command_attack_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: command_skill
   #--------------------------------------------------------------------------
@@ -2779,7 +2779,7 @@ class Scene_Battle < Scene_Base
     @actor_command_window.hide
     @status_aid_window.show
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: command_item
   #--------------------------------------------------------------------------
@@ -2790,7 +2790,7 @@ class Scene_Battle < Scene_Base
     @actor_command_window.hide
     @status_aid_window.show
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: on_skill_ok
   #--------------------------------------------------------------------------
@@ -2809,7 +2809,7 @@ class Scene_Battle < Scene_Base
       $game_temp.battle_aid = nil
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_skill_cancel
   #--------------------------------------------------------------------------
@@ -2820,7 +2820,7 @@ class Scene_Battle < Scene_Base
     @actor_command_window.show
     @status_aid_window.hide
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: on_item_ok
   #--------------------------------------------------------------------------
@@ -2839,7 +2839,7 @@ class Scene_Battle < Scene_Base
     end
     $game_party.last_item.object = @item
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_item_cancel
   #--------------------------------------------------------------------------
@@ -2850,7 +2850,7 @@ class Scene_Battle < Scene_Base
     @actor_command_window.show
     @status_aid_window.hide
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: select_actor_selection
   #--------------------------------------------------------------------------
@@ -2863,7 +2863,7 @@ class Scene_Battle < Scene_Base
     @item_window.hide
     @help_window.show
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_actor_ok
   #--------------------------------------------------------------------------
@@ -2879,7 +2879,7 @@ class Scene_Battle < Scene_Base
     end
     @status_aid_window.hide
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_actor_cancel
   #--------------------------------------------------------------------------
@@ -2896,7 +2896,7 @@ class Scene_Battle < Scene_Base
       @item_window.show
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: select_enemy_selection
   #--------------------------------------------------------------------------
@@ -2914,7 +2914,7 @@ class Scene_Battle < Scene_Base
     $game_temp.battle_aid = nil
     scene_battle_on_enemy_ok_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_enemy_cancel
   #--------------------------------------------------------------------------
@@ -2930,7 +2930,7 @@ class Scene_Battle < Scene_Base
       @help_window.hide
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: battle_start
   #--------------------------------------------------------------------------
@@ -2940,12 +2940,12 @@ class Scene_Battle < Scene_Base
     return unless YEA::BATTLE::SKIP_PARTY_COMMAND
     @party_command_window.deactivate
     if BattleManager.input_start
-      command_fight 
+      command_fight
     else
       turn_start
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: turn_end
   #--------------------------------------------------------------------------
@@ -2970,7 +2970,7 @@ class Scene_Battle < Scene_Base
       turn_start
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: end_battle_conditions?
   #--------------------------------------------------------------------------
@@ -2981,7 +2981,7 @@ class Scene_Battle < Scene_Base
     return true if BattleManager.aborting?
     return false
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: execute_action
   #--------------------------------------------------------------------------
@@ -2990,7 +2990,7 @@ class Scene_Battle < Scene_Base
     use_item
     @log_window.wait_and_clear
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: apply_item_effects
   #--------------------------------------------------------------------------
@@ -3007,7 +3007,7 @@ class Scene_Battle < Scene_Base
     end
     perform_collapse_check(target)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwite method: invoke_counter_attack
   #--------------------------------------------------------------------------
@@ -3021,7 +3021,7 @@ class Scene_Battle < Scene_Base
     perform_collapse_check(target)
     perform_collapse_check(@subject)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: perform_collapse_check
   #--------------------------------------------------------------------------
@@ -3031,7 +3031,7 @@ class Scene_Battle < Scene_Base
     @log_window.wait
     @log_window.wait_for_effect
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: show_attack_animation
   #--------------------------------------------------------------------------
@@ -3040,7 +3040,7 @@ class Scene_Battle < Scene_Base
     wait_for_animation
     show_normal_animation(targets, @subject.atk_animation_id2, true)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: show_normal_animation
   #--------------------------------------------------------------------------
@@ -3058,7 +3058,7 @@ class Scene_Battle < Scene_Base
       ani_check = true if animation.to_screen?
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: process_action_end
   #--------------------------------------------------------------------------
@@ -3071,7 +3071,7 @@ class Scene_Battle < Scene_Base
     @log_window.wait_and_clear
     BattleManager.judge_win_loss
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: use_item
   #--------------------------------------------------------------------------
@@ -3086,7 +3086,7 @@ class Scene_Battle < Scene_Base
     process_casting_animation if $imported["YEA-CastAnimations"]
     targets = @subject.current_action.make_targets.compact rescue []
     show_animation(targets, item.animation_id) if show_all_animation?(item)
-    targets.each {|target| 
+    targets.each {|target|
       if $imported["YEA-TargetManager"]
         target = alive_random_target(target, item) if item.for_random?
       end
@@ -3095,7 +3095,7 @@ class Scene_Battle < Scene_Base
       lunatic_object_effect(:after, item, @subject, @subject)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: invoke_item
   #--------------------------------------------------------------------------
@@ -3108,7 +3108,7 @@ class Scene_Battle < Scene_Base
     end
     scene_battle_invoke_item_abe(target, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: show_all_animation?
   #--------------------------------------------------------------------------
@@ -3118,7 +3118,7 @@ class Scene_Battle < Scene_Base
     return false unless $data_animations[item.animation_id].to_screen?
     return true
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: separate_ani?
   #--------------------------------------------------------------------------
@@ -3128,7 +3128,7 @@ class Scene_Battle < Scene_Base
     return false if $data_animations[item.animation_id].to_screen?
     return target.dead? == item.for_dead_friend?
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: status_redraw_target
   #--------------------------------------------------------------------------
@@ -3136,7 +3136,7 @@ class Scene_Battle < Scene_Base
     return unless target.actor?
     @status_window.draw_item($game_party.battle_members.index(target))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: start_party_command_selection
   #--------------------------------------------------------------------------
@@ -3145,12 +3145,12 @@ class Scene_Battle < Scene_Base
     @status_window.refresh unless scene_changing?
     start_party_command_selection_abe
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: refresh_status
   #--------------------------------------------------------------------------
   def refresh_status; return; end
-  
+
   #--------------------------------------------------------------------------
   # new method: refresh_autobattler_status_window
   #--------------------------------------------------------------------------
@@ -3160,25 +3160,25 @@ class Scene_Battle < Scene_Base
       @status_window.draw_item(member.index)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: hide_extra_gauges
   #--------------------------------------------------------------------------
   def hide_extra_gauges
     # Made for compatibility
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: show_extra_gauges
   #--------------------------------------------------------------------------
   def show_extra_gauges
     # Made for compatibility
   end
-  
+
 end # Scene_Battle
 
 #==============================================================================
-# 
+#
 # Бе End of File
-# 
+#
 #==============================================================================

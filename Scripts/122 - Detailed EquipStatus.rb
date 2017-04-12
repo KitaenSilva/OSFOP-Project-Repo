@@ -51,16 +51,16 @@ class Window_EquipStatus < Window_Base
     change_color(param_change_color(new_value - @actor.param(param_id)))
     draw_text(x, y, 32, line_height, new_value, 2)
   end
-  def draw_param_change(x,y,param_id)
+  def draw_param_change(x, y, param_id)
     value = @temp_actor.param(param_id) - @actor.param(param_id)
     change_color(param_change_color(value))
     if value > 0
-      text = "+" + value.to_s 
+      text = "+" + value.to_s
     elsif value < 0
       text = value.to_s
     else
       text = ""
     end
-    draw_text(x,y,32,line_height,text,2)
+    draw_text(x, y, 32, line_height, text, 2)
   end
 end

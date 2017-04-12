@@ -83,7 +83,7 @@ class Game_Interpreter
     @map_id == $game_map.map_id
   end
   #--------------------------------------------------------------------------
-  # * Detect/Set Up Call-Reserved Common Events 
+  # * Detect/Set Up Call-Reserved Common Events
   #--------------------------------------------------------------------------
   def setup_reserved_common_event
     if $game_temp.common_event_reserved?
@@ -1041,7 +1041,7 @@ class Game_Interpreter
     Fiber.yield while $game_message.visible
     Fiber.yield
     name = @params[0]
-    Graphics.play_movie('Movies/' + name) unless name.empty?
+    Graphics.play_movie("Movies/" + name) unless name.empty?
   end
   #--------------------------------------------------------------------------
   # * Change Map Name Display

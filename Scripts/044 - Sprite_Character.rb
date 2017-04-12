@@ -86,7 +86,7 @@ class Sprite_Character < Sprite_Base
   def set_character_bitmap
     self.bitmap = Cache.character(@character_name)
     sign = @character_name[/^[\!\$]./]
-    if sign && sign.include?('$')
+    if sign && sign.include?("$")
       @cw = bitmap.width / 3
       @ch = bitmap.height / 4
     else

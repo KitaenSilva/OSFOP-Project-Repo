@@ -149,8 +149,8 @@ class Game_Actor < Game_Battler
   # * Get Equipment Slot Array
   #--------------------------------------------------------------------------
   def equip_slots
-    return [0,0,2,3,4] if dual_wield?       # Dual wield
-    return [0,1,2,3,4]                      # Normal
+    return [0, 0, 2, 3, 4] if dual_wield?       # Dual wield
+    return [0, 1, 2, 3, 4]                      # Normal
   end
   #--------------------------------------------------------------------------
   # * Get Weapon Object Array
@@ -232,7 +232,7 @@ class Game_Actor < Game_Battler
     @equips[slot_id].object = nil if slot_id
   end
   #--------------------------------------------------------------------------
-  # * Remove Equipment that Cannot Be Equipped 
+  # * Remove Equipment that Cannot Be Equipped
   #     item_gain:  Return removed equipment to party.
   #--------------------------------------------------------------------------
   def release_unequippable_items(item_gain = true)

@@ -113,7 +113,7 @@ class Game_Vehicle < Game_Character
     @walking_bgm.play
   end
   #--------------------------------------------------------------------------
-  # * Synchronize With Player 
+  # * Synchronize With Player
   #--------------------------------------------------------------------------
   def sync_with_player
     @x = $game_player.x

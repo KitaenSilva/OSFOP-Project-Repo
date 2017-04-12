@@ -1,7 +1,7 @@
 #==============================================================================
 # ** DataManager
 #------------------------------------------------------------------------------
-#  This module manages the database and game objects. Almost all of the 
+#  This module manages the database and game objects. Almost all of the
 # global variables used by the game are initialized by this module.
 #==============================================================================
 
@@ -116,7 +116,7 @@ module DataManager
   # * Determine Existence of Save File
   #--------------------------------------------------------------------------
   def self.save_file_exists?
-    !Dir.glob('Save*.rvdata2').empty?
+    !Dir.glob("Save*.rvdata2").empty?
   end
   #--------------------------------------------------------------------------
   # * Maximum Number of Save Files

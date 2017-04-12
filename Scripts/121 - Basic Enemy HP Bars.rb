@@ -16,7 +16,7 @@
 #
 #--- Free to use in any project, commercial or non-commercial, with credit given
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
- 
+
 #Customization starts here:
 module DTP_HP
   #Whether to place the hp bar above or below the enemy
@@ -28,7 +28,7 @@ module DTP_HP
   USE_HP_BAR = true
   #Whether to include an mp bar or not
   USE_MP_BAR = false
- 
+
   #The width of the hp bar
   BAR_WIDTH = 66
   #The height of the hp bar
@@ -41,22 +41,22 @@ module DTP_HP
   BAR_OFFSET_X = 0
   #Offset the hp bar along the y-axis(up,down)
   BAR_OFFSET_Y = 0
- 
+
   #Color for the back of the hp bar
-  COLOR_BAR_BACK = Color.new(0,0,0,200)
+  COLOR_BAR_BACK = Color.new(0, 0, 0, 200)
   #First color for the hp bar gradient
-  COLOR_BAR_1 = Color.new(255,0,0)
+  COLOR_BAR_1 = Color.new(255, 0, 0)
   #Second color for the hp bar gradient
-  COLOR_BAR_2 = Color.new(200,100,100)
+  COLOR_BAR_2 = Color.new(200, 100, 100)
   #Outside border color
-  COLOR_BORDER_1 = Color.new(0,0,0,185)
+  COLOR_BORDER_1 = Color.new(0, 0, 0, 185)
   #Inside border color
-  COLOR_BORDER_2 = Color.new(255,255,255,185)
+  COLOR_BORDER_2 = Color.new(255, 255, 255, 185)
   #First color for the mp bar gradient
-  MP_COLOR_BAR_1 = Color.new(0,175,255)
+  MP_COLOR_BAR_1 = Color.new(0, 175, 255)
   #Second color fot he mp bar gradient
-  MP_COLOR_BAR_2 = Color.new(0,0,255)
- 
+  MP_COLOR_BAR_2 = Color.new(0, 0, 255)
+
   #Whether to display text or not
   USE_TEXT = true
   #Text to be displayed, chp = current hp, mhp = max hp, php = percentage hp
@@ -70,7 +70,7 @@ module DTP_HP
   TEXT_SIZE = Font.default_size
   #Font of the displayed text
   TEXT_FONT = Font.default_name
- 
+
   #Show bars only when specific actor in party. Array format. Example: [8,7]
   #Set to [] to not use actor only
   SPECIFIC_ACTOR = []
@@ -82,7 +82,7 @@ module DTP_HP
   SCAN_ONCE = false
   #Hp bars will only show when you are targetting a monster
   ONLY_ON_TARGET = true
- 
+
   #Text to display if it's a boss monster, accepts same arguments
   BOSS_TEXT = "???"
   #The width of the boss hp bar
@@ -97,7 +97,7 @@ module DTP_HP
   BOSS_MONSTERS = []
 end
 #Customization ends here
- 
+
 class Sprite_Battler
   alias hpbar_update update
   alias hpbar_dispose dispose
@@ -113,7 +113,7 @@ class Sprite_Battler
     setup_bar if @hp_bar.nil?
     if @text_display.nil?
       @text_display = Sprite_Base.new(self.viewport)
-      @text_display.bitmap = Bitmap.new(100,DTP_HP::TEXT_SIZE)
+      @text_display.bitmap = Bitmap.new(100, DTP_HP::TEXT_SIZE)
       @text_display.bitmap.font.size = DTP_HP::TEXT_SIZE
       @text_display.bitmap.font.name = DTP_HP::TEXT_FONT
       @text_display.x = @hp_bar.x + DTP_HP::TEXT_OFFSET_X
@@ -142,32 +142,32 @@ class Sprite_Battler
     rwidth = @hp_bar.bitmap.width
     rheight = @hp_bar.bitmap.height
     if !DTP_HP::CUSTOM_BAR && DTP_HP::USE_HP_BAR
-      @hp_bar.bitmap.fill_rect(0,0,rwidth,rheight,DTP_HP::COLOR_BAR_BACK)
-      @hp_bar.bitmap.fill_rect(bwidth,bheight,rwidth-bwidth*2,rheight-bheight*2,DTP_HP::COLOR_BORDER_2)
-      @hp_bar.bitmap.fill_rect(bwidth*2,bheight*2,width,height,DTP_HP::COLOR_BORDER_1)
+      @hp_bar.bitmap.fill_rect(0, 0, rwidth, rheight, DTP_HP::COLOR_BAR_BACK)
+      @hp_bar.bitmap.fill_rect(bwidth, bheight, rwidth-bwidth*2, rheight-bheight*2, DTP_HP::COLOR_BORDER_2)
+      @hp_bar.bitmap.fill_rect(bwidth*2, bheight*2, width, height, DTP_HP::COLOR_BORDER_1)
     end
     hp_width = @battler.hp_rate * width
     if DTP_HP::USE_HP_BAR
-      @hp_bar.bitmap.gradient_fill_rect(bwidth*2,bheight*2,hp_width,height,DTP_HP::COLOR_BAR_1,DTP_HP::COLOR_BAR_2)
+      @hp_bar.bitmap.gradient_fill_rect(bwidth*2, bheight*2, hp_width, height, DTP_HP::COLOR_BAR_1, DTP_HP::COLOR_BAR_2)
     end
     if DTP_HP::CUSTOM_BAR && DTP_HP::USE_HP_BAR
       border_bitmap = Bitmap.new("Graphics/System/Custom_HP.png")
-      rect = Rect.new(0,0,border_bitmap.width,border_bitmap.height)
-      @hp_bar.bitmap.blt(0,0,border_bitmap,rect)
+      rect = Rect.new(0, 0, border_bitmap.width, border_bitmap.height)
+      @hp_bar.bitmap.blt(0, 0, border_bitmap, rect)
     end
     if DTP_HP::USE_MP_BAR
       @mp_bar.bitmap.clear
       if !DTP_HP::CUSTOM_BAR
-        @mp_bar.bitmap.fill_rect(0,0,rwidth,rheight,DTP_HP::COLOR_BAR_BACK)
-        @mp_bar.bitmap.fill_rect(bwidth,bheight,rwidth-bwidth*2,rheight-bheight*2,DTP_HP::COLOR_BORDER_2)
-        @mp_bar.bitmap.fill_rect(bwidth*2,bheight*2,width,height,DTP_HP::COLOR_BORDER_1)
+        @mp_bar.bitmap.fill_rect(0, 0, rwidth, rheight, DTP_HP::COLOR_BAR_BACK)
+        @mp_bar.bitmap.fill_rect(bwidth, bheight, rwidth-bwidth*2, rheight-bheight*2, DTP_HP::COLOR_BORDER_2)
+        @mp_bar.bitmap.fill_rect(bwidth*2, bheight*2, width, height, DTP_HP::COLOR_BORDER_1)
       end
       mp_width = @battler.mp_rate * width
-      @mp_bar.bitmap.gradient_fill_rect(bwidth*2,bheight*2,mp_width,height,DTP_HP::MP_COLOR_BAR_1,DTP_HP::MP_COLOR_BAR_2)
+      @mp_bar.bitmap.gradient_fill_rect(bwidth*2, bheight*2, mp_width, height, DTP_HP::MP_COLOR_BAR_1, DTP_HP::MP_COLOR_BAR_2)
       if DTP_HP::CUSTOM_BAR
         border_bitmap = Bitmap.new("Graphics/System/Custom_HP.png")
-        rect = Rect.new(0,0,border_bitmap.width,border_bitmap.height)
-        @mp_bar.bitmap.blt(0,0,border_bitmap,rect)
+        rect = Rect.new(0, 0, border_bitmap.width, border_bitmap.height)
+        @mp_bar.bitmap.blt(0, 0, border_bitmap, rect)
       end
     end
     return unless DTP_HP::USE_TEXT
@@ -178,7 +178,7 @@ class Sprite_Battler
     text.gsub!(/chp/) {@battler.hp}
     text.gsub!(/mhp/) {@battler.mhp}
     text.gsub!(/php/) {(@battler.hp_rate * 100).to_i}
-    @text_display.bitmap.draw_text(0,0,100,@text_display.height,text)
+    @text_display.bitmap.draw_text(0, 0, 100, @text_display.height, text)
   end
   def setup_bar
     boss = DTP_HP::BOSS_MONSTERS.include?(@battler.enemy_id)
@@ -190,7 +190,7 @@ class Sprite_Battler
       width = DTP_HP::BOSS_BAR_WIDTH + DTP_HP::BOSS_BORDER_WIDTH * 4
       height = DTP_HP::BOSS_BAR_HEIGHT + DTP_HP::BOSS_BORDER_HEIGHT * 4
     end
-    @hp_bar.bitmap = Bitmap.new(width,height)
+    @hp_bar.bitmap = Bitmap.new(width, height)
     @hp_bar.x = self.x - @hp_bar.width / 2 + DTP_HP::BAR_OFFSET_X
     @hp_bar.y = self.y + DTP_HP::BAR_OFFSET_Y - self.bitmap.height - @hp_bar.height
     @hp_bar.y = self.y + DTP_HP::BAR_OFFSET_Y unless DTP_HP::ABOVE_MONSTER
@@ -199,7 +199,7 @@ class Sprite_Battler
     @hp_bar.z = 104
     if DTP_HP::USE_MP_BAR
       @mp_bar = Sprite_Base.new(self.viewport)
-      @mp_bar.bitmap = Bitmap.new(@hp_bar.width,@hp_bar.height)
+      @mp_bar.bitmap = Bitmap.new(@hp_bar.width, @hp_bar.height)
       @mp_bar.x = @hp_bar.x + 6
       @mp_bar.y = @hp_bar.y + @mp_bar.height - 3
       @mp_bar.z = 103
@@ -248,18 +248,18 @@ class Sprite_Battler
     hpbar_dispose
   end
 end
- 
+
 class Scene_Battle
   attr_reader  :enemy_window
   def target_window_index
     begin
-    @enemy_window.enemy.index
-    rescue
-      return -1
+      @enemy_window.enemy.index
+      rescue
+        return -1
     end
   end
 end
- 
+
 class Game_Party
   alias hp_bar_init initialize
   attr_accessor  :monster_scans

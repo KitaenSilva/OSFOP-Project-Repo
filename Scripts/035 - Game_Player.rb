@@ -272,7 +272,7 @@ class Game_Player < Game_Character
   # * Determine if Touch Event is Triggered
   #--------------------------------------------------------------------------
   def check_event_trigger_touch(x, y)
-    start_map_event(x, y, [1,2], true)
+    start_map_event(x, y, [1, 2], true)
   end
   #--------------------------------------------------------------------------
   # * Processing of Movement via Input from Directional Buttons
@@ -334,7 +334,7 @@ class Game_Player < Game_Character
     end
   end
   #--------------------------------------------------------------------------
-  # * Update Boarding onto Vehicle 
+  # * Update Boarding onto Vehicle
   #--------------------------------------------------------------------------
   def update_vehicle_get_on
     if !@followers.gathering? && !moving?
@@ -347,7 +347,7 @@ class Game_Player < Game_Character
     end
   end
   #--------------------------------------------------------------------------
-  # * Update Disembarking from Vehicle 
+  # * Update Disembarking from Vehicle
   #--------------------------------------------------------------------------
   def update_vehicle_get_off
     if !@followers.gathering? && vehicle.altitude == 0
@@ -396,7 +396,7 @@ class Game_Player < Game_Character
   #--------------------------------------------------------------------------
   def check_touch_event
     return false if in_airship?
-    check_event_trigger_here([1,2])
+    check_event_trigger_here([1, 2])
     $game_map.setup_starting_event
   end
   #--------------------------------------------------------------------------
@@ -406,7 +406,7 @@ class Game_Player < Game_Character
     return false if in_airship?
     check_event_trigger_here([0])
     return true if $game_map.setup_starting_event
-    check_event_trigger_there([0,1,2])
+    check_event_trigger_there([0, 1, 2])
     $game_map.setup_starting_event
   end
   #--------------------------------------------------------------------------

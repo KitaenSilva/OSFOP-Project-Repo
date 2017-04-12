@@ -11,7 +11,7 @@ Instructions
 ----------------------
 Notetag the skills like so:
 <replaces x>
-and when that skill is learned it will replace x and stop it 
+and when that skill is learned it will replace x and stop it
 from being re-learnt.
 ----------------------
 Known bugs
@@ -19,15 +19,15 @@ Known bugs
 None
 =end
 class Game_Actor < Game_Battler
-  
+
   attr_reader   :skills_replaced
-  
+
   alias fsr_setup setup
   def setup(actor_id)
     @skills_replaced = []
     fsr_setup(actor_id)
   end
-  
+
   alias fsr_learn_skill learn_skill
   def learn_skill(skill_id)
     unless skill_learn?($data_skills[skill_id])
@@ -38,11 +38,11 @@ class Game_Actor < Game_Battler
       end
     end
   end
-  
+
   alias fsr_skill_learn? skill_learn?
   def skill_learn?(skill)
     return true if fsr_skill_learn?(skill)
     return  (skill.is_a?(RPG::Skill) && @skills_replaced.include?(skill.id))
   end
-  
+
 end

@@ -136,7 +136,7 @@ class Window_NumberInput < Window_Base
     @digits_max.times do |i|
       rect = item_rect(i)
       rect.x += 1
-      draw_text(rect, s[i,1], 1)
+      draw_text(rect, s[i, 1], 1)
     end
   end
   #--------------------------------------------------------------------------

@@ -247,7 +247,7 @@ class Window_Message < Window_Base
     @number_window.close? && @item_window.close?
   end
   #--------------------------------------------------------------------------
-  # * Determine Whether to Continue Displaying Text 
+  # * Determine Whether to Continue Displaying Text
   #--------------------------------------------------------------------------
   def text_continue?
     $game_message.has_text? && !settings_changed?
@@ -345,19 +345,19 @@ class Window_Message < Window_Base
   #--------------------------------------------------------------------------
   def process_escape_character(code, text, pos)
     case code.upcase
-    when '$'
+    when "$"
       @gold_window.open
-    when '.'
+    when "."
       wait(15)
-    when '|'
+    when "|"
       wait(60)
-    when '!'
+    when "!"
       input_pause
-    when '>'
+    when ">"
       @line_show_fast = true
-    when '<'
+    when "<"
       @line_show_fast = false
-    when '^'
+    when "^"
       @pause_skip = true
     else
       super

@@ -1,10 +1,10 @@
 #==============================================================================
-# 
+#
 # ▼ Yanfly Engine Ace - Combat Log Display v1.02
 # -- Last Updated: 2012.01.24
 # -- Level: Easy
 # -- Requires: n/a
-# 
+#
 #==============================================================================
 
 $imported = {} if $imported.nil?
@@ -16,7 +16,7 @@ $imported["YEA-CombatLogDisplay"] = true
 # 2012.01.24 - Bug Fixed: Confirm window crash with Battle Command List.
 # 2012.01.16 - Prevented subsequent line inserts.
 # 2011.12.10 - Started Script and Finished.
-# 
+#
 #==============================================================================
 # ▼ Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -27,24 +27,24 @@ $imported["YEA-CombatLogDisplay"] = true
 # The player can access the combat log display any time during action selection
 # phase. Sometimes, players can even review over the combat log to try and
 # figure out any kinds of patterns enemies may even have.
-# 
+#
 #==============================================================================
 # ▼ Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
 # to an open slot below ▼ Materials/素材 but above ▼ Main. Remember to save.
-# 
+#
 #==============================================================================
 # ▼ Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
-# 
+#
 #==============================================================================
 
 module YEA
   module COMBAT_LOG
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Combat Log Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -58,7 +58,7 @@ module YEA
     LINE_COLOUR_ALPHA = 48             # Opacity of the line colour.
     TEXT_BATTLE_START = "\\c[4]Battle Start!"           # Battle start text.
     TEXT_TURN_NUMBER  = "\\c[4]Turn Number: \\c[6]%d"   # Turn number text.
-    
+
   end # COMBAT_LOG
 end # YEA
 
@@ -73,14 +73,14 @@ end # YEA
 #==============================================================================
 
 class Window_BattleLog < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # new method: combatlog_window=
   #--------------------------------------------------------------------------
   def combatlog_window=(window)
     @combatlog_window = window
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: combatlog
   #--------------------------------------------------------------------------
@@ -89,7 +89,7 @@ class Window_BattleLog < Window_Selectable
     return if text == ""
     @combatlog_window.add_line(text)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: add_text
   #--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ class Window_BattleLog < Window_Selectable
     combatlog(text)
     window_battlelog_add_text_cld(text)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: replace_text
   #--------------------------------------------------------------------------
@@ -107,23 +107,23 @@ class Window_BattleLog < Window_Selectable
     combatlog(text)
     window_battlelog_replace_text_cld(text)
   end
-  
+
   #--------------------------------------------------------------------------
   # Start Ace Battle Engine Compatibility
   #--------------------------------------------------------------------------
   if $imported["YEA-BattleEngine"]
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_current_state
   #--------------------------------------------------------------------------
-  alias window_battlelog_display_current_state_cld display_current_state
+    alias window_battlelog_display_current_state_cld display_current_state
   def display_current_state(subject)
     window_battlelog_display_current_state_cld(subject)
     return if YEA::BATTLE::MSG_CURRENT_STATE
     return if subject.most_important_state_text.empty?
     combatlog(subject.name + subject.most_important_state_text)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_use_item
   #--------------------------------------------------------------------------
@@ -140,7 +140,7 @@ class Window_BattleLog < Window_Selectable
       combatlog(sprintf(Vocab::UseItem, subject.name, item.name))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_counter
   #--------------------------------------------------------------------------
@@ -150,7 +150,7 @@ class Window_BattleLog < Window_Selectable
     return if YEA::BATTLE::MSG_COUNTERATTACK
     combatlog(sprintf(Vocab::CounterAttack, target.name))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_reflection
   #--------------------------------------------------------------------------
@@ -160,7 +160,7 @@ class Window_BattleLog < Window_Selectable
     return if YEA::BATTLE::MSG_REFLECT_MAGIC
     combatlog(sprintf(Vocab::MagicReflection, target.name))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_substitute
   #--------------------------------------------------------------------------
@@ -170,7 +170,7 @@ class Window_BattleLog < Window_Selectable
     return if YEA::BATTLE::MSG_SUBSTITUTE_HIT
     combatlog(sprintf(Vocab::Substitute, substitute.name, target.name))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_failure
   #--------------------------------------------------------------------------
@@ -182,7 +182,7 @@ class Window_BattleLog < Window_Selectable
       combatlog(sprintf(Vocab::ActionFailure, target.name))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_critical
   #--------------------------------------------------------------------------
@@ -195,7 +195,7 @@ class Window_BattleLog < Window_Selectable
       combatlog(text)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_miss
   #--------------------------------------------------------------------------
@@ -210,7 +210,7 @@ class Window_BattleLog < Window_Selectable
     end
     combatlog(sprintf(fmt, target.name))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_evasion
   #--------------------------------------------------------------------------
@@ -225,7 +225,7 @@ class Window_BattleLog < Window_Selectable
     end
     combatlog(sprintf(fmt, target.name))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_hp_damage
   #--------------------------------------------------------------------------
@@ -236,7 +236,7 @@ class Window_BattleLog < Window_Selectable
     return if target.result.hp_damage == 0 && item && !item.damage.to_hp?
     combatlog(target.result.hp_damage_text)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_mp_damage
   #--------------------------------------------------------------------------
@@ -246,7 +246,7 @@ class Window_BattleLog < Window_Selectable
     return if YEA::BATTLE::MSG_MP_DAMAGE
     combatlog(target.result.mp_damage_text)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_tp_damage
   #--------------------------------------------------------------------------
@@ -256,7 +256,7 @@ class Window_BattleLog < Window_Selectable
     return if YEA::BATTLE::MSG_TP_DAMAGE
     combatlog(target.result.tp_damage_text)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_added_states
   #--------------------------------------------------------------------------
@@ -270,7 +270,7 @@ class Window_BattleLog < Window_Selectable
       combatlog(target.name + state_msg)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_removed_states
   #--------------------------------------------------------------------------
@@ -283,7 +283,7 @@ class Window_BattleLog < Window_Selectable
       combatlog(target.name + state.message4)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: display_buffs
   #--------------------------------------------------------------------------
@@ -295,12 +295,12 @@ class Window_BattleLog < Window_Selectable
       combatlog(sprintf(fmt, target.name, Vocab::param(param_id)))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # End Ace Battle Engine Compatibility
   #--------------------------------------------------------------------------
   end # $imported["YEA-BattleEngine"]
-  
+
 end # Window_BattleLog
 
 #==============================================================================
@@ -308,7 +308,7 @@ end # Window_BattleLog
 #==============================================================================
 
 class Window_CombatLog < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # initialize
   #--------------------------------------------------------------------------
@@ -318,7 +318,7 @@ class Window_CombatLog < Window_Selectable
     deactivate
     hide
   end
-  
+
   #--------------------------------------------------------------------------
   # add_line
   #--------------------------------------------------------------------------
@@ -326,7 +326,7 @@ class Window_CombatLog < Window_Selectable
     return if text == "-" && @data[@data.size - 1] == "-"
     @data.push(text)
   end
-  
+
   #--------------------------------------------------------------------------
   # refresh
   #--------------------------------------------------------------------------
@@ -334,12 +334,12 @@ class Window_CombatLog < Window_Selectable
     create_contents
     draw_all_items
   end
-  
+
   #--------------------------------------------------------------------------
   # item_max
   #--------------------------------------------------------------------------
   def item_max; return @data.size; end
-  
+
   #--------------------------------------------------------------------------
   # draw_item
   #--------------------------------------------------------------------------
@@ -353,7 +353,7 @@ class Window_CombatLog < Window_Selectable
       draw_text_ex(rect.x, rect.y, text)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # draw_horz_line
   #--------------------------------------------------------------------------
@@ -361,7 +361,7 @@ class Window_CombatLog < Window_Selectable
     line_y = y + line_height / 2 - 1
     contents.fill_rect(4, line_y, contents_width-8, 2, line_colour)
   end
-  
+
   #--------------------------------------------------------------------------
   # line_colour
   #--------------------------------------------------------------------------
@@ -370,7 +370,7 @@ class Window_CombatLog < Window_Selectable
     colour.alpha = YEA::COMBAT_LOG::LINE_COLOUR_ALPHA
     return colour
   end
-  
+
   #--------------------------------------------------------------------------
   # show
   #--------------------------------------------------------------------------
@@ -380,7 +380,7 @@ class Window_CombatLog < Window_Selectable
     activate
     select([item_max-1, 0].max)
   end
-  
+
   #--------------------------------------------------------------------------
   # hide
   #--------------------------------------------------------------------------
@@ -388,7 +388,7 @@ class Window_CombatLog < Window_Selectable
     deactivate
     super
   end
-  
+
 end # Window_CombatLog
 
 #==============================================================================
@@ -396,7 +396,7 @@ end # Window_CombatLog
 #==============================================================================
 
 class Window_PartyCommand < Window_Command
-  
+
   #--------------------------------------------------------------------------
   # alias method: make_command_list
   #--------------------------------------------------------------------------
@@ -406,7 +406,7 @@ class Window_PartyCommand < Window_Command
     return if $imported["YEA-BattleCommandList"]
     add_command(YEA::COMBAT_LOG::COMMAND_NAME, :combatlog)
   end
-  
+
 end # Window_PartyCommand
 
 #==============================================================================
@@ -414,7 +414,7 @@ end # Window_PartyCommand
 #==============================================================================
 
 class Scene_Battle < Scene_Base
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_log_window
   #--------------------------------------------------------------------------
@@ -423,7 +423,7 @@ class Scene_Battle < Scene_Base
     scene_battle_create_log_window_cld
     create_combatlog_window
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: create_combatlog_window
   #--------------------------------------------------------------------------
@@ -435,14 +435,14 @@ class Scene_Battle < Scene_Base
     @combatlog_window.add_line(YEA::COMBAT_LOG::TEXT_BATTLE_START)
     @combatlog_window.add_line("-")
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: open_combatlog
   #--------------------------------------------------------------------------
   def open_combatlog
     @combatlog_window.show
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: close_combatlog
   #--------------------------------------------------------------------------
@@ -458,7 +458,7 @@ class Scene_Battle < Scene_Base
       @party_command_window.activate
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_party_command_window
   #--------------------------------------------------------------------------
@@ -467,7 +467,7 @@ class Scene_Battle < Scene_Base
     create_party_command_window_cld
     @party_command_window.set_handler(:combatlog, method(:open_combatlog))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: turn_start
   #--------------------------------------------------------------------------
@@ -479,7 +479,7 @@ class Scene_Battle < Scene_Base
     @combatlog_window.add_line(text)
     @combatlog_window.add_line("-")
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: execute_action
   #--------------------------------------------------------------------------
@@ -489,7 +489,7 @@ class Scene_Battle < Scene_Base
     scene_battle_execute_action_cld
     @combatlog_window.add_line("-")
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: turn_end
   #--------------------------------------------------------------------------
@@ -498,11 +498,11 @@ class Scene_Battle < Scene_Base
     scene_battle_turn_end_cld
     @combatlog_window.add_line("-")
   end
-  
+
 end # Scene_Battle
 
 #==============================================================================
-# 
+#
 # ▼ End of File
-# 
+#
 #==============================================================================

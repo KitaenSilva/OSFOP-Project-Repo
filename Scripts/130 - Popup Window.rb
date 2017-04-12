@@ -24,15 +24,15 @@
 #   All my other scripts and projects can be found here: http://daimonioustails.weebly.com/
 #
 #- Free to use in any project with credit given, donations always welcome!
- 
+
 POPUP_DURATION = 180
 class Popup_Window < Window_Base
-  def initialize(text,timer,x,y)
-    super(0,0,25,100)
+  def initialize(text, timer, x, y)
+    super(0, 0, 25, 100)
     text.each do |string|
       temp_string = string.gsub(/\\[^i]\[\d{0,3}\]/) { "" }
       temp_string = temp_string.gsub(/\\i\[\d{0,3}\]/) { "  " }
-      self.width = [text_size(temp_string).width+standard_padding*2+12,self.width].max
+      self.width = [text_size(temp_string).width+standard_padding*2+12, self.width].max
     end
     self.height = text.size * line_height + line_height
     if x.nil?
@@ -56,7 +56,7 @@ class Popup_Window < Window_Base
     contents.clear
     yy = 0
     @text.each do |string|
-      draw_text_ex(0,yy,string)
+      draw_text_ex(0, yy, string)
       yy += line_height
     end
   end
@@ -66,21 +66,21 @@ class Popup_Window < Window_Base
     close if @timer == 0
   end
 end
- 
+
 module Popup
   def self.init
     @queue = []
   end
   def self.add(text, timer = POPUP_DURATION, x = nil, y = nil)
-    @queue.push([text,timer,x,y])
+    @queue.push([text, timer, x, y])
   end
   def self.queue
     @queue
   end
-end  
- 
+end
+
 Popup.init
- 
+
 class Scene_Base
   alias popupwin_preterminate pre_terminate
   alias popupwin_update update
@@ -106,7 +106,7 @@ class Scene_Base
     $popup.visible = false unless $popup.nil?
   end
 end
- 
+
 class Game_Interpreter
   alias popup_command_355 command_355
   def pop_up(text, timer = POPUP_DURATION, x = nil, y = nil)
