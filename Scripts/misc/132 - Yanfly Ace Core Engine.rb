@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 #==============================================================================
 # 
 # ▼ Yanfly Engine Ace - Ace Core Engine v1.09

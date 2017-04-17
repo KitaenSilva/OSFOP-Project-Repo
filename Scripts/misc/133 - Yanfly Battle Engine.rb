@@ -1,3 +1,7 @@
+#!/bin/env ruby
+# encoding: utf-8
+
+
 #==============================================================================
 # 
 # Бе Yanfly Engine Ace - Ace Battle Engine v1.22
