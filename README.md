@@ -33,3 +33,7 @@ That'll switch to the designated toast branch.
 After that, and with every release, just do `git pull` in cmd.
 
 We'll do the rest.
+
+## How does one exactly do this "git pull"? :thinking:
+
+Well, ask us! That we severely punish you and probably will kick you if you do it has no change on the fact that you can ask and possibly reveal that you've been using `master` branch for all this time, nope!
