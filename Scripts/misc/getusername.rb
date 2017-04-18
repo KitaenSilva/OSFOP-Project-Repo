@@ -1,6 +1,4 @@
 def getusername
-  require "Win32API"
-
   name = " " * 128
   size = "128"
 
