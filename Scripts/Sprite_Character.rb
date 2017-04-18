@@ -20,6 +20,7 @@ class Sprite_Character < Sprite_Base
     @balloon_duration = 0
     @sprite = Sprite.new(viewport)
     @light_sprite = Sprite.new(light_viewport)
+    @lv = light_viewport
     @light_sprite.blend_type = 1
     update
   end
@@ -198,7 +199,7 @@ class Sprite_Character < Sprite_Base
   def start_balloon
     dispose_balloon
     @balloon_duration = 8 * balloon_speed + balloon_wait
-    @balloon_sprite = ::Sprite.new(viewport)
+    @balloon_sprite = ::Sprite.new(@lv)
     @balloon_sprite.bitmap = Cache.system("Balloon")
     @balloon_sprite.ox = 16
     @balloon_sprite.oy = 32
@@ -221,7 +222,7 @@ class Sprite_Character < Sprite_Base
       @balloon_duration -= 1
       if @balloon_duration > 0
         @balloon_sprite.x = x
-        @balloon_sprite.y = y - height
+        @balloon_sprite.y = y - height - 32
         @balloon_sprite.z = z + 200
         sx = balloon_frame_index * 32
         sy = (@balloon_id - 1) * 32
