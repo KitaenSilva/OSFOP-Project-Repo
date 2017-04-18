@@ -83,7 +83,7 @@ class Game_Interpreter
     @map_id == $game_map.map_id
   end
   #--------------------------------------------------------------------------
-  # * Detect/Set Up Call-Reserved Common Events 
+  # * Detect/Set Up Call-Reserved Common Events
   #--------------------------------------------------------------------------
   def setup_reserved_common_event
     if $game_temp.common_event_reserved?
@@ -254,7 +254,7 @@ class Game_Interpreter
     $game_message.face_index = @params[1]
     $game_message.background = @params[2]
     $game_message.position = @params[3]
-    while next_event_code == 401       # Text data
+    while next_event_code == 401 # Text data
       @index += 1
       $game_message.add(@list[@index].parameters[0])
     end
@@ -414,7 +414,7 @@ class Game_Interpreter
           result = (actor.state?(@params[3]))
         end
       end
-    when 5  # Enemy
+    when 5 # Enemy
       enemy = $game_troop.members[@params[1]]
       if enemy
         case @params[2]
@@ -530,7 +530,7 @@ class Game_Interpreter
   #--------------------------------------------------------------------------
   def command_122
     value = 0
-    case @params[3]  # Operand
+    case @params[3] # Operand
     when 0  # Constant
       value = @params[4]
     when 1  # Variable
@@ -573,7 +573,7 @@ class Game_Interpreter
           return actor.param(param2 - 4)
         end
       end
-    when 4  # Enemies
+    when 4 # Enemies
       enemy = $game_troop.members[param1]
       if enemy
         case param2
@@ -585,7 +585,7 @@ class Game_Interpreter
           return enemy.param(param2 - 2)
         end
       end
-    when 5  # Character
+    when 5 # Character
       character = get_character(param1)
       if character
         case param2
@@ -1041,7 +1041,7 @@ class Game_Interpreter
     Fiber.yield while $game_message.visible
     Fiber.yield
     name = @params[0]
-    Graphics.play_movie('Movies/' + name) unless name.empty?
+    Graphics.play_movie("Movies/" + name) unless name.empty?
   end
   #--------------------------------------------------------------------------
   # * Change Map Name Display

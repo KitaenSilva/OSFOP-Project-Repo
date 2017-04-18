@@ -1,10 +1,10 @@
 #==============================================================================
-# 
+#
 # ▼ Yanfly Engine Ace - Move Restrict Region v1.03
 # -- Last Updated: 2012.01.03
 # -- Level: Normal
 # -- Requires: n/a
-# 
+#
 #==============================================================================
 
 $imported = {} if $imported.nil?
@@ -17,7 +17,7 @@ $imported["YEA-MoveRestrictRegion"] = true
 # 2012.01.03 - Added Feature: <all restrict: x>
 # 2011.12.26 - Bug Fixed: Player Restricted Regions.
 # 2011.12.15 - Started Script and Finished.
-# 
+#
 #==============================================================================
 # ▼ Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -26,13 +26,13 @@ $imported["YEA-MoveRestrictRegion"] = true
 # Simply draw out the area you want to enclose NPC's in on and they'll be
 # unable to move past it unless they have Through on. Likewise, there are
 # regions that you can prevent the player from moving onto, too!
-# 
+#
 #==============================================================================
 # ▼ Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
 # to an open slot below ▼ Materials/素材 but above ▼ Main. Remember to save.
-# 
+#
 # -----------------------------------------------------------------------------
 # Map Notetags - These notetags go in the map notebox in a map's properties.
 # -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $imported["YEA-MoveRestrictRegion"] = true
 # the player and NPC's in with the regions and both will be unable to move onto
 # any of those tiles marked by region x. If you want to have more regions
 # restrict NPC's, insert multiples of this tag.
-# 
+#
 # <npc restrict: x>
 # <npc restrict: x, x>
 # NPC's on that map will be unable to move past regions x unless they have a
@@ -52,7 +52,7 @@ $imported["YEA-MoveRestrictRegion"] = true
 # regions and the NPC's will be unable to move onto any of those tiles marked
 # by region x. If you want to have more regions restrict NPC's, insert
 # multiples of this tag.
-# 
+#
 # <player restrict: x>
 # <player restrict: x, x>
 # Players will not be able to move on tiles marked by region x unless the
@@ -60,18 +60,18 @@ $imported["YEA-MoveRestrictRegion"] = true
 # player in with the regions and the player will be unable to move past any of
 # those tiles marked by region x. If you want to have more regions restrict the
 # player, insert multiples of this tag.
-# 
+#
 #==============================================================================
 # ▼ Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
-# 
+#
 #==============================================================================
 
 module YEA
   module MOVE_RESTRICT
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Default Completely Restricted Regions -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -82,7 +82,7 @@ module YEA
     # debug_through flag for players.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     DEFAULT_ALL = [61]
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Default Player Restricted Regions -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -90,7 +90,7 @@ module YEA
     # from passing through, insert that region ID into the array below.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     DEFAULT_PLAYER = [62]
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Default NPC Restricted Regions -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -98,7 +98,7 @@ module YEA
     # passing through, insert that region ID into the array below.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     DEFAULT_NPC = [63]
-    
+
   end # MOVE_RESTRICT
 end # YEA
 
@@ -110,16 +110,16 @@ end # YEA
 
 module YEA
   module REGEXP
-  module MAP
-    
-    ALL_RESTRICT = 
-      /<(?:ALL_RESTRICT|all restrict):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    NPC_RESTRICT = 
-      /<(?:NPC_RESTRICT|npc restrict):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    PLAYER_RESTRICT = 
-      /<(?:PLAYER_RESTRICT|player restrict):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    
-  end # MAP
+    module MAP
+
+      ALL_RESTRICT =
+        /<(?:ALL_RESTRICT|all restrict):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+      NPC_RESTRICT =
+        /<(?:NPC_RESTRICT|npc restrict):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+      PLAYER_RESTRICT =
+        /<(?:PLAYER_RESTRICT|player restrict):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+
+    end # MAP
   end # REGEXP
 end # YEA
 
@@ -128,14 +128,14 @@ end # YEA
 #==============================================================================
 
 class RPG::Map
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :all_restrict_regions
   attr_accessor :npc_restrict_regions
   attr_accessor :player_restrict_regions
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_mrr
   #--------------------------------------------------------------------------
@@ -148,20 +148,20 @@ class RPG::Map
       case line
       #---
       when YEA::REGEXP::MAP::ALL_RESTRICT
-        $1.scan(/\d+/).each { |num| 
+        $1.scan(/\d+/).each { |num|
         @all_restrict_regions.push(num.to_i) if num.to_i > 0 }
       when YEA::REGEXP::MAP::NPC_RESTRICT
-        $1.scan(/\d+/).each { |num| 
+        $1.scan(/\d+/).each { |num|
         @npc_restrict_regions.push(num.to_i) if num.to_i > 0 }
       when YEA::REGEXP::MAP::PLAYER_RESTRICT
-        $1.scan(/\d+/).each { |num| 
+        $1.scan(/\d+/).each { |num|
         @player_restrict_regions.push(num.to_i) if num.to_i > 0 }
       #---
       end
     } # self.note.split
     #---
   end
-  
+
 end # RPG::Map
 
 #==============================================================================
@@ -169,7 +169,7 @@ end # RPG::Map
 #==============================================================================
 
 class Game_Map
-  
+
   #--------------------------------------------------------------------------
   # alias method: setup
   #--------------------------------------------------------------------------
@@ -178,28 +178,28 @@ class Game_Map
     game_map_setup_mrr(map_id)
     @map.load_notetags_mrr
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: all_restrict_regions
   #--------------------------------------------------------------------------
   def all_restrict_regions
     return @map.all_restrict_regions
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: npc_restrict_regions
   #--------------------------------------------------------------------------
   def npc_restrict_regions
     return @map.npc_restrict_regions
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: player_restrict_regions
   #--------------------------------------------------------------------------
   def player_restrict_regions
     return @map.player_restrict_regions
   end
-  
+
 end # Game_Map
 
 #==============================================================================
@@ -207,7 +207,7 @@ end # Game_Map
 #==============================================================================
 
 class Game_CharacterBase
-  
+
   #--------------------------------------------------------------------------
   # alias method: passable?
   #--------------------------------------------------------------------------
@@ -217,7 +217,7 @@ class Game_CharacterBase
     return false if player_region_forbid?(x, y, d)
     return game_characterbase_passable_mrr(x, y, d)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: npc_forbid?
   #--------------------------------------------------------------------------
@@ -239,7 +239,7 @@ class Game_CharacterBase
     return false if @through
     return $game_map.npc_restrict_regions.include?(region)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: player_region_forbid?
   #--------------------------------------------------------------------------
@@ -262,11 +262,11 @@ class Game_CharacterBase
     return false if @through
     return $game_map.player_restrict_regions.include?(region)
   end
-  
+
 end # Game_CharacterBase
 
 #==============================================================================
-# 
+#
 # ▼ End of File
-# 
+#
 #==============================================================================

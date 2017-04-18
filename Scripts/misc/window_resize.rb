@@ -22,27 +22,27 @@
 #
 #--- Free to use in any project, commercial or non-commercial, with credit given
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
- 
-SWPO = Win32API.new 'user32', 'SetWindowPos', ['l','i','i','i','i','i','p'], 'i'
-WINX = Win32API.new 'user32', 'FindWindowEx', ['l','l','p','p'], 'i'
-SMET = Win32API.new 'user32', 'GetSystemMetrics', ['i'], 'i'
- 
+
+SWPO = Win32API.new "user32", "SetWindowPos", ["l", "i", "i", "i", "i", "i", "p"], "i"
+WINX = Win32API.new "user32", "FindWindowEx", ["l", "l", "p", "p"], "i"
+SMET = Win32API.new "user32", "GetSystemMetrics", ["i"], "i"
+
 module Window_Resize
   def self.r(width, height)
     resw = SMET.call(0)
     resh = SMET.call(1)
-    window_loc = WINX.call(0,0,"RGSS Player",0)
+    window_loc = WINX.call(0, 0, "RGSS Player", 0)
     width += (SMET.call(5) + SMET.call(45)) * 2
     height += (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4)
     x = (resw - width) / 2; y = (resh - height) / 2
     y = 0 if y < 0;x = 0 if x < 0
-    SWPO.call(window_loc,0,x,y,width,height,0)
+    SWPO.call(window_loc, 0, x, y, width, height, 0)
   end
   def self.f
     resw = SMET.call(0)
     resh = SMET.call(1)
-    window_loc = WINX.call(0,0,"RGSS Player",0)
-    SWPO.call(window_loc,0,0,0,resw,resh,0)
+    window_loc = WINX.call(0, 0, "RGSS Player", 0)
+    SWPO.call(window_loc, 0, 0, 0, resw, resh, 0)
   end
   def self.full
     resw = SMET.call(0)
@@ -55,7 +55,7 @@ module Window_Resize
     toggle
   end
   def self.toggle
-    keybd = Win32API.new 'user32.dll', 'keybd_event', ['i', 'i', 'l', 'l'], 'v'
+    keybd = Win32API.new "user32.dll", "keybd_event", ["i", "i", "l", "l"], "v"
     keybd.call 0xA4, 0, 0, 0
     keybd.call 13, 0, 0, 0
     keybd.call 13, 0, 2, 0

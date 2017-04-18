@@ -50,8 +50,8 @@ module Galv_Choice
 #------------------------------------------------------------------------------#
 #  SCRIPT SETUP OPTIONS
 #------------------------------------------------------------------------------#
-  
-  CURSOR_IMAGE = "Cursor"  # Images used to determine which option you select
+
+  CURSOR_IMAGE = "Cursor" # Images used to determine which option you select
   CURSOR_OPACITY = 255      # Opacity of the cursor
   CURSOR_Y_OFFSET = 0       # Nudge cursor position vertically
   CURSOR_X_OFFSET = 0       # Nudge cursor position horizontally
@@ -62,19 +62,19 @@ module Galv_Choice
 
   CHOICE_HEIGHT = 45        # How tall each choice.
   CHOICE_ITEM_Y = 2         # Offset for choice item text
-  
+
   CENTER_TEXT = true        # left aligned if false, centered if true
-                            
+
   DISABLE_SWITCH = 1        # Turn this switch ON to disable this script
-  
+
   CHOICES_Y = 0             # Y offset to move choice window up or down.
                             # useful if you use a script that creates a namebox
-  CHOICES_Z = 100            # The z value of the choices window. Try changing it
+  CHOICES_Z = 100 # The z value of the choices window. Try changing it
                             # if pictures or other scripts appear over or under
                             # the choices window to how you like.
-  
+
 #------------------------------------------------------------------------------#
-  OTHER_Y_OFFSET = 12       # May fix other cursor scripts positioning
+  OTHER_Y_OFFSET = 12 # May fix other cursor scripts positioning
 #------------------------------------------------------------------------------#
 #  SCRIPT SETUP OPTIONS
 #------------------------------------------------------------------------------#
@@ -88,7 +88,7 @@ class Window_ChoiceList < Window_Command
     galv_choice_initialize(message_window)
     self.z = Galv_Choice::CHOICES_Z
   end
-  
+
   def start
     @index = 0
     setup_choices
@@ -101,13 +101,13 @@ class Window_ChoiceList < Window_Command
     refresh
     select(0)
   end
-  
+
   def make_cursor
     return if $game_switches[Galv_Choice::DISABLE_SWITCH]
     @cursor_sprite = Sprite.new
     @cursor_sprite.bitmap = Cache.system(Galv_Choice::CURSOR_IMAGE)
   end
-  
+
   def setup_choices
     @choice_sprite = []
     if !$game_switches[Galv_Choice::DISABLE_SWITCH]
@@ -117,7 +117,7 @@ class Window_ChoiceList < Window_Command
       self.opacity = 255
     end
   end
-  
+
   alias galv_choice_update_placement update_placement
   def update_placement
     if $game_switches[Galv_Choice::DISABLE_SWITCH]
@@ -127,7 +127,7 @@ class Window_ChoiceList < Window_Command
       self.width = [width, Graphics.width].min
       self.height = contents_height + Galv_Choice::CHOICE_HEIGHT - 10
       self.x = (Graphics.width - width) / 2
-      
+
       if @message_window.openness < 100
         self.y = Graphics.height - contents_height + item_height / 2
       elsif @message_window.y >= Graphics.height / 2
@@ -146,7 +146,7 @@ class Window_ChoiceList < Window_Command
       (item_max + 1) * item_height
     end
   end
-  
+
   def draw_item(index)
     rect = item_rect_for_text(index)
     draw_text_ex(rect.x, rect.y, command_name(index))
@@ -154,10 +154,10 @@ class Window_ChoiceList < Window_Command
       draw_bgs(index)
     end
   end
-  
+
   def item_rect_for_text(index)
     rect = item_rect(index)
-    
+
     if $game_switches[Galv_Choice::DISABLE_SWITCH]
       rect.x += 4
       rect.width -= 8
@@ -173,16 +173,16 @@ class Window_ChoiceList < Window_Command
       rect
     end
   end
-  
+
   def get_widths
     @text_sizes = []
     @choice_background = []
-    $game_message.choices.each_with_index do |c,i|
-      @text_sizes[i] = esc_characters(c,i)
+    $game_message.choices.each_with_index do |c, i|
+      @text_sizes[i] = esc_characters(c, i)
     end
   end
-  
-  def esc_characters(text,index)
+
+  def esc_characters(text, index)
     result = text.to_s.clone
     result.gsub!(/\\/)            { "\e" }
     result.gsub!(/\e\e/)          { "\\" }
@@ -192,17 +192,17 @@ class Window_ChoiceList < Window_Command
       if $game_party.members[$1.to_i].nil?
         ""
       else
-        $game_party.members[$1.to_i].name 
+        $game_party.members[$1.to_i].name
       end
     }
-    result.gsub!(/\eG/i)          { Vocab::currency_unit }
+    result.gsub!(/\eG/i) { Vocab::currency_unit }
     result.gsub!(/\eC\[(\d+)\]/i)  { "" }
     result.gsub!(/\eI\[(\d+)\]/i)  { "   " }
     result.gsub!(/\eB\[(\d+)\]/i)  { @choice_background[index] = $1.to_i }
     result.gsub!(/\eB\[(\d+)\]/i)  { "" }
     result
   end
-  
+
   def convert_escape_characters(text)
     result = text.to_s.clone
     result.gsub!(/\\/)            { "\e" }
@@ -212,15 +212,15 @@ class Window_ChoiceList < Window_Command
     result.gsub!(/\eN\[(\d+)\]/i) { actor_name($1.to_i) }
     result.gsub!(/\eP\[(\d+)\]/i) { party_member_name($1.to_i) }
     result.gsub!(/\eG/i)          { Vocab::currency_unit }
-    result.gsub!(/\eB\[(\d+)\]/i)  { "" }
+    result.gsub!(/\eB\[(\d+)\]/i) { "" }
     result
   end
-  
+
   def item_height
     return line_height if $game_switches[Galv_Choice::DISABLE_SWITCH]
     return Galv_Choice::CHOICE_HEIGHT
   end
-  
+
   def item_rect(index)
     rect = Rect.new
     rect.width = item_width
@@ -230,10 +230,10 @@ class Window_ChoiceList < Window_Command
     rect.y = index / col_max * item_height
     rect
   end
-  
+
   def draw_bgs(index)
     return if @choice_sprite[index] != nil
-    
+
     if @choice_background[index].nil?
       b = ""
     else
@@ -247,15 +247,15 @@ class Window_ChoiceList < Window_Command
   end
 
   def update_bgs
-    @choice_sprite.each_with_index do |s,i|
+    @choice_sprite.each_with_index do |s, i|
       s.y = self.y + i * Galv_Choice::CHOICE_HEIGHT + Galv_Choice::IMAGE_Y_OFFSET
       s.x = (Graphics.width - s.width) / 2
       s.opacity = Galv_Choice::IMAGE_OPACITY
     end
   end
-  
+
   def dispose_bgs
-    @choice_sprite.each_with_index do |s,i|
+    @choice_sprite.each_with_index do |s, i|
       s.dispose
       s.bitmap.dispose
     end
@@ -265,7 +265,7 @@ class Window_ChoiceList < Window_Command
       @choice_sprite = []
     end
   end
-  
+
   alias galv_choice_call_ok_handler call_ok_handler
   def call_ok_handler
     galv_choice_call_ok_handler
@@ -276,7 +276,7 @@ class Window_ChoiceList < Window_Command
     galv_choice_call_cancel_handler
     dispose_bgs
   end
-  
+
   def update_cursor
     if $game_switches[Galv_Choice::DISABLE_SWITCH]
       super

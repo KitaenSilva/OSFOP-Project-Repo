@@ -8,7 +8,7 @@ class Window_ShopBuy < Window_Selectable
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :status_window            # Status window
+  attr_reader :status_window # Status window
   #--------------------------------------------------------------------------
   # * Object Initialization
   #--------------------------------------------------------------------------

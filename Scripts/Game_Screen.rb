@@ -229,6 +229,6 @@ class Game_Screen
   # * Start Flash (for Poison/Damage Floor)
   #--------------------------------------------------------------------------
   def start_flash_for_damage
-    start_flash(Color.new(255,0,0,128), 8)
+    start_flash(Color.new(255, 0, 0, 128), 8)
   end
 end

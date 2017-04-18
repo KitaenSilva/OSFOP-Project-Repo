@@ -81,7 +81,7 @@ class RPG::Skill
     note = self.note.clone
     note =~ /<FEATURE (\d+) (\d+) (\d+.\d+|\d+)>/
     while $1
-      all_features.push(RPG::BaseItem::Feature.new($1.to_i,$2.to_i,$3.to_i))
+      all_features.push(RPG::BaseItem::Feature.new($1.to_i, $2.to_i, $3.to_i))
       note[note.index("FEAT")] = "*"
       note =~ /<FEATURE (\d+) (\d+) (\d+.\d+|\d+)>/
     end

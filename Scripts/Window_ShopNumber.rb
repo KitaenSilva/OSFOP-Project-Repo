@@ -12,7 +12,7 @@ class Window_ShopNumber < Window_Selectable
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :number                   # quantity entered
+  attr_reader :number # quantity entered
   #--------------------------------------------------------------------------
   # * Object Initialization
   #--------------------------------------------------------------------------

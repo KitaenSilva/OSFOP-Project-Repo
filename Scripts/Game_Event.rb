@@ -44,7 +44,7 @@ class Game_Event < Game_Character
     @page = nil                           # Event page
   end
   #--------------------------------------------------------------------------
-  # * Detect Collision with Character 
+  # * Detect Collision with Character
   #--------------------------------------------------------------------------
   def collide_with_characters?(x, y)
     super || collide_with_player_characters?(x, y)
@@ -172,7 +172,7 @@ class Game_Event < Game_Character
   def start
     return if empty?
     @starting = true
-    lock if trigger_in?([0,1,2])
+    lock if trigger_in?([0, 1, 2])
   end
   #--------------------------------------------------------------------------
   # * Temporarily Erase

@@ -21,7 +21,7 @@ class Scene_Map < Scene_Base
   #--------------------------------------------------------------------------
   # * Execute Transition
   #    Performs a fade in when the screen has been blacked out, such as
-  #    immediately after a battle or load. 
+  #    immediately after a battle or load.
   #--------------------------------------------------------------------------
   def perform_transition
     if Graphics.brightness == 0

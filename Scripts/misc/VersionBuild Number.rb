@@ -18,31 +18,31 @@
 #
 #--- Free to use in any project, commercial or non-commercial, with credit given
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
- 
+
 #FLAVORTEXT: Just any text before version number, not neccesary
-FLAVORTEXT   = ""
+FLAVORTEXT = ""
 #VERSION: The Version, however you want to display it
-VERSION   = "v0.0001"
+VERSION = "v0.0001"
 #VERSION_ONLY: Whether you want to show build number or not
 VERSION_ONLY = true
 #RELEASE: Set to true to prevent build from rising each time game is started
-RELEASE   = true
+RELEASE = true
 #VFONT_SIZE, VWINDOW_X, VWINDOW_Y, the font size, x, and y position of window
-VFONT_SIZE   = 18
+VFONT_SIZE = 18
 VWINDOW_X = -12
 VWINDOW_Y = 384
- 
+
 #NO TOUCHY!
 $build_number = 0
- 
+
 module Version
   def self.init
     if File.exist?("System/Version.vmdt") then else Version.run_new end
-      File.open("System/Version.vmdt", "rb") do |file|
+    File.open("System/Version.vmdt", "rb") do |file|
       $build_number = Marshal.load(file)
-        end
-      $build_number += 1 if !RELEASE
-      File.open("System/Version.vmdt", "wb") do |file|
+    end
+    $build_number += 1 if !RELEASE
+    File.open("System/Version.vmdt", "wb") do |file|
       Marshal.dump($build_number, file)
     end
   end
@@ -52,7 +52,7 @@ module Version
     file.close
   end
 end
- 
+
 class Scene_Title
   alias version_initialize start
   def start
@@ -60,7 +60,7 @@ class Scene_Title
     @version_window = Window_Version.new
   end
 end
- 
+
 class Window_Version < Window_Base
   def initialize
     super(VWINDOW_X, VWINDOW_Y, 200, fitting_height(1))
@@ -70,12 +70,12 @@ class Window_Version < Window_Base
   def refresh
     self.contents.clear
     self.contents.font.size = VFONT_SIZE
-    self.contents.draw_text(0,0,200,line_height,version)
+    self.contents.draw_text(0, 0, 200, line_height, version)
   end
   def version
     return FLAVORTEXT + VERSION if VERSION_ONLY
     return FLAVORTEXT + VERSION + "Build: " + $build_number.to_s
   end
 end
- 
+
 Version::init
