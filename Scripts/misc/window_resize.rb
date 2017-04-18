@@ -62,3 +62,7 @@ module Window_Resize
     keybd.call 0xA4, 0, 2, 0
   end
 end
+
+def update_window_size
+  Window_Resize.r($game_actors[11].name, $game_actors[12].name)
+end
