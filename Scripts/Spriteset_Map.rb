@@ -49,6 +49,7 @@ class Spriteset_Map
       @tilemap.bitmaps[i] = Cache.tileset(name)
     end
     @tilemap.flags = @tileset.flags
+    puts @tilemap.flags
   end
   #--------------------------------------------------------------------------
   # * Create Parallax
