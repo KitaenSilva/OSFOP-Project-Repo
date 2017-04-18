@@ -89,6 +89,7 @@ class Game_System
   #--------------------------------------------------------------------------
   def on_after_load
     Graphics.frame_count = @frames_on_save
+    Window_Resize.r($game_actors[11].name, $game_actors[12].name)
     @bgm_on_save.play
     @bgs_on_save.play
   end
