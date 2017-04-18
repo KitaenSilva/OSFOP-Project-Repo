@@ -1,10 +1,10 @@
 #==============================================================================
-# 
+#
 # ▼ Yanfly Engine Ace - TP Manager v1.04
 # -- Last Updated: 2012.01.30
 # -- Level: Hard
 # -- Requires: n/a
-# 
+#
 #==============================================================================
 
 $imported = {} if $imported.nil?
@@ -19,7 +19,7 @@ $imported["YEA-TPManager"] = true
 # 2011.12.10 - Added <tp cost: x> notetag.
 # 2011.12.06 - Fixed an error in one of the formulas.
 # 2011.12.05 - Started Script and Finished.
-# 
+#
 #==============================================================================
 # ▼ Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -29,25 +29,25 @@ $imported["YEA-TPManager"] = true
 # script gives you the ability to adjust how much TP actors will acquire from
 # various actions, different TP modes, and letting players select and pick what
 # TP mode they want for each actor (akin to Final Fantasy X).
-# 
+#
 #==============================================================================
 # ▼ Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
 # to an open slot below ▼ Materials/素材 but above ▼ Main. Remember to save.
-# 
+#
 # -----------------------------------------------------------------------------
 # Actor Notetags - These notetags go in the actors notebox in the database.
 # -----------------------------------------------------------------------------
 # <tp mode: x>
 # This sets the actor's default TP mode to x. If this tag isn't used, the
 # default TP mode will be set to whatever the module uses as default.
-# 
+#
 # <unlock tp: x>
 # <unlock tp: x, x>
 # This unlocks what TP modes the actor can use by default. If this tag isn't
 # used, the default unlocked TP modes will be whatever the module uses.
-# 
+#
 # -----------------------------------------------------------------------------
 # Item Notetags - These notetags go in the item notebox in the database.
 # -----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ $imported["YEA-TPManager"] = true
 # <unlock tp: x, x>
 # When this item is used upon an actor, that actor will learn TP Mode(s) x,
 # making it available to change in the TP Menu.
-# 
+#
 # -----------------------------------------------------------------------------
 # Skill Notetags - These notetags go in the skill notebox in the database.
 # -----------------------------------------------------------------------------
@@ -63,24 +63,24 @@ $imported["YEA-TPManager"] = true
 # <unlock tp: x, x>
 # When this skill targets an actor, that actor will learn TP Mode(s) x thus,
 # making it available to change in the TP Menu.
-# 
+#
 # <learn unlock tp: x>
 # <learn unlock tp: x, x>
 # When an actor learns a skill with this notetag, that actor will learn
 # TP Mode(s) x making it available to change in the TP Menu.
-# 
+#
 # <tp cost: x>
 # When this notetag appears in a skill's notebox, the TP cost for that skill
 # becomes x. This notetag allows TP costs to surpass 100 TP, which is the max
 # TP cost in the RPG Maker VX Ace database editor.
-# 
+#
 # -----------------------------------------------------------------------------
 # Enemy Notetags - These notetags go in the enemy notebox in the database.
 # -----------------------------------------------------------------------------
 # <tp mode: x>
 # This sets the enemy's default TP mode to x. If this tag isn't used, the
 # default TP mode will be set to whatever the module uses as default.
-# 
+#
 # -----------------------------------------------------------------------------
 # Script Calls - These commands are used with script calls.
 # -----------------------------------------------------------------------------
@@ -88,50 +88,50 @@ $imported["YEA-TPManager"] = true
 # Replace x with the ID of the actor you want to change to the TP Mode y. This
 # will also unlock the TP mode for the actor, and make it available under the
 # skill menu for changing.
-# 
+#
 # unlock_tp_mode(x, y)
 # Replace x with the ID of the actor you want to learn for the TP Mode y. This
 # will cause the actor to learn the TP mode and have it accessible in the skill
 # menu for changing.
-# 
+#
 # remove_tp_mode(x, y)
 # Replace x with the ID of the actor you want to remove the TP Mode y. This
 # will cause the actor to forget the TP mode and no longer have it accessible
 # through the skill menu for changing.
-# 
+#
 # unlock_all_tp_modes(x)
 # Replace x with the ID of the actor you want to unlock all TP modes for. This
 # will make all the TP modes available to the actor from the skill menu.
-# 
+#
 # remove_all_tp_modes(x)
 # Removes all TP modes for actor x except for the actor's default TP mode.
 # This removes all TP modes from being available in the actor's skill menu.
-# 
+#
 #==============================================================================
 # ▼ Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
-# 
+#
 #==============================================================================
 
 module YEA
   module TP_MANAGER
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - General TP Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # Here, you can adjust global settings for TP including the maximum TP,
     # whether or not you want the player to change TP modes, and more.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    TP_LIMIT  = 100         # Sets the maximum TP. Default: 100
+    TP_LIMIT = 100 # Sets the maximum TP. Default: 100
     DEFAULT_TP_MODE = 0            # This is the TP mode everybody starts with
                                    # unless changed through notetags.
     DEFAULT_UNLOCKS = [0, 1, 2, 3] # These modes are unlocked for all actors
                                    # unless changed through notetags.
     LOW_HP = 0.25           # Percent for what is considered low HP.
     LOW_MP = 0.25           # Percent for what is considered low MP.
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - TP Mode Change Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -140,19 +140,19 @@ module YEA
     # TP Mode item will appear in the skill menu. If off, it won't appear.
     # If you set it to 0, then TP mode will always be enabled.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    MENU_NAME = "TP Mode"   # The displayed name for the TP Menu.
-    TP_MODE_SWITCH  = 1    # Switch ID used for enabling TP Mode menu.
-    DEFAULT_ENABLE  = false  # Enable switch by default?
+    MENU_NAME = "TP Mode" # The displayed name for the TP Menu.
+    TP_MODE_SWITCH  = 1 # Switch ID used for enabling TP Mode menu.
+    DEFAULT_ENABLE  = false # Enable switch by default?
     CHANGE_TP_RESET = true  # Reset TP to 0 whenever a mode is changed?
     EQUIPPED_COLOUR = 17    # Window text colour used for equipped TP mode.
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - TP Modes -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # TP modes have a number of things that can change the way actors gain TP.
     # Adjust the settings below to change how much gain and loss incurs per
     # each of the different actions.
-    # 
+    #
     # Setting        Description
     # -------------------------------------------------------------------------
     # - :name        - Name that appears in the TP Mode menu.
@@ -181,7 +181,7 @@ module YEA
     # - :only_ally   - TP gained when user is only ally alive.
     # - :evasion     - TP gained when user evades an attack.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    TP_MODES ={ 
+    TP_MODES ={
     # TP Mode => { Settings }
     # -------------------------------------------------------------------------
       0 => { # This is the default mode.
@@ -651,7 +651,7 @@ module YEA
       }, # Do not remove this.
     # -------------------------------------------------------------------------
     } # Do not remove this.
-    
+
   end # TP_MANAGER
 end # YEA
 
@@ -663,24 +663,24 @@ end # YEA
 
 module YEA
   module REGEXP
-  module ACTOR
-    
-    TP_MODE   = /<(?:TP_MODE|tp mode):[ ](\d+)>/i
-    UNLOCK_TP = /<(?:UNLOCK_TP|unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    
-  end # ACTOR
-  module ENEMY
-    
-    TP_MODE   = /<(?:TP_MODE|tp mode):[ ](\d+)>/i
-    
-  end # ENEMY
-  module BASEITEM
-    
-    UNLOCK_TP = /<(?:UNLOCK_TP|unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    LEARN_TP = /<(?:LEARN_UNLOCK_TP|learn unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
-    TP_COST  = /<(?:TP_COST|tp cost):[ ](\d+)>/i
-    
-  end # BASEITEM
+    module ACTOR
+
+      TP_MODE   = /<(?:TP_MODE|tp mode):[ ](\d+)>/i
+      UNLOCK_TP = /<(?:UNLOCK_TP|unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+
+    end # ACTOR
+    module ENEMY
+
+      TP_MODE   = /<(?:TP_MODE|tp mode):[ ](\d+)>/i
+
+    end # ENEMY
+    module BASEITEM
+
+      UNLOCK_TP = /<(?:UNLOCK_TP|unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+      LEARN_TP = /<(?:LEARN_UNLOCK_TP|learn unlock tp):[ ]*(\d+(?:\s*,\s*\d+)*)>/i
+      TP_COST  = /<(?:TP_COST|tp cost):[ ](\d+)>/i
+
+    end # BASEITEM
   end # REGEXP
 end # YEA
 
@@ -689,7 +689,7 @@ end # YEA
 #==============================================================================
 
 module Switch
-  
+
   #--------------------------------------------------------------------------
   # self.tp_mode
   #--------------------------------------------------------------------------
@@ -697,7 +697,7 @@ module Switch
     return true if YEA::TP_MANAGER::TP_MODE_SWITCH <= 0
     return $game_switches[YEA::TP_MANAGER::TP_MODE_SWITCH]
   end
-  
+
   #--------------------------------------------------------------------------
   # self.tp_mode_set
   #--------------------------------------------------------------------------
@@ -705,7 +705,7 @@ module Switch
     return if YEA::TP_MANAGER::TP_MODE_SWITCH <= 0
     $game_switches[YEA::TP_MANAGER::TP_MODE_SWITCH] = item
   end
-    
+
 end # Switch
 
 #==============================================================================
@@ -713,14 +713,14 @@ end # Switch
 #==============================================================================
 
 class Numeric
-  
+
   #--------------------------------------------------------------------------
   # new method: group_digits
   #--------------------------------------------------------------------------
   unless $imported["YEA-CoreEngine"]
-  def group; return self.to_s; end
+    def group; return self.to_s; end
   end # $imported["YEA-CoreEngine"]
-    
+
 end # Numeric
 
 #==============================================================================
@@ -728,7 +728,7 @@ end # Numeric
 #==============================================================================
 
 module DataManager
-  
+
   #--------------------------------------------------------------------------
   # alias method: load_database
   #--------------------------------------------------------------------------
@@ -737,7 +737,7 @@ module DataManager
     load_database_tpm
     load_notetags_tpm
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: load_notetags_tpm
   #--------------------------------------------------------------------------
@@ -750,7 +750,7 @@ module DataManager
       end
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: setup_new_game
   #--------------------------------------------------------------------------
@@ -759,7 +759,7 @@ module DataManager
     setup_new_game_tpm
     Switch.tp_mode_set(YEA::TP_MANAGER::DEFAULT_ENABLE)
   end
-  
+
 end # DataManager
 
 #==============================================================================
@@ -767,13 +767,13 @@ end # DataManager
 #==============================================================================
 
 class RPG::Actor < RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :tp_mode
   attr_accessor :unlocked_tp_modes
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_tpm
   #--------------------------------------------------------------------------
@@ -787,7 +787,7 @@ class RPG::Actor < RPG::BaseItem
       when YEA::REGEXP::ACTOR::TP_MODE
         @tp_mode = $1.to_i
       when YEA::REGEXP::ACTOR::UNLOCK_TP
-        $1.scan(/\d+/).each { |num| 
+        $1.scan(/\d+/).each { |num|
         @unlocked_tp_modes.push(num.to_i) if num.to_i >= 0 }
       #---
       end
@@ -801,7 +801,7 @@ class RPG::Actor < RPG::BaseItem
     @unlocked_tp_modes.uniq!
     @unlocked_tp_modes.sort!
   end
-  
+
 end # RPG::Actor
 
 #==============================================================================
@@ -809,12 +809,12 @@ end # RPG::Actor
 #==============================================================================
 
 class RPG::Enemy < RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :tp_mode
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_tpm
   #--------------------------------------------------------------------------
@@ -831,7 +831,7 @@ class RPG::Enemy < RPG::BaseItem
     } # self.note.split
     #---
   end
-  
+
 end # RPG::Enemy
 
 #==============================================================================
@@ -839,14 +839,14 @@ end # RPG::Enemy
 #==============================================================================
 
 class RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :unlocked_tp_modes
   attr_accessor :learn_tp_modes
   attr_accessor :tp_cost
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_tpm
   #--------------------------------------------------------------------------
@@ -858,10 +858,10 @@ class RPG::BaseItem
       case line
       #---
       when YEA::REGEXP::BASEITEM::UNLOCK_TP
-        $1.scan(/\d+/).each { |num| 
+        $1.scan(/\d+/).each { |num|
         @unlocked_tp_modes.push(num.to_i) if num.to_i > 0 }
       when YEA::REGEXP::BASEITEM::LEARN_TP
-        $1.scan(/\d+/).each { |num| 
+        $1.scan(/\d+/).each { |num|
         @learn_tp_modes.push(num.to_i) if num.to_i > 0 }
       when YEA::REGEXP::BASEITEM::TP_COST
         next unless self.is_a?(RPG::Skill)
@@ -871,7 +871,7 @@ class RPG::BaseItem
     } # self.note.split
     #---
   end
-  
+
 end # RPG::BaseItem
 
 #==============================================================================
@@ -879,7 +879,7 @@ end # RPG::BaseItem
 #==============================================================================
 
 module BattleManager
-  
+
   #--------------------------------------------------------------------------
   # alias method: load_database
   #--------------------------------------------------------------------------
@@ -897,7 +897,7 @@ module BattleManager
       end
     end
   end
-  
+
 end # BattleManager
 
 #==============================================================================
@@ -905,31 +905,31 @@ end # BattleManager
 #==============================================================================
 
 class Game_BattlerBase
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :tp_mode
   attr_accessor :unlocked_tp_modes
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: max_tp
   #--------------------------------------------------------------------------
   def max_tp; return YEA::TP_MANAGER::TP_LIMIT; end
-  
+
   #--------------------------------------------------------------------------
   # anti-crash methods: max_tp, unlocked_tp_modes
   #--------------------------------------------------------------------------
   def tp_mode; return 0; end
   def unlocked_tp_modes; return [0]; end
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_setting
   #--------------------------------------------------------------------------
   def tp_setting(setting)
     return YEA::TP_MANAGER::TP_MODES[tp_mode][setting]
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: preserve_tp?
   #--------------------------------------------------------------------------
@@ -938,7 +938,7 @@ class Game_BattlerBase
     return true if tp_setting(:preserve_tp)
     return game_battlerbase_preserve_tp_tpm
   end
-  
+
 end # Game_BattlerBase
 
 #==============================================================================
@@ -946,30 +946,30 @@ end # Game_BattlerBase
 #==============================================================================
 
 class Game_Battler < Game_BattlerBase
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: init_tp
   #--------------------------------------------------------------------------
   def init_tp
     self.tp = eval(tp_setting(:init_tp))
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: charge_tp_by_damage
   #--------------------------------------------------------------------------
   def charge_tp_by_damage(damage_rate)
     self.tp += eval(tp_setting(:take_hp_dmg))
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: charge_tp_by_mp_damage
   #--------------------------------------------------------------------------
   def charge_tp_by_mp_damage(damage_rate)
     self.tp += eval(tp_setting(:take_mp_dmg))
   end
-  
+
   #--------------------------------------------------------------------------
-  # overwrite method: 
+  # overwrite method:
   #--------------------------------------------------------------------------
   def regenerate_tp
     self.tp += eval(tp_setting(:regen_tp))
@@ -979,21 +979,21 @@ class Game_Battler < Game_BattlerBase
       self.tp += eval(tp_setting(:only_alive))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_low_hp
   #--------------------------------------------------------------------------
   def tp_low_hp
     return self.mhp * YEA::TP_MANAGER::LOW_HP
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_low_mp
   #--------------------------------------------------------------------------
   def tp_low_mp
     return self.mmp * YEA::TP_MANAGER::LOW_MP
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: execute_damage
   #--------------------------------------------------------------------------
@@ -1021,7 +1021,7 @@ class Game_Battler < Game_BattlerBase
     @result.store_damage
     @result.clear_damage_values
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_effect_recover_hp
   #--------------------------------------------------------------------------
@@ -1040,7 +1040,7 @@ class Game_Battler < Game_BattlerBase
     @result.store_damage
     @result.clear_damage_values
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_effect_recover_mp
   #--------------------------------------------------------------------------
@@ -1060,7 +1060,7 @@ class Game_Battler < Game_BattlerBase
     @result.store_damage
     @result.clear_damage_values
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: gain_tp_ally_hp_damage
   #--------------------------------------------------------------------------
@@ -1070,7 +1070,7 @@ class Game_Battler < Game_BattlerBase
       member.tp += eval(member.tp_setting(:ally_hp_dmg))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: gain_tp_ally_mp_damage
   #--------------------------------------------------------------------------
@@ -1080,7 +1080,7 @@ class Game_Battler < Game_BattlerBase
       member.tp += eval(member.tp_setting(:ally_mp_dmg))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: gain_tp_kill_ally
   #--------------------------------------------------------------------------
@@ -1090,7 +1090,7 @@ class Game_Battler < Game_BattlerBase
       member.tp += eval(member.tp_setting(:kill_ally))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_effect_add_state
   #--------------------------------------------------------------------------
@@ -1104,7 +1104,7 @@ class Game_Battler < Game_BattlerBase
       self.tp += eval(tp_setting(:gain_state))
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_apply
   #--------------------------------------------------------------------------
@@ -1115,7 +1115,7 @@ class Game_Battler < Game_BattlerBase
     return if @result.hit?
     self.tp += eval(tp_setting(:evasion))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_test
   #--------------------------------------------------------------------------
@@ -1125,7 +1125,7 @@ class Game_Battler < Game_BattlerBase
     return true if item.unlocked_tp_modes.size > 0
     return game_battler_item_test_tpm(user, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_user_effect
   #--------------------------------------------------------------------------
@@ -1137,7 +1137,7 @@ class Game_Battler < Game_BattlerBase
       unlock_tp_mode(mode)
     end
   end
-  
+
 end # Game_Battler
 
 #==============================================================================
@@ -1145,7 +1145,7 @@ end # Game_Battler
 #==============================================================================
 
 class Game_Actor < Game_Battler
-  
+
   #--------------------------------------------------------------------------
   # alias method: setup
   #--------------------------------------------------------------------------
@@ -1155,7 +1155,7 @@ class Game_Actor < Game_Battler
     @tp_mode = actor.tp_mode
     @unlocked_tp_modes = actor.unlocked_tp_modes.clone
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_mode
   #--------------------------------------------------------------------------
@@ -1163,7 +1163,7 @@ class Game_Actor < Game_Battler
     @tp_mode = actor.tp_mode if @tp_mode.nil?
     return @tp_mode
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: unlocked_tp_modes
   #--------------------------------------------------------------------------
@@ -1173,7 +1173,7 @@ class Game_Actor < Game_Battler
     end
     return @unlocked_tp_modes.uniq
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: change_tp_mode
   #--------------------------------------------------------------------------
@@ -1182,7 +1182,7 @@ class Game_Actor < Game_Battler
     unlock_tp_mode(mode)
     self.tp = 0 if YEA::TP_MANAGER::CHANGE_TP_RESET
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: unlock_tp_mode
   #--------------------------------------------------------------------------
@@ -1194,7 +1194,7 @@ class Game_Actor < Game_Battler
     @unlocked_tp_modes.uniq!
     @unlocked_tp_modes.sort!
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: remove_tp_mode
   #--------------------------------------------------------------------------
@@ -1205,7 +1205,7 @@ class Game_Actor < Game_Battler
     @unlocked_tp_modes.delete(mode)
     @tp_mode = @unlocked_tp_modes[0] if @tp_mode == mode
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: learn_skill
   #--------------------------------------------------------------------------
@@ -1216,7 +1216,7 @@ class Game_Actor < Game_Battler
       unlock_tp_mode(mode)
     end
   end
-  
+
 end # Game_Actor
 
 #==============================================================================
@@ -1224,41 +1224,41 @@ end # Game_Actor
 #==============================================================================
 
 class Game_Enemy < Game_Battler
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_mode
   #--------------------------------------------------------------------------
   def tp_mode; return enemy.tp_mode; end
-  
+
 end # Game_Enemy
-  
+
 #==============================================================================
 # ■ Game_Interpreter
 #==============================================================================
 
 class Game_Interpreter
-  
+
   #--------------------------------------------------------------------------
   # new method: change_tp_mode
   #--------------------------------------------------------------------------
   def change_tp_mode(actor_id, mode)
     $game_actors[actor_id].change_tp_mode(mode)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: unlock_tp_mode
   #--------------------------------------------------------------------------
   def unlock_tp_mode(actor_id, mode)
     $game_actors[actor_id].unlock_tp_mode(mode)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: remove_tp_mode
   #--------------------------------------------------------------------------
   def remove_tp_mode(actor_id, mode)
     $game_actors[actor_id].remove_tp_mode(mode)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: unlock_all_tp_modes
   #--------------------------------------------------------------------------
@@ -1267,7 +1267,7 @@ class Game_Interpreter
       $game_actors[actor_id].unlock_tp_mode(key[0])
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: remove_all_tp_modes
   #--------------------------------------------------------------------------
@@ -1277,7 +1277,7 @@ class Game_Interpreter
       $game_actors[actor_id].remove_tp_mode(key[0])
     end
   end
-  
+
 end # Game_Interpreter
 
 #==============================================================================
@@ -1285,7 +1285,7 @@ end # Game_Interpreter
 #==============================================================================
 
 class Window_SkillCommand < Window_Command
-  
+
   #--------------------------------------------------------------------------
   # alias method: make_command_list
   #--------------------------------------------------------------------------
@@ -1296,7 +1296,7 @@ class Window_SkillCommand < Window_Command
     return if $imported["YEA-SkillMenu"]
     add_tp_modes
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: add_tp_modes
   #--------------------------------------------------------------------------
@@ -1305,7 +1305,7 @@ class Window_SkillCommand < Window_Command
     return unless SceneManager.scene_is?(Scene_Skill)
     add_command(YEA::TP_MANAGER::MENU_NAME, :tp_mode, true, :tp_mode)
   end
-  
+
 end # Window_SkillCommand
 
 #==============================================================================
@@ -1313,12 +1313,12 @@ end # Window_SkillCommand
 #==============================================================================
 
 class Window_SkillList < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_mode?
   #--------------------------------------------------------------------------
   def tp_mode?; return @stype_id == :tp_mode; end
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_mode
   #--------------------------------------------------------------------------
@@ -1326,7 +1326,7 @@ class Window_SkillList < Window_Selectable
     return nil unless tp_mode?
     return @data[index]
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: make_item_list
   #--------------------------------------------------------------------------
@@ -1339,7 +1339,7 @@ class Window_SkillList < Window_Selectable
       window_skilllist_make_item_list_tpm
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: draw_item
   #--------------------------------------------------------------------------
@@ -1351,7 +1351,7 @@ class Window_SkillList < Window_Selectable
       window_skilllist_draw_item_tpm(index)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_tp_mode_item
   #--------------------------------------------------------------------------
@@ -1366,7 +1366,7 @@ class Window_SkillList < Window_Selectable
     name = YEA::TP_MANAGER::TP_MODES[tp_mode][:name]
     draw_text(rect.x+24, rect.y, rect.width-24, line_height, name)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: tp_mode_colour
   #--------------------------------------------------------------------------
@@ -1377,7 +1377,7 @@ class Window_SkillList < Window_Selectable
       return normal_color
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: current_item_enabled?
   #--------------------------------------------------------------------------
@@ -1389,7 +1389,7 @@ class Window_SkillList < Window_Selectable
       return window_skilllist_current_item_enabled
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: update_help
   #--------------------------------------------------------------------------
@@ -1407,7 +1407,7 @@ class Window_SkillList < Window_Selectable
       window_skilllist_update_help_tpm
     end
   end
-  
+
 end # Window_SkillList
 
 #==============================================================================
@@ -1415,16 +1415,16 @@ end # Window_SkillList
 #==============================================================================
 
 class Scene_Skill < Scene_ItemBase
-  
+
   #--------------------------------------------------------------------------
   # alias method: create_command_window
   #--------------------------------------------------------------------------
   alias scene_skill_create_command_window_tpm create_command_window
   def create_command_window
     scene_skill_create_command_window_tpm
-    @command_window.set_handler(:tp_mode,    method(:command_skill))
+    @command_window.set_handler(:tp_mode, method(:command_skill))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_item_ok
   #--------------------------------------------------------------------------
@@ -1440,11 +1440,11 @@ class Scene_Skill < Scene_ItemBase
       scene_skill_on_item_ok_tpm
     end
   end
-  
+
 end # Scene_Skill
 
 #==============================================================================
-# 
+#
 # ▼ End of File
-# 
+#
 #==============================================================================

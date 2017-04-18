@@ -6,7 +6,7 @@
 #
 #Usage:   Comment:
 #           SC: script_call
-#        
+#
 #         Example:
 #
 #           SC: if $game_party.gold >= 100
@@ -28,7 +28,7 @@
 #
 #--- Free to use in any project, commercial or non-commercial, with credit given
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
- 
+
 class Game_Event
   def conditions_met?(page)
     c = page.condition
@@ -61,10 +61,10 @@ class Game_Event
         index += 1
       end
       if com.index("SC:") != nil
-        string = "return true " + com[3,com.length-3]
+        string = "return true " + com[3, com.length-3]
         return false unless eval(string)
       elsif com.index("SR:") != nil
-        string = com[3,com.length-3]
+        string = com[3, com.length-3]
         eval(string)
       end
     end

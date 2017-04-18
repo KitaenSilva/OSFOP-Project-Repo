@@ -13,9 +13,9 @@
 #   All my other scripts and projects can be found here: http://daimonioustails.weebly.com/
 #
 #- Free to use in any project with credit given, donations always welcome!
- 
+
 class Damage_Popup < Sprite_Base
- 
+
   #Font Details:
   FONT_NAME = "Arial"
   FONT_BOLD = false
@@ -34,23 +34,23 @@ class Damage_Popup < Sprite_Base
   POPUP_BOUNCE = true
   #Different colours for the popups
   USE_ELEMENT_COLORS = true
-  NORMAL_COLOR = Color.new(255,255,255)
-  HEAL_COLOR = Color.new(0,255,0)
-  MISS_COLOR = Color.new(255,255,255)
-  STATE_COLOR = Color.new(255,100,255)
- 
+  NORMAL_COLOR = Color.new(255, 255, 255)
+  HEAL_COLOR = Color.new(0, 255, 0)
+  MISS_COLOR = Color.new(255, 255, 255)
+  STATE_COLOR = Color.new(255, 100, 255)
+
   #Set the colors for each element, it goes: element_id => Color.new(r,g,b),
   ELEMENT_COLOR = {
-    3 => Color.new(255,0,0),
-    4 => Color.new(100,100,255),
-    5 => Color.new(255,255,0),
-    6 => Color.new(0,0,175),
-    7 => Color.new(255,175,50),
-    8 => Color.new(175,255,175),
-    9 => Color.new(255,255,255),
-   10 => Color.new(150,10,150),
+    3 => Color.new(255, 0, 0),
+    4 => Color.new(100, 100, 255),
+    5 => Color.new(255, 255, 0),
+    6 => Color.new(0, 0, 175),
+    7 => Color.new(255, 175, 50),
+    8 => Color.new(175, 255, 175),
+    9 => Color.new(255, 255, 255),
+   10 => Color.new(150, 10, 150),
    }
- 
+
   def initialize(viewport = nil)
     super(viewport)
     @damage = 0
@@ -59,16 +59,16 @@ class Damage_Popup < Sprite_Base
     @y_speed = 0
     @element_id = 0
   end
-  def setup_damage(target,item,subject)
+  def setup_damage(target, item, subject)
     @damage = target.result.hp_damage
     @damage = "Failed" if !target.result.success
     @damage = "Missed" if target.result.missed
     @damage = "Evaded" if target.result.evaded
     @damage = "Blocked" if @damage == 0
     @element_id = item.damage.element_id
-    setup_position(target,item,subject)
+    setup_position(target, item, subject)
   end
-  def setup_position(target,item,subject)
+  def setup_position(target, item, subject)
     font_size = FONT_BASE_SIZE
     if @damage.is_a?(Integer)
       val = @damage
@@ -82,7 +82,7 @@ class Damage_Popup < Sprite_Base
     end
     fake_bitmap = Cache.battler(target.battler_name, target.battler_hue)
     fake_bitmap.font.size = font_size
-    self.bitmap = Bitmap.new(fake_bitmap.text_size(@damage).width*3+24,48*2)
+    self.bitmap = Bitmap.new(fake_bitmap.text_size(@damage).width*3+24, 48*2)
     self.bitmap.font.name = FONT_NAME
     self.bitmap.font.size = font_size
     self.bitmap.font.bold = FONT_BOLD
@@ -96,7 +96,7 @@ class Damage_Popup < Sprite_Base
     self.visible = false if state.id == 1
     @damage = state.name
     @icon = state.icon_index
-    setup_position(target,nil,nil)
+    setup_position(target, nil, nil)
   end
   def update
     update_regular if !USE_BITMAP
@@ -121,8 +121,8 @@ class Damage_Popup < Sprite_Base
     update_color
     text = @damage.abs if @damage.is_a?(Integer)
     text = @damage if @damage.is_a?(String)
-    draw_icon(@icon,self.width/4,self.height/2-12) if @icon
-    bitmap.draw_text(24,0,self.width,self.height,text,1)
+    draw_icon(@icon, self.width/4, self.height/2-12) if @icon
+    bitmap.draw_text(24, 0, self.width, self.height, text, 1)
     update_bounce
   end
   def update_bitmap
@@ -134,9 +134,9 @@ class Damage_Popup < Sprite_Base
     self.color.alpha = 75
     text = text.to_s;xx = 0
     dmg_bmp = SceneManager.scene.dam_bmps
-    rect = Rect.new(0,0,dmg_bmp[0].width,dmg_bmp[0].height)
+    rect = Rect.new(0, 0, dmg_bmp[0].width, dmg_bmp[0].height)
     text.length.times do |i|
-      bitmap.blt(bitmap.width / 2 + xx,bitmap.height/2,dmg_bmp[text[i].to_i],rect)
+      bitmap.blt(bitmap.width / 2 + xx, bitmap.height/2, dmg_bmp[text[i].to_i], rect)
       xx+=PADDING
     end
     update_bounce
@@ -160,7 +160,7 @@ class Damage_Popup < Sprite_Base
     bitmap.blt(x, y, temp_bitmap, rect)
   end
 end
- 
+
 class Scene_Battle
   alias dam_pop_init start
   alias dam_pop_update update_basic
@@ -172,9 +172,9 @@ class Scene_Battle
     bitmap = Cache.system("Numbers")
     x = 0;y = 0;w = bitmap.width / 5;h = bitmap.height / 2
     10.times do
-      rect = Rect.new(x,y,w,h)
-      bmp = Bitmap.new(w,h)
-      bmp.blt(0,0,bitmap,rect)
+      rect = Rect.new(x, y, w, h)
+      bmp = Bitmap.new(w, h)
+      bmp.blt(0, 0, bitmap, rect)
       @damage_number_bitmaps.push(bmp)
       @damage_number_bitmaps[0] = bmp
       x += w
@@ -186,9 +186,9 @@ class Scene_Battle
   def dam_bmps
     @damage_number_bitmaps
   end
-  def add_damage_popup(target,item,subject)
+  def add_damage_popup(target, item, subject)
     @damage_popups.push(Damage_Popup.new(nil))
-    @damage_popups[-1].setup_damage(target,item,subject)
+    @damage_popups[-1].setup_damage(target, item, subject)
   end
   def add_state_popup(target, state)
     @damage_popups.push(Damage_Popup.new(nil))
@@ -215,7 +215,7 @@ class Scene_Battle
     @log_window.display_action_results(target, item)
   end
 end
- 
+
 class Game_Actor
   def screen_x
     return 0

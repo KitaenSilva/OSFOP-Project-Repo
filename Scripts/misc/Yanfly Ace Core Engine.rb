@@ -2,12 +2,12 @@
 # encoding: utf-8
 
 #==============================================================================
-# 
+#
 # ▼ Yanfly Engine Ace - Ace Core Engine v1.09
 # -- Last Updated: 2012.02.19
 # -- Level: Easy, Normal
 # -- Requires: n/a
-# 
+#
 #==============================================================================
 
 $imported = {} if $imported.nil?
@@ -35,14 +35,14 @@ $imported["YEA-CoreEngine"] = true
 # 2011.12.04 - Updated certain GUI extensions for increased screen size.
 #            - More efficient digit grouping method credits to TDS.
 # 2011.12.01 - Started Script and Finished.
-# 
+#
 #==============================================================================
 # ▼ Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This is the core engine for Yanfly Engine Ace, made for RPG Maker VX Ace.
 # This script provides various changes made to the main engine including bug
 # fixes and GUI upgrades.
-# 
+#
 # -----------------------------------------------------------------------------
 # Bug Fix: Animation Overlay
 # -----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ $imported["YEA-CoreEngine"] = true
 # group of enemies, the animation bitmap is actually made multiple times, thus
 # causing a pretty extreme overlay when there are a lot of enemies on screen.
 # This fix will cause the animation to play only once.
-# 
+#
 # -----------------------------------------------------------------------------
 # Bug Fix: Animation Interruption
 # -----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ $imported["YEA-CoreEngine"] = true
 # animation lasts too long, it will interrupt and/or halt the next animation
 # from occurring. This script will cause the first animation to finish playing
 # and then continue forth.
-# 
+#
 # -----------------------------------------------------------------------------
 # Bug Fix: Battle Turn Order Fix
 # -----------------------------------------------------------------------------
@@ -67,21 +67,21 @@ $imported["YEA-CoreEngine"] = true
 # the remainder of that turn. Any changes to a battler's AGI will not be
 # altered at all even if the battler were to receive an AGI buff or debuff.
 # This fix will cause the speed to be updated properly upon each action.
-# 
+#
 # -----------------------------------------------------------------------------
 # Bug Fix: Forced Action Fix
 # -----------------------------------------------------------------------------
 # - A new bug. When a battler is forced to perform an action, the battler's
 # queued action is removed and the battler loses its place in battle. This
 # fix will resume queue after a forced action.
-# 
+#
 # -----------------------------------------------------------------------------
 # Bug Fix: Gauge Overlap Fix
 # -----------------------------------------------------------------------------
 # - Same bug from VX. When some values exceed certain amounts, gauges can
 # overextend past the width they were originally designed to fit in. This fix
 # will prevent any overextending from gauges.
-# 
+#
 # -----------------------------------------------------------------------------
 # Bug Fix: Held L and R Menu Scrolling
 # -----------------------------------------------------------------------------
@@ -89,7 +89,7 @@ $imported["YEA-CoreEngine"] = true
 # (Q and W on the keyboard) to scroll through menus quickly. This fix will
 # re-enable the ability to scroll through menus in such a fashion. Disable it
 # in the module if you wish to.
-# 
+#
 # -----------------------------------------------------------------------------
 # Bug Fix: Substitute Healing
 # -----------------------------------------------------------------------------
@@ -97,75 +97,75 @@ $imported["YEA-CoreEngine"] = true
 # take the place of low HP allies when they're the target of attack. However,
 # this is also the case for friendly skills such as heal. This script will fix
 # it where if a battler targets an ally, no substitutes will take place.
-# 
+#
 # -----------------------------------------------------------------------------
 # New Feature: Screen Resolution Size
 # -----------------------------------------------------------------------------
 # - The screen can now be resized from 544x416 with ease and still support maps
 # that are smaller than 544x416. Maps smaller than 544x416 will be centered on
 # the screen without having sprites jumping all over the place.
-# 
+#
 # -----------------------------------------------------------------------------
 # New Feature: Adjust Animation Speed
 # -----------------------------------------------------------------------------
 # - RPG Maker VX Ace plays animations at a rate of 15 FPS by default. Speed up
 # the animations by changing a simple constant in the module.
-# 
+#
 # -----------------------------------------------------------------------------
 # New Feature: GUI Modifications
 # -----------------------------------------------------------------------------
 # - There are quite a lot of different modifications you can do to the GUI.
-# This includes placing outlines around your gauges, changing the colours of 
+# This includes placing outlines around your gauges, changing the colours of
 # each individual font aspect, and more. Also, you can change the default font
 # setting for your games here.
-# 
+#
 # -----------------------------------------------------------------------------
 # New Feature: Numeric Digit Grouping
 # -----------------------------------------------------------------------------
 # This will change various scenes to display numbers in groups where they are
 # separated by a comma every three digits. Thus, a number like 1234567 will
 # show up as 1,234,567. This allows for players to read numbers quicker.
-# 
+#
 # And that's all for the bug fixes and features!
-# 
+#
 #==============================================================================
 # ▼ Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
 # to an open slot below ▼ Materials/素材 but above ▼ Main. Remember to save.
-# 
+#
 #==============================================================================
 # ▼ Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
-# 
+#
 #==============================================================================
 
 module YEA
   module CORE
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Screen Resolution Size -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # RPG Maker VX Ace has the option of having larger width and height for
     # your games. Resizing the width and height will have these changes:
-    # 
+    #
     #              Default   Resized   Min Tiles Default   Min Tiles New
     #    Width       544       640           17                 20
     #    Height      416       480           13                 15
-    # 
+    #
     # * Note: Maximum width is 640 while maximum height is 480.
     #         Minimum width is 110 while maximum height is 10.
     #         These are limitations set by RPG Maker VX Ace's engine.
-    # 
+    #
     # By selecting resize, all of the default menus will have their windows
     # adjusted, but scripts provided by non-Yanfly Engine sources may or may
     # not adjust themselves properly.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     RESIZE_WIDTH  = 544
     RESIZE_HEIGHT = 416
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Adjust Animation Speed -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -179,7 +179,7 @@ module YEA
     #     1      60 fps
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     ANIMATION_RATE = 3
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Digit Grouping -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -187,7 +187,7 @@ module YEA
     # are larger than a thousand. For example, 12345 will appear as 12,345.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     GROUP_DIGITS = true
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Font Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -197,14 +197,14 @@ module YEA
     FONT_NAME = ["VL Gothic", "Verdana", "Arial", "Courier"]
     # This adjusts the fonts used for your game. If the font at the start of
     # the array doesn't exist on the player's computer, it'll use the next one.
-    FONT_SIZE = 24       # Adjusts font size. Default: 24
-    FONT_BOLD = false   # Makes font bold. Default: false
+    FONT_SIZE = 24 # Adjusts font size. Default: 24
+    FONT_BOLD = false # Makes font bold. Default: false
     FONT_ITALIC = false  # Makes font italic. Default: false
     FONT_SHADOW = false  # Gives font a shadow. Default: false
     FONT_OUTLINE = true  # Gives font an outline. Default: true
     FONT_COLOUR = Color.new(255, 255, 255, 255)   # Default: 255, 255, 255, 255
     FONT_OUTLINE_COLOUR = Color.new(0, 0, 0, 128) # Default:   0,   0,   0, 128
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Forced Action Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -213,7 +213,7 @@ module YEA
     # use this option, set the switch ID to 0.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     FORCED_ACTION_REMOVE_SWITCH = 0
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Gauge Appearance Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -223,7 +223,7 @@ module YEA
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     GAUGE_OUTLINE = true
     GAUGE_HEIGHT = 12
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Held L and R Menu Scrolling -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -233,7 +233,7 @@ module YEA
     # true. To disable it, set this constant to false.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     QUICK_SCROLLING = true
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - System Text Colours -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -259,7 +259,7 @@ module YEA
       :tp_gauge2  =>  2,   # Default: 29
       :tp_cost    =>  2,   # Default: 29
     } # Do not remove this.
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - System Text Options -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -270,7 +270,7 @@ module YEA
     HP_CRISIS = 0.25     # When HP is considered critical. Default: 0.25
     MP_CRISIS = 0.25     # When MP is considered critical. Default: 0.25
     ITEM_AMOUNT = "×%s"  # The prefix used for item amounts.
-    
+
   end # CORE
 end # YEA
 
@@ -294,16 +294,16 @@ Font.default_out_color = YEA::CORE::FONT_OUTLINE_COLOUR
 # ■ Numeric
 #==============================================================================
 
-class Numeric  
-  
+class Numeric
+
   #--------------------------------------------------------------------------
   # new method: group_digits
   #--------------------------------------------------------------------------
   def group
     return self.to_s unless YEA::CORE::GROUP_DIGITS
-    self.to_s.gsub(/(\d)(?=\d{3}+(?:\.|$))(\d{3}\..*)?/,'\1,\2')
+    self.to_s.gsub(/(\d)(?=\d{3}+(?:\.|$))(\d{3}\..*)?/, '\1,\2')
   end
-  
+
 end # Numeric
 
 #==============================================================================
@@ -311,7 +311,7 @@ end # Numeric
 #==============================================================================
 
 module Switch
-  
+
   #--------------------------------------------------------------------------
   # self.forced_action_remove
   #--------------------------------------------------------------------------
@@ -319,7 +319,7 @@ module Switch
     return false if YEA::CORE::FORCED_ACTION_REMOVE_SWITCH <= 0
     return $game_switches[YEA::CORE::FORCED_ACTION_REMOVE_SWITCH]
   end
-  
+
 end # Switch
 
 #==============================================================================
@@ -327,7 +327,7 @@ end # Switch
 #==============================================================================
 
 module BattleManager
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: turn_start
   #--------------------------------------------------------------------------
@@ -338,7 +338,7 @@ module BattleManager
     @performed_battlers = []
     make_action_orders
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: next_subject
   #--------------------------------------------------------------------------
@@ -353,7 +353,7 @@ module BattleManager
       return battler
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: force_action
   #--------------------------------------------------------------------------
@@ -363,28 +363,28 @@ module BattleManager
     return unless Switch.forced_action_remove
     @action_battlers.delete(battler)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: action_forced?
   #--------------------------------------------------------------------------
   def self.action_forced?
     @action_forced != nil
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: action_forced_battler
   #--------------------------------------------------------------------------
   def self.action_forced_battler
     @action_forced.shift
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: clear_action_force
   #--------------------------------------------------------------------------
   def self.clear_action_force
     @action_forced = nil if @action_forced.empty?
   end
-  
+
 end # BattleManager
 
 #==============================================================================
@@ -392,12 +392,12 @@ end # BattleManager
 #==============================================================================
 
 class Game_Battler < Game_BattlerBase
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :pseudo_ani_id
-  
+
   #--------------------------------------------------------------------------
   # alias method: clear_sprite_effects
   #--------------------------------------------------------------------------
@@ -406,7 +406,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_clear_sprite_effects_ace
     @pseudo_ani_id = 0
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: force_action
   #--------------------------------------------------------------------------
@@ -415,14 +415,14 @@ class Game_Battler < Game_BattlerBase
     clone_current_actions
     game_battler_force_action_ace(skill_id, target_index)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: clone_current_actions
   #--------------------------------------------------------------------------
   def clone_current_actions
     @cloned_actions = @actions.dup
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: restore_cloned_actions
   #--------------------------------------------------------------------------
@@ -431,7 +431,7 @@ class Game_Battler < Game_BattlerBase
     @actions = @cloned_actions.dup
     @cloned_actions = nil
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_action_end
   #--------------------------------------------------------------------------
@@ -440,7 +440,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_on_action_end_ace
     restore_cloned_actions
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: on_battle_end
   #--------------------------------------------------------------------------
@@ -449,7 +449,7 @@ class Game_Battler < Game_BattlerBase
     game_battler_on_battle_end_ace
     @cloned_actions = nil
   end
-  
+
 end # Game_Battler
 
 #==============================================================================
@@ -457,7 +457,7 @@ end # Game_Battler
 #==============================================================================
 
 class Game_Troop < Game_Unit
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: setup
   #--------------------------------------------------------------------------
@@ -476,7 +476,7 @@ class Game_Troop < Game_Unit
     init_screen_tone
     make_unique_names
   end
-  
+
 end # Game_Troop
 
 #==============================================================================
@@ -484,7 +484,7 @@ end # Game_Troop
 #==============================================================================
 
 class Game_Map
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: scroll_down
   #--------------------------------------------------------------------------
@@ -500,7 +500,7 @@ class Game_Map
       @parallax_y += @display_y - last_y
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: scroll_right
   #--------------------------------------------------------------------------
@@ -516,7 +516,7 @@ class Game_Map
       @parallax_x += @display_x - last_x
     end
   end
-  
+
 end # Game_Map
 
 #==============================================================================
@@ -524,7 +524,7 @@ end # Game_Map
 #==============================================================================
 
 class Game_Event < Game_Character
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: near_the_screen?
   #--------------------------------------------------------------------------
@@ -535,7 +535,7 @@ class Game_Event < Game_Character
     ay = $game_map.adjust_y(@real_y) - Graphics.height / 2 / 32
     ax >= -dx && ax <= dx && ay >= -dy && ay <= dy
   end
-  
+
 end # Game_Event
 
 #==============================================================================
@@ -543,14 +543,14 @@ end # Game_Event
 #==============================================================================
 
 class Sprite_Base < Sprite
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: set_animation_rate
   #--------------------------------------------------------------------------
   def set_animation_rate
     @ani_rate = YEA::CORE::ANIMATION_RATE
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: start_pseudo_animation
   #--------------------------------------------------------------------------
@@ -563,7 +563,7 @@ class Sprite_Base < Sprite
     @ani_duration = @animation.frame_max * @ani_rate + 1
     @ani_sprites = []
   end
-  
+
 end # Sprite_Base
 
 #==============================================================================
@@ -571,7 +571,7 @@ end # Sprite_Base
 #==============================================================================
 
 class Sprite_Battler < Sprite_Base
-  
+
   #--------------------------------------------------------------------------
   # alias method: setup_new_animation
   #--------------------------------------------------------------------------
@@ -586,7 +586,7 @@ class Sprite_Battler < Sprite_Base
     start_pseudo_animation(animation, mirror)
     @battler.pseudo_ani_id = 0
   end
-  
+
 end # Sprite_Battler
 
 #==============================================================================
@@ -594,7 +594,7 @@ end # Sprite_Battler
 #==============================================================================
 
 class Spriteset_Map
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: create_viewports
   #--------------------------------------------------------------------------
@@ -619,7 +619,7 @@ class Spriteset_Map
     @viewport2.z = 50
     @viewport3.z = 100
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: update_viewport_sizes
   #--------------------------------------------------------------------------
@@ -643,7 +643,7 @@ class Spriteset_Map
       viewport.rect = rect
     end
   end
-  
+
 end # Spriteset_Map
 
 #==============================================================================
@@ -651,7 +651,7 @@ end # Spriteset_Map
 #==============================================================================
 
 class Window_Base < Window
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: reset_font_settings
   #--------------------------------------------------------------------------
@@ -662,7 +662,7 @@ class Window_Base < Window
     contents.font.italic = Font.default_italic
     contents.font.out_color = Font.default_out_color
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite methods: color
   #--------------------------------------------------------------------------
@@ -681,14 +681,14 @@ class Window_Base < Window
   def tp_gauge_color1;   text_color(YEA::CORE::COLOURS[:tp_gauge1]);   end;
   def tp_gauge_color2;   text_color(YEA::CORE::COLOURS[:tp_gauge2]);   end;
   def tp_cost_color;     text_color(YEA::CORE::COLOURS[:tp_cost]);     end;
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: translucent_alpha
   #--------------------------------------------------------------------------
   def translucent_alpha
     return YEA::CORE::TRANSPARENCY
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: hp_color
   #--------------------------------------------------------------------------
@@ -704,7 +704,7 @@ class Window_Base < Window
     return crisis_color if actor.mp < actor.mmp * YEA::CORE::MP_CRISIS
     return normal_color
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_gauge
   #--------------------------------------------------------------------------
@@ -722,7 +722,7 @@ class Window_Base < Window
     contents.fill_rect(dx, gauge_y, dw, gauge_h, gauge_back_color)
     contents.gradient_fill_rect(dx, gauge_y, fill_w, gauge_h, color1, color2)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_level
   #--------------------------------------------------------------------------
@@ -732,7 +732,7 @@ class Window_Base < Window
     change_color(normal_color)
     draw_text(dx + 32, dy, 24, line_height, actor.level.group, 2)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_current_and_max_values
   #--------------------------------------------------------------------------
@@ -752,7 +752,7 @@ class Window_Base < Window
       draw_text(xr, dy, dw, line_height, current.group, 2)
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_tp
   #--------------------------------------------------------------------------
@@ -763,7 +763,7 @@ class Window_Base < Window
     change_color(tp_color(actor))
     draw_text(x + width - 42, y, 42, line_height, actor.tp.to_i.group, 2)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_param
   #--------------------------------------------------------------------------
@@ -773,7 +773,7 @@ class Window_Base < Window
     change_color(normal_color)
     draw_text(x + 120, y, 36, line_height, actor.param(param_id).group, 2)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_currency_value
   #--------------------------------------------------------------------------
@@ -784,7 +784,7 @@ class Window_Base < Window
     change_color(system_color)
     draw_text(x, y, width, line_height, unit, 2)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_actor_simple_status
   #--------------------------------------------------------------------------
@@ -797,7 +797,7 @@ class Window_Base < Window
     draw_actor_hp(actor, dx + 120, dy + line_height * 1, dw)
     draw_actor_mp(actor, dx + 120, dy + line_height * 2, dw)
   end
-  
+
 end # Window_Base
 
 #==============================================================================
@@ -805,24 +805,24 @@ end # Window_Base
 #==============================================================================
 
 class Window_Selectable < Window_Base
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: process_cursor_move
   #--------------------------------------------------------------------------
   if YEA::CORE::QUICK_SCROLLING
-  def process_cursor_move
-    return unless cursor_movable?
-    last_index = @index
-    cursor_down (Input.trigger?(:DOWN))  if Input.repeat?(:DOWN)
-    cursor_up   (Input.trigger?(:UP))    if Input.repeat?(:UP)
-    cursor_right(Input.trigger?(:RIGHT)) if Input.repeat?(:RIGHT)
-    cursor_left (Input.trigger?(:LEFT))  if Input.repeat?(:LEFT)
-    cursor_pagedown   if !handle?(:pagedown) && Input.repeat?(:R)
-    cursor_pageup     if !handle?(:pageup)   && Input.repeat?(:L)
-    Sound.play_cursor if @index != last_index
-  end
+    def process_cursor_move
+      return unless cursor_movable?
+      last_index = @index
+      cursor_down (Input.trigger?(:DOWN))  if Input.repeat?(:DOWN)
+      cursor_up   (Input.trigger?(:UP))    if Input.repeat?(:UP)
+      cursor_right(Input.trigger?(:RIGHT)) if Input.repeat?(:RIGHT)
+      cursor_left (Input.trigger?(:LEFT))  if Input.repeat?(:LEFT)
+      cursor_pagedown   if !handle?(:pagedown) && Input.repeat?(:R)
+      cursor_pageup     if !handle?(:pageup)   && Input.repeat?(:L)
+      Sound.play_cursor if @index != last_index
+    end
   end # YEA::CORE::QUICK_SCROLLING
-  
+
 end # Window_Selectable
 
 #==============================================================================
@@ -830,7 +830,7 @@ end # Window_Selectable
 #==============================================================================
 
 class Window_ItemList < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_item
   #--------------------------------------------------------------------------
@@ -842,7 +842,7 @@ class Window_ItemList < Window_Selectable
     draw_item_name(item, rect.x, rect.y, enable?(item), rect.width - 24)
     draw_item_number(rect, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_item_number
   #--------------------------------------------------------------------------
@@ -850,7 +850,7 @@ class Window_ItemList < Window_Selectable
     text = sprintf(YEA::CORE::ITEM_AMOUNT, $game_party.item_number(item).group)
     draw_text(rect, text, 2)
   end
-  
+
 end # Window_ItemList
 
 #==============================================================================
@@ -858,7 +858,7 @@ end # Window_ItemList
 #==============================================================================
 
 class Window_SkillList < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # draw_item
   #--------------------------------------------------------------------------
@@ -870,7 +870,7 @@ class Window_SkillList < Window_Selectable
     draw_item_name(skill, rect.x, rect.y, enable?(skill), rect.width - 24)
     draw_skill_cost(rect, skill)
   end
-  
+
 end # Window_SkillList
 
 #==============================================================================
@@ -878,7 +878,7 @@ end # Window_SkillList
 #==============================================================================
 
 class Window_Status < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_exp_info
   #--------------------------------------------------------------------------
@@ -895,7 +895,7 @@ class Window_Status < Window_Selectable
     draw_text(x, y + line_height * 1, 180, line_height, s1, 2)
     draw_text(x, y + line_height * 3, 180, line_height, s2, 2)
   end
-  
+
 end # Window_Status
 
 #==============================================================================
@@ -903,7 +903,7 @@ end # Window_Status
 #==============================================================================
 
 class Window_ShopBuy < Window_Selectable
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: draw_item
   #--------------------------------------------------------------------------
@@ -914,7 +914,7 @@ class Window_ShopBuy < Window_Selectable
     rect.width -= 4
     draw_text(rect, price(item).group, 2)
   end
-  
+
 end # Window_ShopBuy
 
 #==============================================================================
@@ -922,7 +922,7 @@ end # Window_ShopBuy
 #==============================================================================
 
 class Scene_Map < Scene_Base
-  
+
   #--------------------------------------------------------------------------
   # alias method: post_transfer
   #--------------------------------------------------------------------------
@@ -931,7 +931,7 @@ class Scene_Map < Scene_Base
     @spriteset.update_viewport_sizes
     scene_map_post_transfer_ace
   end
-  
+
 end # Scene_Map
 
 #==============================================================================
@@ -939,7 +939,7 @@ end # Scene_Map
 #==============================================================================
 
 class Scene_Battle < Scene_Base
-  
+
   #--------------------------------------------------------------------------
   # alias method: check_substitute
   #--------------------------------------------------------------------------
@@ -948,7 +948,7 @@ class Scene_Battle < Scene_Base
     return false if @subject.actor? == target.actor?
     return scene_battle_check_substitute_ace(target, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: process_forced_action
   #--------------------------------------------------------------------------
@@ -961,7 +961,7 @@ class Scene_Battle < Scene_Base
       BattleManager.clear_action_force
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: show_attack_animation
   #--------------------------------------------------------------------------
@@ -975,7 +975,7 @@ class Scene_Battle < Scene_Base
       abs_wait_short
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: show_normal_animation
   #--------------------------------------------------------------------------
@@ -995,11 +995,11 @@ class Scene_Battle < Scene_Base
     end
     abs_wait_short if animation.to_screen?
   end
-  
+
 end # Scene_Battle
 
 #==============================================================================
-# 
+#
 # ▼ End of File
-# 
+#
 #==============================================================================

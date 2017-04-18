@@ -59,7 +59,7 @@ class Game_Character < Game_CharacterBase
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :move_route_forcing       # forced move route flag
+  attr_reader :move_route_forcing # forced move route flag
   #--------------------------------------------------------------------------
   # * Initialize Public Member Variables
   #--------------------------------------------------------------------------

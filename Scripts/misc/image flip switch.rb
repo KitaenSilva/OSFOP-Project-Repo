@@ -1,10 +1,10 @@
 #==============================================================================
-# 
+#
 # ▼ Yanfly Engine Ace - Flip Picture v1.00
 # -- Last Updated: 2011.12.03
 # -- Level: Normal
 # -- Requires: n/a
-# 
+#
 #==============================================================================
 
 $imported = {} if $imported.nil?
@@ -14,34 +14,34 @@ $imported["YEA-FlipPicture"] = true
 # ▼ Updates
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 2011.12.03 - Started Script and Finished.
-# 
+#
 #==============================================================================
 # ▼ Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # RPG Maker VX Ace lacks the ability to flip pictures and show a mirrored
 # version of them. Now, through the aid of a switch, you can mirror pictures
 # once that switch is on, and unmirror pictures once that switch is off.
-# 
+#
 #==============================================================================
 # ▼ Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
 # to an open slot below ▼ Materials/素材 but above ▼ Main. Remember to save.
-# 
+#
 # Go to the module and bind FLIP_PICTURE_SWITCH to a switch you want to
 # designate for picture flipping.
-# 
+#
 #==============================================================================
 # ▼ Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
-# 
+#
 #==============================================================================
 
 module YEA
   module UTILITY
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Flip Picture Switch -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -49,7 +49,7 @@ module YEA
     # Once this switch is OFF, any picture events following will be normal.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     FLIP_PICTURE_SWITCH = 36
-    
+
   end # UTILITY
 end # YEA
 
@@ -64,14 +64,14 @@ end # YEA
 #==============================================================================
 
 module Switch
-  
+
   #--------------------------------------------------------------------------
   # self.Switch
   #--------------------------------------------------------------------------
   def self.flip_picture
     return $game_switches[YEA::UTILITY::FLIP_PICTURE_SWITCH]
   end
-    
+
 end # Switch
 
 #==============================================================================
@@ -79,12 +79,12 @@ end # Switch
 #==============================================================================
 
 class Game_Picture
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :mirror
-  
+
   #--------------------------------------------------------------------------
   # alias method: initialize
   #--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ class Game_Picture
     game_picture_initialize_fp(number)
     @mirror = false
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: show
   #--------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class Game_Picture
     game_picture_show_fp(*args)
     @mirror = Switch.flip_picture
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: move
   #--------------------------------------------------------------------------
@@ -111,7 +111,7 @@ class Game_Picture
     game_picture_move_fp(*args)
     @mirror = Switch.flip_picture
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: rotate
   #--------------------------------------------------------------------------
@@ -120,7 +120,7 @@ class Game_Picture
     game_picture_rotate_fp(speed)
     @mirror = Switch.flip_picture
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: start_tone_change
   #--------------------------------------------------------------------------
@@ -128,7 +128,7 @@ class Game_Picture
   def start_tone_change(tone, duration)
     @mirror = Switch.flip_picture
   end
-  
+
 end # Game_Picture
 
 #==============================================================================
@@ -136,7 +136,7 @@ end # Game_Picture
 #==============================================================================
 
 class Sprite_Picture < Sprite
-  
+
   #--------------------------------------------------------------------------
   # alias method: update
   #--------------------------------------------------------------------------
@@ -145,11 +145,11 @@ class Sprite_Picture < Sprite
     sprite_picture_update_fp
     self.mirror = @picture.mirror
   end
-  
+
 end # Sprite_Picture
 
 #==============================================================================
-# 
+#
 # ▼ End of File
-# 
+#
 #==============================================================================

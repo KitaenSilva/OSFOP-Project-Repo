@@ -2,21 +2,21 @@
 # ** Game_Followers
 #------------------------------------------------------------------------------
 #  This is a wrapper for a follower array. This class is used internally for
-# the Game_Player class. 
+# the Game_Player class.
 #==============================================================================
 
 class Game_Followers
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_accessor :visible                  # Player Followers ON?
+  attr_accessor :visible # Player Followers ON?
   #--------------------------------------------------------------------------
   # * Object Initialization
   #     leader:  Lead character
   #--------------------------------------------------------------------------
   def initialize(leader)
     @visible = $data_system.opt_followers
-    @gathering = false                    # Gathering processing underway flag
+    @gathering = false # Gathering processing underway flag
     @data = []
     @data.push(Game_Follower.new(1, leader))
     (2...$game_party.max_battle_members).each do |index|

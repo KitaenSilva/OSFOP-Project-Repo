@@ -308,13 +308,13 @@ class Window_Base < Window
   #--------------------------------------------------------------------------
   def process_escape_character(code, text, pos)
     case code.upcase
-    when 'C'
+    when "C"
       change_color(text_color(obtain_escape_param(text)))
-    when 'I'
+    when "I"
       process_draw_icon(obtain_escape_param(text), pos)
-    when '{'
+    when "{"
       make_font_bigger
-    when '}'
+    when "}"
       make_font_smaller
     end
   end
@@ -390,7 +390,7 @@ class Window_Base < Window
     return unless character_name
     bitmap = Cache.character(character_name)
     sign = character_name[/^[\!\$]./]
-    if sign && sign.include?('$')
+    if sign && sign.include?("$")
       cw = bitmap.width / 3
       ch = bitmap.height / 4
     else

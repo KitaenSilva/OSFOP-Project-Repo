@@ -7,7 +7,7 @@
 #             <Guard_Id skill_id>  - changes default guard
 #
 #          Weapons/Armors overrides Classes overides Actors.
-#          
+#
 #
 #----------#
 #-- Script by: V.M of D.T
@@ -20,10 +20,10 @@
 #
 #--- Free to use in any project, commercial or non-commercial, with credit given
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
- 
+
 #Sets Attack/Guard commands to name of skill
 SGAS_COMMAND_TO_SKILL_NAME = true
- 
+
 class Game_Actor
   def guard_skill_id
     @equips.each do |item|
@@ -42,7 +42,7 @@ class Game_Actor
     actor.note.upcase =~ /<ATTACK_ID (\d+)>/ ? $1.to_i : 1
   end
 end
- 
+
 class Window_ActorCommand
   def add_attack_command
     text = $data_skills[@actor.attack_skill_id].name if SGAS_COMMAND_TO_SKILL_NAME

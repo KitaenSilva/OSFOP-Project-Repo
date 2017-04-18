@@ -12,12 +12,12 @@ class Game_Troop < Game_Unit
   #--------------------------------------------------------------------------
   # * Characters to be added to the end of enemy names
   #--------------------------------------------------------------------------
-  LETTER_TABLE_HALF = [' A',' B',' C',' D',' E',' F',' G',' H',' I',' J',
-                       ' K',' L',' M',' N',' O',' P',' Q',' R',' S',' T',
-                       ' U',' V',' W',' X',' Y',' Z']
-  LETTER_TABLE_FULL = ['Ａ','Ｂ','Ｃ','Ｄ','Ｅ','Ｆ','Ｇ','Ｈ','Ｉ','Ｊ',
-                       'Ｋ','Ｌ','Ｍ','Ｎ','Ｏ','Ｐ','Ｑ','Ｒ','Ｓ','Ｔ',
-                       'Ｕ','Ｖ','Ｗ','Ｘ','Ｙ','Ｚ']
+  LETTER_TABLE_HALF = [" A", " B", " C", " D", " E", " F", " G", " H", " I", " J",
+                       " K", " L", " M", " N", " O", " P", " Q", " R", " S", " T",
+                       " U", " V", " W", " X", " Y", " Z"]
+  LETTER_TABLE_FULL = ["\uFF21", "\uFF22", "\uFF23", "\uFF24", "\uFF25", "\uFF26", "\uFF27", "\uFF28", "\uFF29", "\uFF2A",
+                       "\uFF2B", "\uFF2C", "\uFF2D", "\uFF2E", "\uFF2F", "\uFF30", "\uFF31", "\uFF32", "\uFF33", "\uFF34",
+                       "\uFF35", "\uFF36", "\uFF37", "\uFF38", "\uFF39", "\uFF3A"]
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
@@ -153,7 +153,7 @@ class Game_Troop < Game_Unit
     end
     if c.actor_valid    # Actor
       actor = $game_actors[c.actor_id]
-      return false if actor == nil 
+      return false if actor == nil
       return false if actor.hp_rate * 100 > c.actor_hp
     end
     if c.switch_valid   # Switch

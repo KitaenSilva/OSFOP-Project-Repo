@@ -18,8 +18,8 @@
 #
 #--- Free to use in any project, commercial or non-commercial, with credit given
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
- 
- 
+
+
 #class Scene_Battle < Scene_Base
 class Game_Battler < Game_BattlerBase
   #---------#
@@ -29,19 +29,19 @@ class Game_Battler < Game_BattlerBase
   CSE_FILENAME = "Skill3"
   CSE_VOLUME   = 100
   CSE_PITCH    = 100
- 
+
   #Here we go if you wish to have a random assortment of Se's play:
   USE_RANDOM   = false
   #Array format: [ [ "filename" , volume , pitch ] , ]
-  RANDOM_SE    = [["Skill1",100,100],["Skill2",100,100],["Skill3",100,100]]
+  RANDOM_SE    = [["Skill1", 100, 100], ["Skill2", 100, 100], ["Skill3", 100, 100]]
   #---------#
   #FLASH to true to execute flash
   #Color in (Red,Green,Blue,Alpha) format (0-255), Duration in frames
   #---------#
   FLASH        = true
-  FLASHCOLOR   = Color.new(255,255,255,255)
+  FLASHCOLOR   = Color.new(255, 255, 255, 255)
   FLASHDURAT   = 30
- 
+
   #Want to set it up so you have to time a button press to land a critical?
   #Well some people do, and for you people, there's this:
   #Total time is time to press button and min <> max is window to press it right
@@ -54,7 +54,7 @@ class Game_Battler < Game_BattlerBase
   alias crit_item_apply item_apply
   def item_apply(user, item)
     if self.is_a?(Game_Actor)
-      crit_item_apply(user,item)
+      crit_item_apply(user, item)
     else
       @result.clear
       if PRESS_FOR_CRITICAL
@@ -90,10 +90,10 @@ class Game_Battler < Game_BattlerBase
   end
   def play_critical_se
     if !USE_RANDOM
-      Audio.se_play('Audio/SE/' + CSE_FILENAME,CSE_VOLUME,CSE_PITCH)
+      Audio.se_play("Audio/SE/" + CSE_FILENAME, CSE_VOLUME, CSE_PITCH)
     else
       id = rand(RANDOM_SE.size)
-      Audio.se_play("Audio/SE/" + RANDOM_SE[id][0],RANDOM_SE[id][1],RANDOM_SE[id][2])
+      Audio.se_play("Audio/SE/" + RANDOM_SE[id][0], RANDOM_SE[id][1], RANDOM_SE[id][2])
     end
   end
 end

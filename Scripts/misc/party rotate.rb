@@ -70,7 +70,7 @@
 ############################################
 
 module Rotate
-  
+
 # All of the following options can be left alone if desired, or you can
 #   modify them to better customize the script to your game.
 
@@ -78,33 +78,33 @@ module Rotate
 #   Acceptable buttons are as follows:
 #   :A :B :C :X :Y :Z :L :R (NOTE: these correspond to "game buttons" as
 #                               defined on the F1 Keyboard/Gamepad tabs)
-#   :DOWN :LEFT :RIGHT :UP 
-#   :SHIFT :CTRL :ALT 
-#   :F5 :F6 :F7 :F8 :F9 
+#   :DOWN :LEFT :RIGHT :UP
+#   :SHIFT :CTRL :ALT
+#   :F5 :F6 :F7 :F8 :F9
 
-Button = :Y
+  Button = :Y
 
 # This is the maximum number of members you want to be rotated when
 #   the player hits the "Party Rotate" button.  For most games this
 #   should be equal to the size of the active party, but there might
 #   be reasons you'd want to set it differently.
 
-Max_Members = 4
+  Max_Members = 4
 
 # Set this option to "true" if you want KOed party members to be
 #   "skipped" if the Party Rotate would make them the party leader.
 #   Set it to "false" to allow KOed members to be the party leader
 #   when a Party Rotate is done.
 
-Skip_If_KO = true
+  Skip_If_KO = true
 
 # Set the sounds that will be played when the player presses the
 #   Party Rotate button.  Enter the filename of the sound, the
 #   volume, and the pitch, in that order.  "Disallow Sound" will
 #   be played if the Party Rotate can't be done (e.g. 1-member party).
 
-Rotate_Sound = ['Audio/SE/Recovery', 80, 100]
-Disallow_Sound = ['Audio/SE/Buzzer1', 80, 100]
+  Rotate_Sound = ["Audio/SE/Recovery", 80, 100]
+  Disallow_Sound = ["Audio/SE/Buzzer1", 80, 100]
 
 end
 
@@ -158,9 +158,9 @@ class Scene_Map < Scene_Base
         Audio.se_play(Rotate::Rotate_Sound[0], Rotate::Rotate_Sound[1], Rotate::Rotate_Sound[2])
       end
     # Otherwise, simply play the Disallow Sound
-    else    
+    else
       Audio.se_play(Rotate::Disallow_Sound[0], Rotate::Disallow_Sound[1], Rotate::Disallow_Sound[2])
     end
   end
-  
+
 end

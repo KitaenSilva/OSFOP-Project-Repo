@@ -35,7 +35,7 @@
 #  will reel the line in.
 #  Once a fish as the bait, the player must reel it in, but be careful to not
 #  reel in while the fish is pulling to the left, else the line strength will
-#  weaken and eventually break. 
+#  weaken and eventually break.
 #
 #  RODS
 #  The rod strength of an item detemines how much strain the line can take
@@ -61,7 +61,7 @@
 #  SCRIPT CALLS
 #------------------------------------------------------------------------------#
 #
-#  fish_back(w,x,y,z)   # Change background images used in fishing scene. 
+#  fish_back(w,x,y,z)   # Change background images used in fishing scene.
 #                       # w = over, x = under, y = flow, z = flow opacity
 #
 #  fish_opt("Music")    # Change fishing options
@@ -88,7 +88,7 @@
 #  fish_opt("Town1")     # Changes music to Town1
 #  add_fish(1,1,2)       # Adds 2 x fish with id1 and 1 x fish with id2 to pond
 #  rand_fish(0,2,10)     # Adds 2-10 fish with id0 to pond.
-#                        
+#
 #------------------------------------------------------------------------------#
 
 #------------------------------------------------------------------------------#
@@ -102,7 +102,7 @@
 #  <bait_img: image>  # The image name of to use a different bait spritesheet
 #                     # /Graphics/GFish/ folder. (use same layout as bait.png)
 #
-#  <rod: x>           # Items with this tag can be used as fishing rods. 
+#  <rod: x>           # Items with this tag can be used as fishing rods.
 #                     # x = strength of the rod (Minimum 1). The rod strength
 #                     # determines how long it takes for the line to snap and
 #                     # also decreases the amount of pull a fish has.
@@ -140,7 +140,7 @@
 
 ($imported ||= {})["Galv_Fishing"] = true
 module GFISH
-  
+
 #-------------------------------------------------------------------------------
 #
 #  * SETTINGS
@@ -148,49 +148,49 @@ module GFISH
 #-------------------------------------------------------------------------------
 
   # Gameplay
-  
+
   FISH_VAR = 1   # The variable used to store the fish_id of the last fish you
                  # have caught. This can be used, for example, in conjunction
                  # with the common event fish setting for conditional branches.
 
   # Audio
-  
+
   DEFAULT_BGM = "Town1"   # Default fishing music
   DEFAULT_SE = "Up4"      # SE that plays when you successfully catch a fish
-  
+
   CAST_SE = "Wind4"       # SE when casting line
   SPLASH_SE = "Dive"      # SE when bait lands in water
   BROKE_SE = "Blow5"      # SE when line breaks
-  
+
   # Vocab
-  
-  POWER = "Power"         # Text used for power meter
+
+  POWER = "Power" # Text used for power meter
 
   CTEXT_BEFORE = "You caught a " # Text that appears before caught fish item
   CTEXT_AFTER = "!"              # Text that appears after caught fish item
   CATCH_ITEM_0 = "Catch Results" # Text appears when you catch a fish that has
                                  # item 0 in it's setup and no custom text.
-  
+
   CONTROLS = ""           # Text that appears top right of screen.
   CONTROL_FONT_SIZE = 20  # I added the controls into the HUD instead of using
                           # this text.
 
-  STAT_HEADING = "FISH STATS"  # Heading of the fish statistics scene
-  TOTAL_FISH = "Total Fish Caught"  # Text before the total number of fish caught
+  STAT_HEADING = "FISH STATS" # Heading of the fish statistics scene
+  TOTAL_FISH = "Total Fish Caught" # Text before the total number of fish caught
   FISH_TYPES = "Fish Types"    # Text displayed before how many type of fish
                                # player has caught.
   RECORD_FISH = "Record Fish"  # Text for biggest length fish player has caught
-  
+
   FISH_CAUGHT = "Number Caught"
   FISH_LENGTH = "Record Length"
   FISH_WEIGHT = "Record Weight"
-  
-  
+
+
   # Other
   ROD_X = 0  # Offset the rod's x position
   ROD_Y = 0  # Offset the rod's y position
-  
-  DECIMALS = true    # Use decimal places for weight and height of fish stats.
+
+  DECIMALS = true # Use decimal places for weight and height of fish stats.
 
 
 #-------------------------------------------------------------------------------
@@ -200,108 +200,108 @@ module GFISH
   FISH = [] # don't touch
 #-------------------------------------------------------------------------------
 #  Here is where you set up all the possible fish you can catch and certain
-#  attributes about each fish. The number in each FISH[x] below must be unique. 
+#  attributes about each fish. The number in each FISH[x] below must be unique.
 #  This is the 'fish_id' used to add fish manually to a pond
 #-------------------------------------------------------------------------------
 
-    FISH[0] = [    # Purple Fish
-                   "Fish2",     # graphic
-                   5,           # speed
-                   0,           # pull
-                   1,           # move type
-                  [2,8],        # level
-                   -1,          # x pos
-                   23,          # item
-                  [1,2,3],      # bait type
-                  "",           # custom se
-                  [20,2],       # range
-                  0,            # common event
-                  [150,310],    # length
-                  [23,52],      # weight
-                  true,         # stats
-                  "",           # custom txt
-              ]
+  FISH[0] = [ # Purple Fish
+                 "Fish2",     # graphic
+                 5,           # speed
+                 0,           # pull
+                 1,           # move type
+                [2, 8], # level
+                 -1,          # x pos
+                 23,          # item
+                [1, 2, 3], # bait type
+                "", # custom se
+                [20, 2], # range
+                0, # common event
+                [150, 310],    # length
+                [23, 52],      # weight
+                true,         # stats
+                "",           # custom txt
+            ]
 
 #-------------------------------------------------------------------------------
 
-    FISH[1] = [    # Green Fish
-                   "Fish1",     # graphic
-                   8,           # speed
-                   0,           # pull
-                   1,           # move type
-                  [1,9],        # level
-                   -1,          # x pos
-                   24,          # item
-                  [2,4],        # bait type
-                  "",           # custom se
-                  [20,2],       # range
-                  0,            # common event
-                  [100,210],    # length
-                  [20,45],      # weight
-                  true,         # stats
-                  "",           # custom txt
-              ]
-              
-#-------------------------------------------------------------------------------
-
-    FISH[2] = [    # Rock
-                   "rock",      # graphic
-                   0,           # speed
-                   99,          # pull
-                   -1,          # move type
-                  [0,0],        # level
-                   200,         # x pos
-                   0,           # item
-                  [1,2,3,4],    # bait type
-                  "",           # custom se
-                  [20,20],      # range
-                  0,            # common event
-                  [400,400],    # length
-                  [999,999],    # weight
-                  false,        # stats
-                  "",           # custom txt
-              ]
-              
-#-------------------------------------------------------------------------------
-
-    FISH[3] = [    # A chest!
-                   "chest",     # graphic
-                   5,           # speed
-                   2,           # pull
-                   0,           # move type
-                  [0,0],        # level
-                   400,         # x pos
-                   26,          # item
-                  [6],          # bait type
-                  "Item3",      # custom se
-                  [20,20],      # range
-                  0,            # common event
-                  [350,350],    # length
-                  [200,200],    # weight
-                  false,        # stats
-                  "",           # custom txt
-              ]
+  FISH[1] = [ # Green Fish
+                 "Fish1",     # graphic
+                 8,           # speed
+                 0,           # pull
+                 1,           # move type
+                [1, 9], # level
+                 -1,          # x pos
+                 24,          # item
+                [2, 4], # bait type
+                "", # custom se
+                [20, 2], # range
+                0, # common event
+                [100, 210],    # length
+                [20, 45],      # weight
+                true,         # stats
+                "",           # custom txt
+            ]
 
 #-------------------------------------------------------------------------------
 
-    FISH[4] = [    # A Monster!
-                   "jellyfish",   # graphic
-                   5,           # speed
-                   1,           # pull
-                   2,           # move type
-                  [0,5],        # level
-                   -1,          # x pos
-                   0,           # item
-                  [1,2,3,4],    # bait type
-                  "Item3",      # custom se
-                  [40,3],       # range
-                  1,            # common event
-                  [30,60],      # length
-                  [200,200],    # weight
-                  false,        # stats
-                  "You caught a MONSTER!", # custom txt
-              ]
-              
+  FISH[2] = [ # Rock
+                 "rock",      # graphic
+                 0,           # speed
+                 99,          # pull
+                 -1,          # move type
+                [0, 0], # level
+                 200,         # x pos
+                 0,           # item
+                [1, 2, 3, 4], # bait type
+                "", # custom se
+                [20, 20], # range
+                0, # common event
+                [400, 400],    # length
+                [999, 999],    # weight
+                false,        # stats
+                "",           # custom txt
+            ]
+
+#-------------------------------------------------------------------------------
+
+  FISH[3] = [ # A chest!
+                 "chest",     # graphic
+                 5,           # speed
+                 2,           # pull
+                 0,           # move type
+                [0, 0], # level
+                 400,         # x pos
+                 26,          # item
+                [6],          # bait type
+                "Item3",      # custom se
+                [20, 20], # range
+                0, # common event
+                [350, 350],    # length
+                [200, 200],    # weight
+                false,        # stats
+                "",           # custom txt
+            ]
+
+#-------------------------------------------------------------------------------
+
+  FISH[4] = [ # A Monster!
+                 "jellyfish", # graphic
+                 5,           # speed
+                 1,           # pull
+                 2,           # move type
+                [0, 5], # level
+                 -1,          # x pos
+                 0,           # item
+                [1, 2, 3, 4], # bait type
+                "Item3", # custom se
+                [40, 3], # range
+                1, # common event
+                [30, 60],      # length
+                [200, 200],    # weight
+                false, # stats
+                "You caught a MONSTER!", # custom txt
+            ]
+
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
@@ -310,7 +310,7 @@ module GFISH
 #  speed     = the swim speed of the fish. 10 is default.
 #  pull      = the higher their pull, the more difficult it is to reel in and
 #              quicker the line will break.
-#  move type = the type of movement. 
+#  move type = the type of movement.
 #             -1 = unmovable - use for things like rocks to snag the line
 #                            - will constantly stress the line when reeling in
 #              0 = inanimate - use for things like chests or quest items
@@ -356,11 +356,11 @@ class Game_Interpreter
     $game_system.fish_list = []
     command_222
   end
-  
+
   def fishing_stats
     SceneManager.call(Scene_FishStats)
   end
-  
+
   def count_all_fish
     fish_caught = 0
     $game_system.fish.each { |fish|
@@ -369,8 +369,8 @@ class Game_Interpreter
     }
     return fish_caught
   end
-  
-  def record_fish(data,get_id = false)
+
+  def record_fish(data, get_id = false)
     check = 0
     fish_id = -1
     $game_system.fish.each { |fish|
@@ -389,10 +389,10 @@ class Game_Interpreter
       return check
     end
   end
-  
-  
-  
-  
+
+
+
+
   def calculate_data
     @fish_caught = 0
     length_check = 0
@@ -410,26 +410,26 @@ class Game_Interpreter
       @t += 1
     }
   end
-  
-  
-  
-  
-  
-  
-  
-  def fish_back(over,under,flow,flowopacity)
-    $game_system.fishb = [over,under,flow,flowopacity]
+
+
+
+
+
+
+
+  def fish_back(over, under, flow, flowopacity)
+    $game_system.fishb = [over, under, flow, flowopacity]
   end
 
   def fish_opt(music)
     $game_system.fishs[0] = music
   end
-  
+
   def add_fish(*args)
     $game_system.fish_list += [*args]
   end
-  
-  def rand_fish(fish_id,min,max)
+
+  def rand_fish(fish_id, min, max)
     amount = (rand(min - max) + min).to_i
     amount.times { |i| $game_system.fish_list << fish_id } if amount > 0
   end
@@ -455,14 +455,14 @@ class Game_System
   attr_accessor :fishb      # Fishing scene background images
   attr_accessor :fishs      # Fishing scene settings
   attr_accessor :fish_list  # List of fish that will appear in next scene
-  
+
   alias galv_fish_gs_initialize initialize
   def initialize
-    @fishb = [0,0,0,120]  # over, under, flow, opacity
+    @fishb = [0, 0, 0, 120] # over, under, flow, opacity
     @fishs = Array.new([GFISH::DEFAULT_BGM])
     @fish_list = []
     @fish = []
-    GFISH::FISH.each_with_index { |fish,i|
+    GFISH::FISH.each_with_index { |fish, i|
       if fish.nil?
         @fish << nil
       else
@@ -548,7 +548,7 @@ class Game_Fishing
   attr_reader   :floor_y
   attr_reader   :end_x
   attr_accessor :fish
-  
+
   def initialize
     @fishing_pattern = 1
     @fish_phase = 0
@@ -561,28 +561,28 @@ class Game_Fishing
     @reelx = 0
     @reely = 0
   end
-  
+
   def refresh_fish
     @fish = []
-    $game_system.fish_list.each_with_index { |id,i|
+    $game_system.fish_list.each_with_index { |id, i|
       next if GFISH::FISH[id].nil?
-      @fish.push(Game_Fish.new(i,id))
+      @fish.push(Game_Fish.new(i, id))
     }
   end
-  
+
   def player_x
     Graphics.width - 40
   end
   def player_y
     160
   end
-  
+
 #---|   UPDATE STUFF   |
-  
+
   def update
     update_phase
   end
-  
+
   def update_phase
     case @fish_phase
     when 0
@@ -600,7 +600,7 @@ class Game_Fishing
     end
     @phase_timer += 1
   end
-  
+
   def update_phase_0
     @fishing_pattern = 1
     @bait_y = 0
@@ -623,9 +623,9 @@ class Game_Fishing
 
   def update_phase_2
     # Casting rod animation
-    RPG::SE.new(GFISH::CAST_SE,100,80).play if @phase_timer == 18
+    RPG::SE.new(GFISH::CAST_SE, 100, 80).play if @phase_timer == 18
     if @phase_timer >= 30
-      RPG::SE.new(GFISH::SPLASH_SE,80,150).play
+      RPG::SE.new(GFISH::SPLASH_SE, 80, 150).play
       SceneManager.scene.spriteset.splash.reset
       @fish_phase = 3
       SceneManager.scene.spriteset.rod.line_in_water
@@ -633,7 +633,7 @@ class Game_Fishing
     end
     @fish.each { |fish| fish.update_normal }
   end
-  
+
   def update_phase_3
     # Fishing phase
     update_cancel_button
@@ -644,13 +644,13 @@ class Game_Fishing
     end
     @fish.each { |fish| fish.update_action }
   end
-  
+
   def update_phase_4
     # Fish is on the line!
     update_fish_struggle
     @fish.each { |fish| fish.update_action }
   end
-  
+
   def update_phase_5
     # Victory stuff
     @fish.each { |fish| fish.update_normal }
@@ -661,7 +661,7 @@ class Game_Fishing
   def update_cancel_button
     cancel_fishing if Input.press?(:B)
   end
-  
+
 #---|   FUNCTIONALITY   |
 
   def sinking
@@ -687,15 +687,15 @@ class Game_Fishing
     @reeling = false
     SceneManager.scene.cancel_fishing
   end
-  
+
   def casting
     @phase_timer = 0
     @fish_phase = 1
   end
-  
+
   def update_fish_struggle
     reeling_in_struggle
-    
+
     if @fish_hooked.move_type < 0
       fish_x = 0; fish_y = 0
     elsif @fish_hooked.move_type == 0
@@ -723,17 +723,17 @@ class Game_Fishing
 
   def test_line
     if @reeling && @fish_hooked.dir < 0 || @reeling && @fish_hooked.move_type <= 0
-      @line_strength -= [@fish_hooked.pull - $game_player.equipped_rod.rod,1].max
+      @line_strength -= [@fish_hooked.pull - $game_player.equipped_rod.rod, 1].max
     end
     lost_fish if @line_strength <= 0
   end
-  
+
   def lose_bait
     item = $game_player.equipped_bait
     $game_party.lose_item(item, 1)
     SceneManager.scene.refresh_menus if SceneManager.scene_is?(Scene_GFish)
   end
-  
+
   def reeling_in_struggle
     if Input.press?(:RIGHT) || Input.press?(:C)
       @reeling = true
@@ -742,11 +742,11 @@ class Game_Fishing
         @reelx = 0
         @reely = 0
       else
-        @reelx = 1 * [$game_player.equipped_rod.rod - @fish_hooked.pull,1].max
-        @reely = -1 * [$game_player.equipped_rod.rod - @fish_hooked.pull,1].max
+        @reelx = 1 * [$game_player.equipped_rod.rod - @fish_hooked.pull, 1].max
+        @reely = -1 * [$game_player.equipped_rod.rod - @fish_hooked.pull, 1].max
       end
       caught_fish if @bait_x >= @end_x && @bait_y <= @surface_y &&
-        @fish_hooked.move_type >= 0
+                     @fish_hooked.move_type >= 0
     else
       @reelx = 0
       @reely = 0
@@ -754,32 +754,32 @@ class Game_Fishing
       @fishing_pattern = 0
     end
   end
-  
+
   def lost_fish
     @fish_hooked.lost
     @fish_hooked.check_dir
-    RPG::SE.new(GFISH::BROKE_SE,100,100).play
+    RPG::SE.new(GFISH::BROKE_SE, 100, 100).play
     cancel_fishing
     lose_bait
   end
-  
+
   def caught_fish
     @fish_phase = 5
     @fish_hooked.caught
     add_fish_data
     if @fish_hooked.se == ""
-      RPG::SE.new(GFISH::DEFAULT_SE,100,100).play
+      RPG::SE.new(GFISH::DEFAULT_SE, 100, 100).play
     else
-      RPG::SE.new(@fish_hooked.se,100,100).play
+      RPG::SE.new(@fish_hooked.se, 100, 100).play
     end
     lose_bait
     if @fish_hooked.item > 0
-      item = $data_items[@fish_hooked.item] 
-      $game_party.gain_item(item,1)
+      item = $data_items[@fish_hooked.item]
+      $game_party.gain_item(item, 1)
     end
     SceneManager.scene.show_victory
   end
-  
+
   def add_fish_data
     $game_variables[GFISH::FISH_VAR] = @fish_hooked.fish_id
     f = $game_system.fish[@fish_hooked.fish_id]
@@ -794,7 +794,7 @@ end # Game_Fishing
     #---------------#
 #---|   GAME_FISH   |-----------------------------------------------------------
     #---------------#
-    
+
 class Game_Fish
   attr_accessor :x
   attr_accessor :y
@@ -815,19 +815,19 @@ class Game_Fish
   attr_reader :weight
   attr_reader :stats
   attr_reader :ctxt
-  
-  def initialize(id,fish_id)
+
+  def initialize(id, fish_id)
     @id = id
     @fish_id = fish_id
     initialize_variables
   end
-  
+
   def surface; $game_fishing.surface_y; end
   def floor;   $game_fishing.floor_y; end
   def left;      10; end
   def right;     $game_fishing.end_x; end
   def moving?;   @movetimer > 0; end
-    
+
   def get_fish_minmax
     if @level[0] <= 0
       @fish_floor = floor
@@ -844,14 +844,14 @@ class Game_Fish
   def initialize_variables
     @living = true
     @movetimer = 0
-    @graphic,@speed,@pull,@move_type,@level,@x,@item,@bait_type,@se,@range,
-      @cevent,@lengtha,@weighta,@stats,@ctxt = Array.new(GFISH::FISH[@fish_id])
+    @graphic, @speed, @pull, @move_type, @level, @x, @item, @bait_type, @se, @range,
+      @cevent, @lengtha, @weighta, @stats, @ctxt = Array.new(GFISH::FISH[@fish_id])
     random_stats
     @speed *= 0.1
     get_fish_minmax
     set_fish_starting
   end
-  
+
   def random_stats
     rand_ratio = ((rand(100) + 1) * 0.01).round(2)
     min = @lengtha[0].to_f
@@ -863,7 +863,7 @@ class Game_Fish
     @weight = ((max - min) * rand_ratio + min).round(1)
     @weight = @weight.to_i if !GFISH::DECIMALS
   end
-  
+
   def set_fish_starting
     if @move_type > 0
       @dir = rand(3) - 1   # -1 = left, 0 = none, 1 = right
@@ -880,21 +880,21 @@ class Game_Fish
       @y = floor - (floor - surface) * (level * 0.1)
     end
   end
-  
+
   def alive?
     @living
   end
-  
+
   def near_bait?
-    if @x.between?($game_fishing.bait_x - @range[0],$game_fishing.bait_x + @range[0]) &&
-        @y.between?($game_fishing.bait_y - @range[0],$game_fishing.bait_y + @range[0]) &&
-        $game_player.equipped_bait &&
-        @bait_type.include?($game_player.equipped_bait.bait[0])
+    if @x.between?($game_fishing.bait_x - @range[0], $game_fishing.bait_x + @range[0]) &&
+       @y.between?($game_fishing.bait_y - @range[0], $game_fishing.bait_y + @range[0]) &&
+       $game_player.equipped_bait &&
+       @bait_type.include?($game_player.equipped_bait.bait[0])
       return true
     end
     return false
   end
-  
+
   def update_action
     if @hooked
       update_hooked
@@ -907,7 +907,7 @@ class Game_Fish
       update_normal
     end
   end
-  
+
   def update_near_bait
     return if @move_type < 0
     if @x < $game_fishing.bait_x
@@ -925,14 +925,14 @@ class Game_Fish
       @vdir = -1
     end
   end
-  
+
   def update_nibble
-    if @x.between?($game_fishing.bait_x - @range[1],$game_fishing.bait_x + @range[1]) &&
-      @y.between?($game_fishing.bait_y - @range[1],$game_fishing.bait_y + @range[1])
+    if @x.between?($game_fishing.bait_x - @range[1], $game_fishing.bait_x + @range[1]) &&
+       @y.between?($game_fishing.bait_y - @range[1], $game_fishing.bait_y + @range[1])
       @hooked = true
       $game_fishing.fish_hooked = self
-      RPG::SE.new("Blow5",100,150).play
-      SceneManager.scene.spriteset.fish_sprites[@id].flash(Color.new(255,255,255,180), 6) 
+      RPG::SE.new("Blow5", 100, 150).play
+      SceneManager.scene.spriteset.fish_sprites[@id].flash(Color.new(255, 255, 255, 180), 6)
       $game_fishing.fish_phase = 4
       @dir = -1 if @move_type > 0
     end
@@ -944,7 +944,7 @@ class Game_Fish
       @vdir = 0
     end
   end
-  
+
   def update_hooked
     return if @move_type < 0
     @x = $game_fishing.bait_x
@@ -952,7 +952,7 @@ class Game_Fish
     determine_struggle if !moving?
     @movetimer -= 1
   end
-  
+
   def determine_struggle
     if @move_type <= 0
       @dir = 0
@@ -963,18 +963,18 @@ class Game_Fish
       @movetimer = rand(70)
     end
   end
-  
+
   def caught
     @hooked = false
     @living = false
     @x = -1000
     @y = -1000
   end
-  
+
   def lost
     @hooked = false
   end
-  
+
   def update_normal
     return if !@living
     if moving?
@@ -988,7 +988,7 @@ class Game_Fish
     end
     @movetimer -= 1
   end
-  
+
   def determine_action
     case @move_type
     when 0
@@ -1006,7 +1006,7 @@ class Game_Fish
       @movetimer = rand(100)
     end
   end
-  
+
   def do_move
     if @dir > 0
       @x += @dir if @x < right
@@ -1019,14 +1019,14 @@ class Game_Fish
       @y += @vdir if @y > @fish_surface
     end
   end
-  
+
   def do_move_to_level
     @dir = 0
     @vdir = 0
     @y += 1 if @y < @fish_surface
     @y -= 1 if @y > @fish_floor
   end
-  
+
   def out_of_position?
     return true if @y < (@fish_surface - 5)
     return true if @y > (@fish_floor + 5)
@@ -1041,7 +1041,7 @@ end # Game_Fish
 
 class Scene_GFish < Scene_Base
   attr_accessor :spriteset
-  
+
   def start
     super
     $game_fishing = Game_Fishing.new
@@ -1049,7 +1049,7 @@ class Scene_GFish < Scene_Base
     setup_scene
     init_variables
   end
-  
+
   def setup_scene
     create_spriteset
     create_command_window
@@ -1059,7 +1059,7 @@ class Scene_GFish < Scene_Base
     @command_window.refresh
     RPG::BGM.new($game_system.fishs[0]).play
   end
-  
+
   def init_variables
     $game_fishing.fish_phase = 0
     $game_fishing.reeling = false
@@ -1083,8 +1083,8 @@ class Scene_GFish < Scene_Base
 
   def create_item_window
     @item_window = Window_FishItems.new
-    @item_window.set_handler(:ok,     method(:on_item_ok))
-    @item_window.set_handler(:cancel,    method(:cancel_bait))
+    @item_window.set_handler(:ok, method(:on_item_ok))
+    @item_window.set_handler(:cancel, method(:cancel_bait))
     @item_window.hide.deactivate
   end
 
@@ -1107,10 +1107,10 @@ class Scene_GFish < Scene_Base
     @cast_window.show
     $game_fishing.casting
   end
-  
+
   def command_equipb; command_equip(:bait); end
   def command_equipr; command_equip(:rod); end
-  
+
   def command_equip(category)
     @item_window.category = category
     @command_window.hide.deactivate
@@ -1118,11 +1118,11 @@ class Scene_GFish < Scene_Base
     @item_window.select(0)
     @item_window.refresh
   end
-  
+
   def cancel_command
     @command_window.hide.deactivate
   end
-  
+
   def return_scene
     SceneManager.return
     $game_system.replay_bgm
@@ -1154,7 +1154,7 @@ class Scene_GFish < Scene_Base
     $game_timer.update
     $game_fishing.update
   end
-  
+
 #---|   FUNCTIONALITY   |
 
   def casting_set
@@ -1171,13 +1171,13 @@ class Scene_GFish < Scene_Base
     return return_scene if $game_temp.common_event_id > 0
     @command_window.show.activate
   end
-  
+
   def show_victory
     @cast_window.dispose
     create_cast_window
     @cast_window.show
   end
-  
+
   def refresh_menus
     @hud_window.refresh
     @command_window.refresh
@@ -1189,10 +1189,10 @@ class Scene_GFish < Scene_Base
     super
     dispose_spriteset
   end
-  
+
   def dispose_spriteset
     @spriteset.dispose
-  end 
+  end
 end # Scene_GFish < Scene_Base
 
 
@@ -1218,9 +1218,9 @@ class Window_FishCommand < Window_Command
     add_command("Cast Line",   :cast, cast_possible)
     add_command("Equip Bait",  :equip_bait)
     add_command("Equip Rod",   :equip_rod)
-    add_command("Stop Fishing",:exit)
+    add_command("Stop Fishing", :exit)
   end
-  
+
   def cast_possible
     $game_player.equipped_bait && $game_player.equipped_rod
   end
@@ -1238,16 +1238,16 @@ end # Window_FishCommand < Window_Command
 
 class Window_FishItems < Window_ItemList
   attr_reader :category
-  
+
   def initialize
     super(Graphics.width / 4, Graphics.height / 4, Graphics.width / 2,
       Graphics.height / 2)
   end
-  
+
   def col_max
     return 1
   end
-  
+
   def include?(item)
     case @category
     when :bait
@@ -1275,18 +1275,18 @@ class Window_FishHud < Window_Base
     self.opacity = 0
     refresh
   end
-  
+
   def standard_padding
     0
   end
-  
+
   def bait
     $game_player.equipped_bait
   end
   def rod
     $game_player.equipped_rod
   end
-  
+
   def refresh
     if bait && $game_party.item_number(bait) == 0
       $game_player.equipped_bait = nil
@@ -1299,27 +1299,27 @@ class Window_FishHud < Window_Base
     draw_rod
     draw_controls
   end
-  
+
   def draw_controls
     fsize = contents.font.size
     contents.font.size = GFISH::CONTROL_FONT_SIZE
-    draw_text(0, 5, contents.width - 7, line_height, GFISH::CONTROLS,2)
+    draw_text(0, 5, contents.width - 7, line_height, GFISH::CONTROLS, 2)
     contents.font.size = fsize
   end
 
   def draw_bait
     if !bait.nil?
       draw_icon(bait.icon_index, 33, 5, true)
-      draw_text(26, 28, 40, line_height, $game_party.item_number(bait),1)
+      draw_text(26, 28, 40, line_height, $game_party.item_number(bait), 1)
     else
-      draw_text(26, 15, 40, line_height, "Bait",1)
+      draw_text(26, 15, 40, line_height, "Bait", 1)
     end
   end
   def draw_rod
     if !rod.nil?
       draw_icon(rod.icon_index, 93, 15, true)
     else
-      draw_text(86, 15, 40, line_height, "Rod",1)
+      draw_text(86, 15, 40, line_height, "Rod", 1)
     end
   end
 
@@ -1347,14 +1347,14 @@ class Window_CastWindow < Window_Base
   def window_height; fitting_height(@line_number); end
   def update; refresh if self.visible; end
   def fish; $game_fishing.fish_hooked; end
-  
+
   def set_distance
     $game_fishing.bait_x = Graphics.width - 80 - ((Graphics.width - 100) * @power)
   end
   def reset_power
     @power = 0
   end
-  
+
   def refresh
     @img.dispose if @img
     contents.clear
@@ -1364,14 +1364,14 @@ class Window_CastWindow < Window_Base
       draw_fishcaught
     end
   end
-  
+
   def draw_powbar
     @power = 0 if @power > 1
     @power += 0.02
-    draw_text(0, 0, 80, line_height, GFISH::POWER,0)
+    draw_text(0, 0, 80, line_height, GFISH::POWER, 0)
     draw_gauge(80, -5, 190, @power, hp_gauge_color1, hp_gauge_color2)
   end
-  
+
   def draw_fishcaught
     if fish.item <= 0 && fish.ctxt == ""
       draw_generic_text
@@ -1384,13 +1384,13 @@ class Window_CastWindow < Window_Base
     draw_stats
     draw_fish
   end
-  
+
   def draw_fish
     setup_fish
     @img.x = Graphics.width / 4 + 240
     @img.y = 165
   end
-  
+
   def setup_fish
     @img = Sprite.new
     @img.bitmap = Cache.gfish(fish.graphic)
@@ -1401,34 +1401,34 @@ class Window_CastWindow < Window_Base
     @img.oy = @ch / 2
     @img.z = 999
   end
-  
+
   def draw_generic_text
-    draw_text(0, 0, contents.width, line_height, GFISH::CATCH_ITEM_0,1)
+    draw_text(0, 0, contents.width, line_height, GFISH::CATCH_ITEM_0, 1)
   end
   def draw_custom_text
-    draw_text(0, 0, contents.width, line_height,fish.ctxt,1)
+    draw_text(0, 0, contents.width, line_height, fish.ctxt, 1)
   end
-  
+
   def draw_item_name(item)
     return unless item
     draw_icon(item.icon_index, 0, 0, true)
-    draw_text(30, 0, contents.width, line_height, GFISH::CTEXT_BEFORE + 
+    draw_text(30, 0, contents.width, line_height, GFISH::CTEXT_BEFORE +
       item.name + GFISH::CTEXT_AFTER )
   end
-    
+
   def draw_stats
     change_color(system_color)
-    draw_text(0, line_height * 2, contents.width, line_height, "Length",0)
-    draw_text(0, line_height * 3, contents.width, line_height, "Weight",0)
+    draw_text(0, line_height * 2, contents.width, line_height, "Length", 0)
+    draw_text(0, line_height * 3, contents.width, line_height, "Weight", 0)
     change_color(normal_color)
-    draw_text(80, line_height * 2, 60, line_height, fish.length.to_s,0)
-    draw_text(80, line_height * 3, 60, line_height, fish.weight.to_s,0)
+    draw_text(80, line_height * 2, 60, line_height, fish.length.to_s, 0)
+    draw_text(80, line_height * 3, 60, line_height, fish.weight.to_s, 0)
   end
-  
+
   def dispose_sprite
     @img.dispose if @img
   end
-  
+
   def dispose
     super
   end
@@ -1443,7 +1443,7 @@ class Spriteset_GFishing
   attr_accessor :rod
   attr_accessor :splash
   attr_accessor :fish_sprites
-  
+
   def initialize
     create_backgrounds
     create_viewports
@@ -1456,7 +1456,7 @@ class Spriteset_GFishing
   def create_viewports
     @viewport1 = Viewport.new
     @viewport2 = Viewport.new
-    @viewport2.rect = Rect.new(0,0,Graphics.width,@over.bitmap.height - 20)
+    @viewport2.rect = Rect.new(0, 0, Graphics.width, @over.bitmap.height - 20)
     @viewport3 = Viewport.new
     @brightness = 255
     @viewport1.z = 0
@@ -1499,15 +1499,15 @@ class Spriteset_GFishing
     @flow.z = -2
     @flow.opacity = $game_system.fishb[3]
   end
-  
+
   def create_weather
     @weather = Spriteset_FishWeather.new(@viewport2)
   end
-  
+
   def create_timer
     @timer_sprite = Sprite_Timer.new(@viewport2)
-  end  
-  
+  end
+
   def create_sprites
     @rod = Sprite_Rod.new(@viewport1)
     @fisher = Sprite_Fisher.new(@viewport1)
@@ -1515,14 +1515,14 @@ class Spriteset_GFishing
     @fish_sprites = []
     $game_fishing.fish.each do |fish|
       if fish.alive?
-        @fish_sprites.push(Sprite_Fish.new(@viewport1,fish))
+        @fish_sprites.push(Sprite_Fish.new(@viewport1, fish))
       end
     end
     @bait = Sprite_Bait.new(@viewport1)
   end
-  
+
 #---|   UPDATE STUFF   |
-  
+
   def update
     update_flow
     update_sprites
@@ -1531,7 +1531,7 @@ class Spriteset_GFishing
     update_viewports
     @brightness -= 15 if @brightness > 0
   end
-  
+
   def update_flow
     @flow.ox += @flowx
     @under.update
@@ -1545,7 +1545,7 @@ class Spriteset_GFishing
     @bait.update
     @splash.update
   end
-  
+
   def update_weather
     @weather.type = $game_map.screen.weather_type
     @weather.power = $game_map.screen.weather_power
@@ -1557,7 +1557,7 @@ class Spriteset_GFishing
   def update_timer
     @timer_sprite.update
   end
-  
+
   def update_viewports
     @viewport1.tone.set($game_map.screen.tone)
     @viewport1.ox = $game_map.screen.shake
@@ -1567,7 +1567,7 @@ class Spriteset_GFishing
     @viewport2.update
     @viewport3.update
   end
-  
+
 #---|   DISPOSE GRAPHICS   |
 
   def dispose
@@ -1577,7 +1577,7 @@ class Spriteset_GFishing
     dispose_timer
     dispose_viewports
   end
-  
+
   def dispose_backgrounds
     @hud.dispose
     @over.dispose
@@ -1639,7 +1639,7 @@ class Sprite_Fisher < Sprite_Base
     setup_character
     update
   end
-  
+
   def dispose
     super
   end
@@ -1657,11 +1657,11 @@ class Sprite_Fisher < Sprite_Base
     @direction = 4
     set_character_bitmap
   end
-  
+
   def set_character_bitmap
     self.bitmap = Cache.character(@character_name)
     sign = @character_name[/^[\!\$]./]
-    if sign && sign.include?('$')
+    if sign && sign.include?("$")
       @cw = bitmap.width / 3
       @ch = bitmap.height / 4
     else
@@ -1695,21 +1695,21 @@ class Sprite_Rod < Sprite_Base
     setup_rod
     update
   end
-  
+
   def cast_line
     @speed_timer = 0
     @pattern = 0
     @action = 3
   end
-  
+
   def line_in_water
     @action = 2
   end
-  
+
   def idle
     @action = 0
   end
-  
+
   def update_action
     if $game_fishing.reeling
       @action = 1
@@ -1717,7 +1717,7 @@ class Sprite_Rod < Sprite_Base
       @action = 2
     end
   end
-  
+
   def dispose
     super
   end
@@ -1729,11 +1729,11 @@ class Sprite_Rod < Sprite_Base
     update_src_rect
     update_action
   end
-  
+
   def rod
     $game_player.equipped_rod
   end
-  
+
   def update_bitmap
     if graphic_changed?
       setup_rod
@@ -1743,7 +1743,7 @@ class Sprite_Rod < Sprite_Base
   def graphic_changed?
     rod && @rod_name != rod.rod_img
   end
-  
+
   def setup_rod
     self.x = Graphics.width - 48 + GFISH::ROD_X
     self.y = 195 + GFISH::ROD_Y
@@ -1767,7 +1767,7 @@ class Sprite_Rod < Sprite_Base
       @speed_timer = 0
     end
   end
-  
+
   def update_src_rect
     if @pattern >= 4
       @pattern = 0
@@ -1793,7 +1793,7 @@ class Sprite_Bait < Sprite_Base
     setup_bait
     update
   end
-  
+
   def dispose
     super
   end
@@ -1805,11 +1805,11 @@ class Sprite_Bait < Sprite_Base
     update_src_rect
     update_movement
   end
-  
+
   def bait
     $game_player.equipped_bait
   end
-  
+
   def update_bitmap
     if graphic_changed?
       setup_bait
@@ -1819,7 +1819,7 @@ class Sprite_Bait < Sprite_Base
   def graphic_changed?
     bait && @bait_name != bait.bait_img
   end
-  
+
   def setup_bait
     if bait.nil?
       self.bitmap = Cache.gfish("")
@@ -1841,7 +1841,7 @@ class Sprite_Bait < Sprite_Base
       @speed_timer = 0
     end
   end
-  
+
   def update_src_rect
     if @pattern >= 4
       @pattern = 0
@@ -1850,7 +1850,7 @@ class Sprite_Bait < Sprite_Base
     sy = 0 * @ch
     self.src_rect.set(sx, sy, @cw, @ch)
   end
-  
+
   def update_movement
     self.x = $game_fishing.bait_x
     self.y = $game_fishing.bait_y
@@ -1872,14 +1872,14 @@ class Sprite_Splash < Sprite_Base
     setup_splash
     update
   end
-  
+
   def reset
     self.x = $game_fishing.bait_x
     @pattern = 0
     @speed_timer = 0
     @active = true
   end
-  
+
   def dispose
     super
   end
@@ -1894,7 +1894,7 @@ class Sprite_Splash < Sprite_Base
       self.opacity = 0
     end
   end
-  
+
   def setup_splash
     self.bitmap = Cache.gfish("splash")
     @cw = bitmap.width / 4
@@ -1910,7 +1910,7 @@ class Sprite_Splash < Sprite_Base
       @speed_timer = 0
     end
   end
-  
+
   def update_src_rect
     if @pattern >= 4
       @active = false
@@ -1919,7 +1919,7 @@ class Sprite_Splash < Sprite_Base
     sy = 0 * @ch
     self.src_rect.set(sx, sy, @cw, @ch)
   end
-  
+
   def update_movement
     self.y = $game_fishing.surface_y
     self.opacity = 255
@@ -1932,7 +1932,7 @@ end # Sprite_Splash < Sprite_Base
     #-----------------#
 
 class Sprite_Fish < Sprite_Base
-  def initialize(viewport,fish)
+  def initialize(viewport, fish)
     super(viewport)
     @pattern = 0
     @speed_timer = 0
@@ -1940,7 +1940,7 @@ class Sprite_Fish < Sprite_Base
     setup_fish
     update
   end
-  
+
   def dispose
     super
   end
@@ -1951,7 +1951,7 @@ class Sprite_Fish < Sprite_Base
     update_src_rect
     update_movement
   end
-  
+
   def setup_fish
     self.bitmap = Cache.gfish(@fish.graphic)
     @cw = bitmap.width / 4
@@ -1968,7 +1968,7 @@ class Sprite_Fish < Sprite_Base
       @speed_timer = 0
     end
   end
-  
+
   def update_src_rect
     if @pattern >= 4
       @pattern = 0
@@ -1977,7 +1977,7 @@ class Sprite_Fish < Sprite_Base
     sy = 0 * @ch
     self.src_rect.set(sx, sy, @cw, @ch)
   end
-  
+
   def update_movement
     self.x = @fish.x
     self.y = @fish.y
@@ -1998,21 +1998,21 @@ class Fish_Stats
   attr_accessor :caught   # number of fish caught
   attr_accessor :length   # record length caught
   attr_accessor :weight   # record weight caught
-  
+
   attr_reader :id
   attr_reader :graphic
   attr_reader :speed
   attr_reader :item
   attr_reader :stats
   attr_reader :ctxt
-  
+
   def initialize(fish_id)
     @id = fish_id
     @caught = 0
     @length = 0
     @weight = 0
-    @graphic,@speed,@pull,@move_type,@level,@x,@item,@bait_type,@se,@range,
-      @cevent,@lengtha,@weighta,@stats,@ctxt = Array.new(GFISH::FISH[@id])
+    @graphic, @speed, @pull, @move_type, @level, @x, @item, @bait_type, @se, @range,
+      @cevent, @lengtha, @weighta, @stats, @ctxt = Array.new(GFISH::FISH[@id])
   end
 end # Fish_Stats
 
@@ -2031,26 +2031,26 @@ class Scene_FishStats < Scene_ItemBase
     create_footer_right_window
     create_help_window
   end
-  
+
   def bwidth
     return 544
   end
-  
+
   def bheight
     return 416
   end
-  
+
   def create_heading_window
     wx = (Graphics.width - bwidth) / 2
     wy = (Graphics.height - bheight) / 2
-    @header_window = Window_FishInfo.new(wx,wy,bwidth,1,0)
+    @header_window = Window_FishInfo.new(wx, wy, bwidth, 1, 0)
   end
-  
+
   def create_type_window
     wx = @header_window.x
     wy = @header_window.y + @header_window.height
     ww = @header_window.width / 2
-    @type_window = Window_FishInfo.new(wx,wy,ww,1,2)
+    @type_window = Window_FishInfo.new(wx, wy, ww, 1, 2)
   end
 
   def create_item_window
@@ -2064,27 +2064,27 @@ class Scene_FishStats < Scene_ItemBase
     @item_window.activate
     @item_window.select(0)
   end
-  
+
   def create_footer_left_window
     wx = @header_window.x
     wy = @item_window.y + @item_window.height
     ww = bwidth / 2
-    @footer_left_window = Window_FishInfo.new(wx,wy,ww,2,1)
+    @footer_left_window = Window_FishInfo.new(wx, wy, ww, 2, 1)
   end
-  
+
   def create_footer_right_window
     wx = @footer_left_window.x + @footer_left_window.width
     wy = @item_window.y + @item_window.height
     ww = bwidth / 2
-    @footer_right_window = Window_FishInfo.new(wx,wy,ww,2,3)
+    @footer_right_window = Window_FishInfo.new(wx, wy, ww, 2, 3)
   end
-  
+
   def create_help_window
     wx = @type_window.x + @item_window.width
     wy = @type_window.y
     ww = @item_window.width
     wh = @item_window.height + @type_window.height
-    @help_window = Window_FishHelp.new(wx,wy,ww,wh)
+    @help_window = Window_FishHelp.new(wx, wy, ww, wh)
     @item_window.help_window = @help_window
   end
 end
@@ -2095,7 +2095,7 @@ end
     #-----------------#
 
 class Window_FishInfo < Window_Base
-  def initialize(x,y,width,lines,window)
+  def initialize(x, y, width, lines, window)
     @window = window
     super(x, y, width, fitting_height(lines))
     calculate_data
@@ -2106,7 +2106,7 @@ class Window_FishInfo < Window_Base
     contents.clear
     case @window
     when 0  # Heading
-      draw_text(0,0,contents.width,line_height, GFISH::STAT_HEADING,1)
+      draw_text(0, 0, contents.width, line_height, GFISH::STAT_HEADING, 1)
     when 1  # Total fish caught
       draw_total_caught
     when 2  # Types of fish
@@ -2115,28 +2115,28 @@ class Window_FishInfo < Window_Base
       draw_biggest_fish
     end
   end
-  
+
   def draw_total_caught
     change_color(system_color)
-    draw_text(0,0,contents.width,line_height, GFISH::TOTAL_FISH,0)
+    draw_text(0, 0, contents.width, line_height, GFISH::TOTAL_FISH, 0)
     change_color(normal_color)
-    draw_text(0,0,contents.width,line_height,@fish_caught,2)
+    draw_text(0, 0, contents.width, line_height, @fish_caught, 2)
   end
-  
+
   def draw_types
     change_color(system_color)
-    draw_text(0,0,contents.width,line_height, GFISH::FISH_TYPES,0)
+    draw_text(0, 0, contents.width, line_height, GFISH::FISH_TYPES, 0)
     change_color(normal_color)
-    draw_text(0,0,contents.width,line_height,@c.to_s + "/" + @t.to_s ,2)
+    draw_text(0, 0, contents.width, line_height, @c.to_s + "/" + @t.to_s , 2)
   end
-  
+
   def draw_biggest_fish
     change_color(system_color)
-    draw_text(0,0,contents.width,line_height, GFISH::RECORD_FISH,0)
+    draw_text(0, 0, contents.width, line_height, GFISH::RECORD_FISH, 0)
     change_color(normal_color)
     draw_fish_name(@longest_fish)
   end
-  
+
   def calculate_data
     @fish_caught = 0
     length_check = 0
@@ -2154,7 +2154,7 @@ class Window_FishInfo < Window_Base
       @t += 1
     }
   end
-  
+
   def draw_fish_name(id)
     return if id.nil?
     fish = $game_system.fish[id]
@@ -2165,7 +2165,7 @@ class Window_FishInfo < Window_Base
       draw_ctxt(fish, 0, line_height)
     end
   end
-  
+
   def draw_ctxt(item, x, y)
     return unless item
     change_color(normal_color)
@@ -2184,8 +2184,8 @@ end
     #---------------------#
 
 class Window_FishHelp < Window_Base
-  def initialize(x,y,width,height)
-    super(x,y,width,height)
+  def initialize(x, y, width, height)
+    super(x, y, width, height)
     @pattern = 0
     @speed_timer = 0
   end
@@ -2194,7 +2194,7 @@ class Window_FishHelp < Window_Base
     @fish = fish
     refresh
   end
-  
+
   def draw_fish_details
     return if @fish.nil?
     draw_fish_name
@@ -2210,25 +2210,25 @@ class Window_FishHelp < Window_Base
       draw_ctxt(@fish, 0, 0)
     end
   end
-  
+
   def draw_fish_stats
     change_color(system_color)
-    draw_text(0,line_height * 8,contents.width,line_height,GFISH::FISH_CAUGHT,0)
-    draw_text(0,line_height * 9,contents.width,line_height,GFISH::FISH_LENGTH,0)
-    draw_text(0,line_height * 10,contents.width,line_height,GFISH::FISH_WEIGHT,0)
+    draw_text(0, line_height * 8, contents.width, line_height, GFISH::FISH_CAUGHT, 0)
+    draw_text(0, line_height * 9, contents.width, line_height, GFISH::FISH_LENGTH, 0)
+    draw_text(0, line_height * 10, contents.width, line_height, GFISH::FISH_WEIGHT, 0)
     change_color(normal_color)
-    draw_text(0,line_height * 8,contents.width,line_height,@fish.caught,2)
-    draw_text(0,line_height * 9,contents.width,line_height,@fish.length,2)
-    draw_text(0,line_height * 10,contents.width,line_height,@fish.weight,2)
+    draw_text(0, line_height * 8, contents.width, line_height, @fish.caught, 2)
+    draw_text(0, line_height * 9, contents.width, line_height, @fish.length, 2)
+    draw_text(0, line_height * 10, contents.width, line_height, @fish.weight, 2)
   end
-  
+
   def draw_fish
     @img.dispose if @img
     setup_fish
     @img.x = self.x + self.width / 2
     @img.y = self.y + 120
   end
-  
+
   def setup_fish
     @img = Sprite.new
     @img.bitmap = Cache.gfish(@fish.graphic)
@@ -2239,18 +2239,18 @@ class Window_FishHelp < Window_Base
     @img.oy = @ch / 2
     @img.z = 999
   end
-  
+
   def draw_ctxt(item, x, y)
     return unless item
     change_color(normal_color)
     draw_text(x, y, contents.width, line_height, item.ctxt)
   end
-  
+
   def refresh
     contents.clear
     draw_fish_details
   end
-  
+
   def update_anim
     @speed_timer += 1
     if @speed_timer > 8
@@ -2258,7 +2258,7 @@ class Window_FishHelp < Window_Base
       @speed_timer = 0
     end
   end
-  
+
   def update_src_rect
     if @pattern >= 4
       @pattern = 0
@@ -2267,7 +2267,7 @@ class Window_FishHelp < Window_Base
     sy = 0 * @ch
     @img.src_rect.set(sx, sy, @cw, @ch)
   end
-  
+
   def update
     super
     if @img
@@ -2275,7 +2275,7 @@ class Window_FishHelp < Window_Base
       update_src_rect
     end
   end
-  
+
   def dispose
     super
     @img.dispose if @img
@@ -2312,11 +2312,11 @@ class Window_FishList < Window_Selectable
     @data = $game_system.fish.select {|item| include?(item) }
     @data.push(nil) if include?(nil)
   end
-  
+
   def select_last
     select(@data.index($game_party.last_item.object) || 0)
   end
-  
+
   def draw_item(index)
     fish = @data[index]
     rect = item_rect(index)
@@ -2328,7 +2328,7 @@ class Window_FishList < Window_Selectable
       draw_ctxt(fish, rect.x, rect.y)
     end
   end
-  
+
   def draw_ctxt(item, x, y)
     return unless item
     change_color(normal_color)

@@ -389,7 +389,7 @@ class Game_Map
   def scroll_left(distance)
     if loop_horizontal?
       @display_x += @map.width - distance
-      @display_x %= @map.width 
+      @display_x %= @map.width
       @parallax_x -= distance if @parallax_loop_x
     else
       last_x = @display_x

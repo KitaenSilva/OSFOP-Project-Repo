@@ -57,7 +57,7 @@ class Window_SkillList < Window_Selectable
     enable?(@data[index])
   end
   #--------------------------------------------------------------------------
-  # * Include in Skill List? 
+  # * Include in Skill List?
   #--------------------------------------------------------------------------
   def include?(item)
     item && item.stype_id == @stype_id

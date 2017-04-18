@@ -348,7 +348,7 @@ module BattleManager
     @action_battlers += $game_party.members unless @surprise
     @action_battlers += $game_troop.members unless @preemptive
     @action_battlers.each {|battler| battler.make_speed }
-    @action_battlers.sort! {|a,b| b.speed - a.speed }
+    @action_battlers.sort! {|a, b| b.speed - a.speed }
   end
   #--------------------------------------------------------------------------
   # * Force Action

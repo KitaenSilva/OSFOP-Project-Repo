@@ -11,13 +11,13 @@
 # When using any Khas script, you agree with the following terms:
 # 1. You must give credit to Khas;
 # 2. All Khas scripts are licensed under a Creative Commons license;
-# 3. All Khas scripts are for non-commercial projects. If you need some script 
-#    for your commercial project (I accept requests for this type of project), 
+# 3. All Khas scripts are for non-commercial projects. If you need some script
+#    for your commercial project (I accept requests for this type of project),
 #    send an email to nilokruch@live.com with your request;
-# 4. All Khas scripts are for personal use, you can use or edit for your own 
+# 4. All Khas scripts are for personal use, you can use or edit for your own
 #    project, but you are not allowed to post any modified version;
 # 5. You can’t give credit to yourself for posting any Khas script;
-# 6. If you want to share a Khas script, don’t post the direct download link, 
+# 6. If you want to share a Khas script, don’t post the direct download link,
 #    please redirect the user to arcthunder.site40.net
 #
 #-------------------------------------------------------------------------------
@@ -43,15 +43,15 @@
 # DYNAMIC LIGHT SOURCE only. Map size does not influence the static sources.
 #
 # 2. Number of effects
-# This script draws the effects on the screen, but before drawing, it checks 
-# if the effect is out of screen (in this case, the script will skip the 
+# This script draws the effects on the screen, but before drawing, it checks
+# if the effect is out of screen (in this case, the script will skip the
 # light drawing). Too much effects may cause lag, but this is just a prevision.
 #
 # 3. Effect's picture size
-# The picture size of the DYNAMIC LIGHT SOURCE influences directly on your 
+# The picture size of the DYNAMIC LIGHT SOURCE influences directly on your
 # game's performace. The bigger is the picture, the slower it will be to
 # draw it dynamically. The recommended maximum size is 200x200 pixels
-# 
+#
 #-------------------------------------------------------------------------------
 # * WARNING - Light pictures
 #-------------------------------------------------------------------------------
@@ -76,7 +76,7 @@
 # opacity => Effect's opacity;
 # variation => Effect's opacity variation;
 # cut => Put true to cut the effect or false to don't;
-# X => The effect's ID, it will be used on events. 
+# X => The effect's ID, it will be used on events.
 #
 # Check the default effects to understand how they work.
 #
@@ -84,22 +84,22 @@
 # * Instructions - 2. Use your effects!
 #-------------------------------------------------------------------------------
 # In order to use a effect, put the following comment on a event:
-# 
+#
 # [light x]
 #
 # Where x must be the Effect's ID.
-# 
+#
 #-------------------------------------------------------------------------------
 # * Instructions - 3. Use an awesome lantern!
 #-------------------------------------------------------------------------------
-# The dynamic light source (lantern) is initialized invisible by default. 
+# The dynamic light source (lantern) is initialized invisible by default.
 # You may call the following commands:
-# 
+#
 # l = $game_map.lantern
 # Gets the lantern into a variable
 
 # l.set_graphic(i)
-# Sets the lantern's graphic to i, where i must be the picture's file name on 
+# Sets the lantern's graphic to i, where i must be the picture's file name on
 # Graphics/Lights folder.
 #
 # l.set_multiple_graphics(h)
@@ -107,8 +107,8 @@
 # structure:
 #
 # h = {2=>"ld",4=>"ll",6=>"lr",8=>"lu"}
-# 
-# Where: 
+#
+# Where:
 # "ld" is the name of the picture when the lantern's owner is looking down;
 # "ll" is the name of the picture when the lantern's owner is looking left;
 # "lr" is the name of the picture when the lantern's owner is looking right;
@@ -136,7 +136,7 @@
 # * Instructions - 4. Use the effect's surface!
 #-------------------------------------------------------------------------------
 # The Awesome Light Effects draws the effects on a surface. In order to make
-# the effects visible, the effect's surface MUST be visible. The Effect's 
+# the effects visible, the effect's surface MUST be visible. The Effect's
 # Surface is initialized with it's opacity set to zero. You can call the
 # following commands:
 #
@@ -187,11 +187,11 @@
 # * Instructions - 6. Setup your Tileset Tags!
 #-------------------------------------------------------------------------------
 # In order to cut the effect's picture correctly, there's 3 types of behavior
-# for a tile: wall, block and roof. Walls will make shadows as real walls, 
+# for a tile: wall, block and roof. Walls will make shadows as real walls,
 # blocks as blocks and roofs as roofs. So, the tileset tags MUST be configured.
-# Check the demo to understand how this system works. If the tilesets aren't 
+# Check the demo to understand how this system works. If the tilesets aren't
 # configured correctly, the script won't cut the effects correctly.
-# 
+#
 #-------------------------------------------------------------------------------
 # * Setup Part
 #-------------------------------------------------------------------------------
@@ -200,29 +200,29 @@ module Light_Core
 #-------------------------------------------------------------------------------
 # PUT YOUR EFFECTS HERE!
 #-------------------------------------------------------------------------------
-  0 => ["light",255,0,true],
-  1 => ["torch",200,20,true],
-  2 => ["torch_m",180,30,true],
-  3 => ["light_s",255,0,true],
-  
+  0 => ["light", 255, 0, true],
+  1 => ["torch", 200, 20, true],
+  2 => ["torch_m", 180, 30, true],
+  3 => ["light_s", 255, 0, true],
+
 #-------------------------------------------------------------------------------
 # End of effecs configuration
-#------------------------------------------------------------------------------- 
+#-------------------------------------------------------------------------------
   } #  <= DON'T change this!
-  
+
   # Z coordinate of the Effect's Surface
   Surface_Z = 45
-  
+
   # Enable Effect's Surface control by "Screen Tone" command?
   Surface_UE = true
-  
+
   # Roof behavior tag
   Roof_Tag = 5
   # Wall behavior tag
   Wall_Tag = 6
   # Block behavior tag
   Block_Tag = 7
-  
+
   # Don't change this!
   ACC = Math.tan(Math::PI/26)
 end
@@ -257,7 +257,7 @@ class Light_SSource
   attr_reader :w
   attr_reader :h
   attr_reader :hs
-  def initialize(char,bitmap,opacity,plus,hs)
+  def initialize(char, bitmap, opacity, plus, hs)
     sync(char)
     @key = bitmap
     @bitmap = Light_Bitcore[@key].clone
@@ -277,8 +277,8 @@ class Light_SSource
     tsy = y + @range
     dr = @range*2
     for s in $game_map.surfaces
-      next if !s.visible?(tsx,tsy) || !s.within?(tx,tx+dr,ty,ty+dr)
-      s.render_shadow(tx,ty,tsx,tsy,@range,@bitmap)
+      next if !s.visible?(tsx, tsy) || !s.within?(tx, tx+dr, ty, ty+dr)
+      s.render_shadow(tx, ty, tsx, tsy, @range, @bitmap)
     end
   end
   def restore
@@ -322,15 +322,15 @@ class Light_DSource < Light_SSource
     @char = $game_player
     @visible = false
   end
-  def set_opacity(o,p)
+  def set_opacity(o, p)
     @opacity = o
     @plus = p
   end
   def set_graphic(sb)
     dispose
-    @key = {2=>sb,4=>sb,6=>sb,8=>sb}
+    @key = {2=>sb, 4=>sb, 6=>sb, 8=>sb}
     Light_Bitcore.push(sb)
-    @bitmap = {2=>Light_Bitcore[@key[2]].clone,4=>Light_Bitcore[@key[4]].clone,6=>Light_Bitcore[@key[6]].clone,8=>Light_Bitcore[@key[8]].clone}
+    @bitmap = {2=>Light_Bitcore[@key[2]].clone, 4=>Light_Bitcore[@key[4]].clone, 6=>Light_Bitcore[@key[6]].clone, 8=>Light_Bitcore[@key[8]].clone}
     @range = @bitmap[2].width/2
     @w = @bitmap[2].width
     @h = @bitmap[2].height
@@ -340,7 +340,7 @@ class Light_DSource < Light_SSource
     dispose
     @key = ba
     @key.values.each {|key| Light_Bitcore.push(key)}
-    @bitmap = {2=>Light_Bitcore[@key[2]].clone,4=>Light_Bitcore[@key[4]].clone,6=>Light_Bitcore[@key[6]].clone,8=>Light_Bitcore[@key[8]].clone}
+    @bitmap = {2=>Light_Bitcore[@key[2]].clone, 4=>Light_Bitcore[@key[4]].clone, 6=>Light_Bitcore[@key[6]].clone, 8=>Light_Bitcore[@key[8]].clone}
     @range = @bitmap[2].width/2
     @w = @bitmap[2].width
     @h = @bitmap[2].height
@@ -359,7 +359,7 @@ class Light_DSource < Light_SSource
   def restore
     return if @key.nil?
     @key.values.each {|key| Light_Bitcore.push(key)}
-    @bitmap = {2=>Light_Bitcore[@key[2]].clone,4=>Light_Bitcore[@key[4]].clone,6=>Light_Bitcore[@key[6]].clone,8=>Light_Bitcore[@key[8]].clone}
+    @bitmap = {2=>Light_Bitcore[@key[2]].clone, 4=>Light_Bitcore[@key[4]].clone, 6=>Light_Bitcore[@key[6]].clone, 8=>Light_Bitcore[@key[8]].clone}
   end
   def dispose
     return if @bitmap.nil?
@@ -402,7 +402,7 @@ class Light_Surface
     $game_map.light_surface.opacity = @a
     @timer -= 1
   end
-  def change_color(time,r,g,b,a=nil)
+  def change_color(time, r, g, b, a=nil)
     r = 0 if r < 0; r = 255 if r > 255
     g = 0 if g < 0; g = 255 if g > 255
     b = 0 if b < 0; b = 255 if b > 255
@@ -418,14 +418,14 @@ class Light_Surface
     @vg = (@tg - @g).to_f/@timer
     @vb = (@tb - @b).to_f/@timer
   end
-  def change_alpha(time,a)
+  def change_alpha(time, a)
     a = 0 if a < 0; a = 255 if a > 255
     @timer = time
     @ta = a
     @vr = @vg = @vb = 0.0
     @va = (a-@a).to_f/@timer
   end
-  def set_color(r,g,b)
+  def set_color(r, g, b)
     r = 0 if r < 0; r = 255 if r > 255
     g = 0 if g < 0; g = 255 if g > 255
     b = 0 if b < 0; b = 255 if b > 255
@@ -446,7 +446,7 @@ class Light_Surface
     return @a
   end
   def color
-    return Color.new(@r,@g,@b)
+    return Color.new(@r, @g, @b)
   end
 end
 class Game_Map
@@ -468,8 +468,8 @@ class Game_Map
     @effect_surface.refresh if arg
     kbl_update(arg)
   end
-  def first_tag(x,y)
-    tag = tileset.flags[tile_id(x,y,0)] >> 12
+  def first_tag(x, y)
+    tag = tileset.flags[tile_id(x, y, 0)] >> 12
     return tag > 0 ? tag : 0
   end
   def setup_events
@@ -482,30 +482,30 @@ class Game_Map
     @surfaces = []
     for x in 0..(width-1)
       for y in 0..(height-1)
-        tag = first_tag(x,y)
+        tag = first_tag(x, y)
         if tag == Wall_Tag
-          i = tile_id(x,y,0)
+          i = tile_id(x, y, 0)
           if i & 0x02 == 0x02
-            @surfaces << Block_SD.new(x*32,y*32,x*32+32,y*32)
+            @surfaces << Block_SD.new(x*32, y*32, x*32+32, y*32)
           end
           if i & 0x04 == 0x04
-            @surfaces << Block_WR.new(x*32+31,y*32,x*32+31,y*32+32)
-            @surfaces << Block_IL.new(x*32+32,y*32,x*32+32,y*32+32)
+            @surfaces << Block_WR.new(x*32+31, y*32, x*32+31, y*32+32)
+            @surfaces << Block_IL.new(x*32+32, y*32, x*32+32, y*32+32)
           end
           if i & 0x01 == 0x01
-            @surfaces << Block_IR.new(x*32-1,y*32,x*32-1,y*32+32)
-            @surfaces << Block_WL.new(x*32,y*32,x*32,y*32+32)
+            @surfaces << Block_IR.new(x*32-1, y*32, x*32-1, y*32+32)
+            @surfaces << Block_WL.new(x*32, y*32, x*32, y*32+32)
           end
         elsif tag == Roof_Tag
-          i = tile_id(x,y,0)
-          @surfaces << Block_SU.new(x*32,y*32,x*32+32,y*32) if i & 0x02 == 0x02
-          @surfaces << Block_SR.new(x*32+31,y*32,x*32+31,y*32+32) if i & 0x04 == 0x04
-          @surfaces << Block_SL.new(x*32,y*32,x*32,y*32+32) if i & 0x01 == 0x01
+          i = tile_id(x, y, 0)
+          @surfaces << Block_SU.new(x*32, y*32, x*32+32, y*32) if i & 0x02 == 0x02
+          @surfaces << Block_SR.new(x*32+31, y*32, x*32+31, y*32+32) if i & 0x04 == 0x04
+          @surfaces << Block_SL.new(x*32, y*32, x*32, y*32+32) if i & 0x01 == 0x01
         elsif tag == Block_Tag
-          f = tileset.flags[tile_id(x,y,0)]
-          @surfaces << Block_SL.new(x*32,y*32,x*32,y*32+32) if f & 0x02 == 0x02
-          @surfaces << Block_SR.new(x*32+31,y*32,x*32+31,y*32+32) if f & 0x04 == 0x04
-          @surfaces << Block_SU.new(x*32,y*32,x*32+32,y*32) if f & 0x08 == 0x08
+          f = tileset.flags[tile_id(x, y, 0)]
+          @surfaces << Block_SL.new(x*32, y*32, x*32, y*32+32) if f & 0x02 == 0x02
+          @surfaces << Block_SR.new(x*32+31, y*32, x*32+31, y*32+32) if f & 0x04 == 0x04
+          @surfaces << Block_SU.new(x*32, y*32, x*32+32, y*32) if f & 0x08 == 0x08
         end
       end
     end
@@ -606,9 +606,9 @@ end
 class Game_Event < Game_Character
   alias kbl_initialize initialize
   alias kbl_setup_page setup_page
-  def initialize(m,e)
+  def initialize(m, e)
     @light = nil
-    kbl_initialize(m,e)
+    kbl_initialize(m, e)
   end
   def setup_page(np)
     kbl_setup_page(np)
@@ -625,7 +625,7 @@ class Game_Event < Game_Character
         if command.code == 108 && command.parameters[0].include?("[light")
           command.parameters[0].scan(/\[light ([0.0-9.9]+)\]/)
           effect = Light_Core::Effects[$1.to_i]
-          @light = Light_SSource.new(self,effect[0],effect[1],effect[2],effect[3])
+          @light = Light_SSource.new(self, effect[0], effect[1], effect[2], effect[3])
           $game_map.light_sources << self
           return
         end
@@ -638,7 +638,7 @@ class Game_Event < Game_Character
     w = @light.w
     h = @light.h
     return if sx > 640 && sy > 416 && sx + w < 0 && sy + h < 0
-    $game_map.light_surface.bitmap.blt(sx,sy,@light.bitmap,Rect.new(0,0,w,h),@light.opacity)
+    $game_map.light_surface.bitmap.blt(sx, sy, @light.bitmap, Rect.new(0, 0, w, h), @light.opacity)
   end
   def dispose_light
     @light.dispose
@@ -650,7 +650,7 @@ end
 if Light_Core::Surface_UE
   class Game_Interpreter
     def command_223
-      $game_map.effect_surface.change_color(@params[1],@params[0].red,@params[0].green,@params[0].blue,@params[0].gray)
+      $game_map.effect_surface.change_color(@params[1], @params[0].red, @params[0].green, @params[0].blue, @params[0].gray)
       wait(@params[1]) if @params[2]
     end
   end
@@ -668,7 +668,7 @@ class Block_Surface
   attr_accessor :y2
   attr_accessor :ready
   attr_accessor :trash
-  def initialize(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
     @x1 = x1
     @y1 = y1
     @x2 = x2
@@ -676,27 +676,27 @@ class Block_Surface
     @ready = false
     @trash = false
   end
-  def within?(min_x,max_x,min_y,max_y)
+  def within?(min_x, max_x, min_y, max_y)
     return @x2 > min_x && @x1 < max_x && @y2 > min_y && @y1 < max_y
   end
 end
 class Block_SL < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x01
   end
-  def visible?(sx,sy)
-    return sx < @x1 
+  def visible?(sx, sy)
+    return sx < @x1
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     @m1 = (@y1-sy)/(@x1-sx)
     @n1 = sy - @m1*sx
     @m2 = (@y2-sy)/(@x2-sx)
     @n2 = sy - @m2*sx
     for x in @x1..(sx+range)
       init = shadow_iy(x)
-      bitmap.clear_rect(x-phx,init-phy,1,shadow_fy(x)-init+3)
+      bitmap.clear_rect(x-phx, init-phy, 1, shadow_fy(x)-init+3)
     end
   end
   def shadow_iy(x)
@@ -708,21 +708,21 @@ class Block_SL < Block_Surface
 end
 class Block_SR < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x04
   end
-  def visible?(sx,sy)
-    return sx > @x1 
+  def visible?(sx, sy)
+    return sx > @x1
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     @m1 = (@y1-sy)/(@x1-sx)
     @n1 = sy - @m1*sx
     @m2 = (@y2-sy)/(@x2-sx)
     @n2 = sy - @m2*sx
     for x in (sx-range).to_i..@x1
       init = shadow_iy(x)
-      bitmap.clear_rect(x-phx,init-phy,1,shadow_fy(x)-init+3)
+      bitmap.clear_rect(x-phx, init-phy, 1, shadow_fy(x)-init+3)
     end
   end
   def shadow_iy(x)
@@ -734,14 +734,14 @@ class Block_SR < Block_Surface
 end
 class Block_IL < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x019
   end
-  def visible?(sx,sy)
+  def visible?(sx, sy)
     return sx < @x1 && sy > @y1
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     @m1 = (@y1-sy)/(@x1-sx)
     @n1 = @y1 - @m1*@x1
     @m2 = (@y2-sy)/(@x2-sx)
@@ -749,7 +749,7 @@ class Block_IL < Block_Surface
     @n2 = @y2 - @m2*@x2
     for x in @x1..(sx+range)
       init = shadow_iy(x).floor
-      bitmap.clear_rect(x-phx,init-3-phy,1,shadow_fy(x)-init+3)
+      bitmap.clear_rect(x-phx, init-3-phy, 1, shadow_fy(x)-init+3)
     end
   end
   def shadow_iy(x)
@@ -761,14 +761,14 @@ class Block_IL < Block_Surface
 end
 class Block_IR < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x01c
   end
-  def visible?(sx,sy)
+  def visible?(sx, sy)
     return sx > @x1 && sy > @y1
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     @m1 = (@y1-sy)/(@x1-sx)
     @n1 = @y1 - @m1*@x1
     @m2 = (@y2-sy)/(@x2-sx)
@@ -776,7 +776,7 @@ class Block_IR < Block_Surface
     @n2 = @y2 - @m2*@x2
     for x in (sx-range).to_i..@x1
       init = shadow_iy(x).floor
-      bitmap.clear_rect(x-phx,init-3-phy,1,shadow_fy(x)-init+3)
+      bitmap.clear_rect(x-phx, init-3-phy, 1, shadow_fy(x)-init+3)
     end
   end
   def shadow_iy(x)
@@ -788,21 +788,21 @@ class Block_IR < Block_Surface
 end
 class Block_WL < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x011
   end
-  def visible?(sx,sy)
+  def visible?(sx, sy)
     return sx < @x1 && sy < @y2
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     @m1 = (@y1-sy)/(@x1-sx)
     @n1 = sy - @m1*sx
     @m2 = (@y2-sy)/(@x2-sx)
     @n2 = sy - @m2*sx
     for x in @x1..(sx+range)
       init = shadow_iy(x)
-      bitmap.clear_rect(x-phx,init-phy,1,shadow_fy(x)-init+2)
+      bitmap.clear_rect(x-phx, init-phy, 1, shadow_fy(x)-init+2)
     end
   end
   def shadow_iy(x)
@@ -814,21 +814,21 @@ class Block_WL < Block_Surface
 end
 class Block_WR < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x014
   end
-  def visible?(sx,sy)
+  def visible?(sx, sy)
     return sx > @x1 && sy < @y2
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     @m1 = (@y1-sy)/(@x1-sx)
     @n1 = sy - @m1*sx
     @m2 = (@y2-sy)/(@x2-sx)
     @n2 = sy - @m2*sx
     for x in (sx-range).to_i..@x1
       init = shadow_iy(x)
-      bitmap.clear_rect(x-phx,init-phy,1,shadow_fy(x)-init+2)
+      bitmap.clear_rect(x-phx, init-phy, 1, shadow_fy(x)-init+2)
     end
   end
   def shadow_iy(x)
@@ -840,14 +840,14 @@ class Block_WR < Block_Surface
 end
 class Block_SU < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x02
   end
-  def visible?(sx,sy)
+  def visible?(sx, sy)
     return sy < @y1
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     if @x1 == sx
       @m1 = nil
     else
@@ -863,7 +863,7 @@ class Block_SU < Block_Surface
     end
     for y in @y1..(sy+range)
       init = shadow_ix(y)
-      bitmap.clear_rect(init-phx,y-phy,shadow_fx(y)-init+1,1)
+      bitmap.clear_rect(init-phx, y-phy, shadow_fx(y)-init+1, 1)
     end
   end
   def shadow_ix(y)
@@ -875,14 +875,14 @@ class Block_SU < Block_Surface
 end
 class Block_SD < Block_Surface
   attr_reader :type
-  def initialize(x1,y1,x2,y2)
-    super(x1,y1,x2,y2)
+  def initialize(x1, y1, x2, y2)
+    super(x1, y1, x2, y2)
     @type = 0x08
   end
-  def visible?(sx,sy)
+  def visible?(sx, sy)
     return sy > @y1
   end
-  def render_shadow(phx,phy,sx,sy,range,bitmap)
+  def render_shadow(phx, phy, sx, sy, range, bitmap)
     if @x1 == sx
       @m1 = nil
     else
@@ -898,7 +898,7 @@ class Block_SD < Block_Surface
     end
     for y in (sy-range).to_i..@y1
       init = shadow_ix(y)
-      bitmap.clear_rect(init-phx,y-phy,shadow_fx(y)-init+1,1)
+      bitmap.clear_rect(init-phx, y-phy, shadow_fx(y)-init+1, 1)
     end
   end
   def shadow_ix(y)
@@ -934,7 +934,7 @@ class Spriteset_Map
   end
   def update_lights
     $game_map.light_surface.bitmap.clear
-    $game_map.light_surface.bitmap.fill_rect(0,0,640,416,$game_map.effect_surface.color)
+    $game_map.light_surface.bitmap.fill_rect(0, 0, 640, 416, $game_map.effect_surface.color)
     $game_map.light_sources.each { |source| source.draw_light }
     return unless $game_map.lantern.visible
     @btr = $game_map.lantern.get_graphic
@@ -944,16 +944,16 @@ class Spriteset_Map
     sx = x + r
     sy = y + r
     dr = r*2
-    $game_map.surfaces.each { |s| s.render_shadow(x,y,sx,sy,r,@btr) if s.visible?(sx,sy) && s.within?(x,x+dr,y,y+dr) }
-    $game_map.light_surface.bitmap.blt($game_map.lantern.sx,$game_map.lantern.sy,@btr,Rect.new(0,0,dr,dr),$game_map.lantern.opacity)
+    $game_map.surfaces.each { |s| s.render_shadow(x, y, sx, sy, r, @btr) if s.visible?(sx, sy) && s.within?(x, x+dr, y, y+dr) }
+    $game_map.light_surface.bitmap.blt($game_map.lantern.sx, $game_map.lantern.sy, @btr, Rect.new(0, 0, dr, dr), $game_map.lantern.opacity)
   end
   def setup_lights
     @btr = nil
     $game_map.lantern.restore
     $game_map.light_sources.each { |source| source.restore_light }
     $game_map.light_surface = Sprite.new
-    $game_map.light_surface.bitmap = Bitmap.new(640,416)
-    $game_map.light_surface.bitmap.fill_rect(0,0,640,416,$game_map.effect_surface.color)
+    $game_map.light_surface.bitmap = Bitmap.new(640, 416)
+    $game_map.light_surface.bitmap.fill_rect(0, 0, 640, 416, $game_map.effect_surface.color)
     $game_map.light_surface.blend_type = 2
     $game_map.light_surface.opacity = $game_map.effect_surface.alpha
     $game_map.light_surface.z = Surface_Z

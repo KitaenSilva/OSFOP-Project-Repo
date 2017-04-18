@@ -8,7 +8,7 @@ class Window_MenuStatus < Window_Selectable
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :pending_index            # Pending position (for formation)
+  attr_reader :pending_index # Pending position (for formation)
   #--------------------------------------------------------------------------
   # * Object Initialization
   #--------------------------------------------------------------------------

@@ -9,7 +9,7 @@ class Window_EquipItem < Window_ItemList
   #--------------------------------------------------------------------------
   # * Public Instance Variables
   #--------------------------------------------------------------------------
-  attr_reader   :status_window            # Status window
+  attr_reader :status_window # Status window
   #--------------------------------------------------------------------------
   # * Object Initialization
   #--------------------------------------------------------------------------

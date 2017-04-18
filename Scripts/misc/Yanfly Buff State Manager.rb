@@ -1,10 +1,10 @@
 #==============================================================================
-# 
+#
 # ▼ Yanfly Engine Ace - Buff & State Manager v1.07
 # -- Last Updated: 2012.01.26
 # -- Level: Normal
 # -- Requires: n/a
-# 
+#
 #==============================================================================
 
 $imported = {} if $imported.nil?
@@ -22,7 +22,7 @@ $imported["YEA-Buff&StateManager"] = true
 # 2011.12.28 - Added <state x turn: +y> for actors, classes, weapons, armours,
 #              enemies, and states.
 # 2011.12.27 - Started Script and Finished.
-# 
+#
 #==============================================================================
 # ▼ Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -31,13 +31,13 @@ $imported["YEA-Buff&StateManager"] = true
 # such as being able to affect the turns remaining on a state, buff, or debuff
 # without affecting anything else or even adjusting how many times a buff (or
 # debuff) can be applied to an actor.
-# 
+#
 #==============================================================================
 # ▼ Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
 # to an open slot below ▼ Materials/素材 but above ▼ Main. Remember to save.
-# 
+#
 # -----------------------------------------------------------------------------
 # Actor Notetags - These notetags go in the actors notebox in the database.
 # -----------------------------------------------------------------------------
@@ -47,20 +47,20 @@ $imported["YEA-Buff&StateManager"] = true
 # by x. Note that the max increase here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <max debuff stat: +x>
 # <max debuff stat: -x>
 # Increases or decreases the maximum times that particular stat can be debuffed
 # by x. Note that the max decrease here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <state x turn: +y>
 # <state x turn: -y>
 # When the battler is affected by state x, additional modifiers are made to the
 # number of turns remaining for state x by y amount. The modifiers cannot
 # reduce turns to under 0.
-# 
+#
 # -----------------------------------------------------------------------------
 # Class Notetags - These notetags go in the class notebox in the database.
 # -----------------------------------------------------------------------------
@@ -70,20 +70,20 @@ $imported["YEA-Buff&StateManager"] = true
 # by x. Note that the max increase here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <max debuff stat: +x>
 # <max debuff stat: -x>
 # Increases or decreases the maximum times that particular stat can be debuffed
 # by x. Note that the max decrease here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <state x turn: +y>
 # <state x turn: -y>
 # When the battler is affected by state x, additional modifiers are made to the
 # number of turns remaining for state x by y amount. The modifiers cannot
 # reduce turns to under 0.
-# 
+#
 # -----------------------------------------------------------------------------
 # Skill Notetags - These notetags go in the skill notebox in the database.
 # -----------------------------------------------------------------------------
@@ -92,19 +92,19 @@ $imported["YEA-Buff&StateManager"] = true
 # If the target is affected by state x, this will alter the turns remaining on
 # that state by y turns if the state can be removed by turns. If the state goes
 # under 0 turns, the state will be removed.
-# 
+#
 # <buff stat turn: +x>
 # <buff stat turn: -x>
 # If the target's stat is buffed, this will alter the turns remaining on that
 # buff by x turns. If the buff's remaining turns go under 0, the buff will be
 # removed.
-# 
+#
 # <debuff stat turn: +x>
 # <debuff stat turn: -x>
 # If the target's stat is debuffed, this will alter the turns remaining on that
 # debuff by x turns. If the debuff's remaining turns go under 0, the debuff
 # will be removed.
-# 
+#
 # -----------------------------------------------------------------------------
 # Item Notetags - These notetags go in the item notebox in the database.
 # -----------------------------------------------------------------------------
@@ -113,19 +113,19 @@ $imported["YEA-Buff&StateManager"] = true
 # If the target is affected by state x, this will alter the turns remaining on
 # that state by y turns if the state can be removed by turns. If the state goes
 # under 0 turns, the state will be removed.
-# 
+#
 # <buff stat turn: +x>
 # <buff stat turn: -x>
 # If the target's stat is buffed, this will alter the turns remaining on that
 # buff by x turns. If the buff's remaining turns go under 0, the buff will be
 # removed.
-# 
+#
 # <debuff stat turn: +x>
 # <debuff stat turn: -x>
 # If the target's stat is debuffed, this will alter the turns remaining on that
 # debuff by x turns. If the debuff's remaining turns go under 0, the debuff
 # will be removed.
-# 
+#
 # -----------------------------------------------------------------------------
 # Weapon Notetags - These notetags go in the weapons notebox in the database.
 # -----------------------------------------------------------------------------
@@ -135,20 +135,20 @@ $imported["YEA-Buff&StateManager"] = true
 # by x. Note that the max increase here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <max debuff stat: +x>
 # <max debuff stat: -x>
 # Increases or decreases the maximum times that particular stat can be debuffed
 # by x. Note that the max decrease here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <state x turn: +y>
 # <state x turn: -y>
 # When the battler is affected by state x, additional modifiers are made to the
 # number of turns remaining for state x by y amount. The modifiers cannot
 # reduce turns to under 0.
-# 
+#
 # -----------------------------------------------------------------------------
 # Armour Notetags - These notetags go in the armour notebox in the database.
 # -----------------------------------------------------------------------------
@@ -158,20 +158,20 @@ $imported["YEA-Buff&StateManager"] = true
 # by x. Note that the max increase here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <max debuff stat: +x>
 # <max debuff stat: -x>
 # Increases or decreases the maximum times that particular stat can be debuffed
 # by x. Note that the max decrease here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <state x turn: +y>
 # <state x turn: -y>
 # When the battler is affected by state x, additional modifiers are made to the
 # number of turns remaining for state x by y amount. The modifiers cannot
 # reduce turns to under 0.
-# 
+#
 # -----------------------------------------------------------------------------
 # Enemy Notetags - These notetags go in the enemies notebox in the database.
 # -----------------------------------------------------------------------------
@@ -181,20 +181,20 @@ $imported["YEA-Buff&StateManager"] = true
 # by x. Note that the max increase here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <max debuff stat: +x>
 # <max debuff stat: -x>
 # Increases or decreases the maximum times that particular stat can be debuffed
 # by x. Note that the max decrease here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <state x turn: +y>
 # <state x turn: -y>
 # When the battler is affected by state x, additional modifiers are made to the
 # number of turns remaining for state x by y amount. The modifiers cannot
 # reduce turns to under 0.
-# 
+#
 # -----------------------------------------------------------------------------
 # State Notetags - These notetags go in the states notebox in the database.
 # -----------------------------------------------------------------------------
@@ -204,44 +204,44 @@ $imported["YEA-Buff&StateManager"] = true
 # by x. Note that the max increase here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <max debuff stat: +x>
 # <max debuff stat: -x>
 # Increases or decreases the maximum times that particular stat can be debuffed
 # by x. Note that the max decrease here is still limited by the module constant
 # MAXIMUM_BUFF_LIMIT. Replace "stat" with "MAXHP", "MAXMP", "ATK", "DEF",
 # "MAT", "MDF", "AGI", "LUK", or "ALL" for those respective stats.
-# 
+#
 # <reapply ignore>
 # If this state is cast on a battler with the state already applied, turns
 # remaining will not be reset nor will turns be added on.
-# 
+#
 # <reapply reset>
 # If this state is cast on a battler with the state already applied, the turns
 # will be reset to the default amount of turns the state normally starts with.
-# 
+#
 # <reapply total>
 # If this state is cast on a battler with the state already applied, the turns
 # will be added on to the current amount of turns remaining giving the battler
 # a total of the remaining turns with the default turns for the state.
-# 
+#
 # <state x turn: +y>
 # <state x turn: -y>
 # When the battler is affected by state x, additional modifiers are made to the
 # number of turns remaining for state x by y amount. The modifiers cannot
 # reduce turns to under 0.
-# 
+#
 #==============================================================================
 # ▼ Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
-# 
+#
 #==============================================================================
 
 module YEA
   module BUFF_STATE_MANAGER
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Draw Remaining Turns -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -253,7 +253,7 @@ module YEA
     SHOW_REMAINING_TURNS = true     # Show the turns remaining?
     TURNS_REMAINING_SIZE = 18       # Font size used for turns remaining.
     TURNS_REMAINING_Y    = -4       # Adjusts location of the text.
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Buff Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -264,10 +264,10 @@ module YEA
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     DEFAULT_BUFF_LIMIT = 2     # Normal times you can buff a stat. Default: 2
     MAXIMUM_BUFF_LIMIT = 2     # Maximum times you can buff a stat. Default: 2
-    
+
     # This is the formula used to apply the rate used for buffs and debuffs.
     BUFF_BOOST_FORMULA = "buff_level(param_id) * 0.15 + 1.0"
-    
+
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     # - Reapplying State Settings -
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -280,7 +280,7 @@ module YEA
     #   2 - Default turns added onto existing turns.
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     REAPPLY_STATE_RULES = 1
-    
+
   end # BUFF_STATE_MANAGER
 end # YEA
 
@@ -292,23 +292,23 @@ end # YEA
 
 module YEA
   module REGEXP
-  module BASEITEM
-    
-    MAX_BUFF = /<(?:MAX_BUFF|max buff)[ ](.*):[ ]([\+\-]\d+)>/i
-    MAX_DEBUFF = /<(?:MAX_DEBUFF|max debuff)[ ](.*):[ ]([\+\-]\d+)>/i
-    CHANGE_STATE_TURN = /<(?:state)[ ](\d+)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
-    STATE_REAPPLY_IGNORE = /<(?:REAPPLY_IGNORE|reapply ignore)>/i
-    STATE_REAPPLY_RESET = /<(?:REAPPLY_RESET|reapply reset)>/i
-    STATE_REAPPLY_TOTAL = /<(?:REAPPLY_TOTAL|reapply total)>/i
-    
-  end # BASEITEM
-  module USABLEITEM
-    
-    CHANGE_STATE_TURN = /<(?:state)[ ](\d+)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
-    CHANGE_BUFF_TURN = /<(?:buff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
-    CHANGE_DEBUFF_TURN = /<(?:debuff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
-    
-  end # USABLEITEM
+    module BASEITEM
+
+      MAX_BUFF = /<(?:MAX_BUFF|max buff)[ ](.*):[ ]([\+\-]\d+)>/i
+      MAX_DEBUFF = /<(?:MAX_DEBUFF|max debuff)[ ](.*):[ ]([\+\-]\d+)>/i
+      CHANGE_STATE_TURN = /<(?:state)[ ](\d+)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
+      STATE_REAPPLY_IGNORE = /<(?:REAPPLY_IGNORE|reapply ignore)>/i
+      STATE_REAPPLY_RESET = /<(?:REAPPLY_RESET|reapply reset)>/i
+      STATE_REAPPLY_TOTAL = /<(?:REAPPLY_TOTAL|reapply total)>/i
+
+    end # BASEITEM
+    module USABLEITEM
+
+      CHANGE_STATE_TURN = /<(?:state)[ ](\d+)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
+      CHANGE_BUFF_TURN = /<(?:buff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
+      CHANGE_DEBUFF_TURN = /<(?:debuff)[ ](.*)[ ](?:TURN|turns):[ ]([\+\-]\d+)>/i
+
+    end # USABLEITEM
   end # REGEXP
 end # YEA
 
@@ -317,7 +317,7 @@ end # YEA
 #==============================================================================
 
 module DataManager
-  
+
   #--------------------------------------------------------------------------
   # alias method: load_database
   #--------------------------------------------------------------------------
@@ -326,7 +326,7 @@ module DataManager
     load_database_bsm
     load_notetags_bsm
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: load_notetags_bsm
   #--------------------------------------------------------------------------
@@ -340,7 +340,7 @@ module DataManager
       end
     end
   end
-  
+
 end # DataManager
 
 #==============================================================================
@@ -348,7 +348,7 @@ end # DataManager
 #==============================================================================
 
 class RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
@@ -356,7 +356,7 @@ class RPG::BaseItem
   attr_accessor :max_debuff
   attr_accessor :change_state_turns
   attr_accessor :state_reapply_rules
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_bsm
   #--------------------------------------------------------------------------
@@ -434,7 +434,7 @@ class RPG::BaseItem
     } # self.note.split
     #---
   end
-  
+
 end # RPG::BaseItem
 
 #==============================================================================
@@ -442,14 +442,14 @@ end # RPG::BaseItem
 #==============================================================================
 
 class RPG::UsableItem < RPG::BaseItem
-  
+
   #--------------------------------------------------------------------------
   # public instance variables
   #--------------------------------------------------------------------------
   attr_accessor :change_state_turns
   attr_accessor :change_buff_turns
   attr_accessor :change_debuff_turns
-  
+
   #--------------------------------------------------------------------------
   # common cache: load_notetags_bsm
   #--------------------------------------------------------------------------
@@ -509,7 +509,7 @@ class RPG::UsableItem < RPG::BaseItem
     } # self.note.split
     #---
   end
-  
+
 end # class RPG::UsableItem
 
 #==============================================================================
@@ -517,14 +517,14 @@ end # class RPG::UsableItem
 #==============================================================================
 
 class Game_BattlerBase
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: param_buff_rate
   #--------------------------------------------------------------------------
   def param_buff_rate(param_id)
     return eval(YEA::BUFF_STATE_MANAGER::BUFF_BOOST_FORMULA)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: max_buff_limit
   #--------------------------------------------------------------------------
@@ -549,7 +549,7 @@ class Game_BattlerBase
     end
     return [[n.to_i, 0].max, YEA::BUFF_STATE_MANAGER::MAXIMUM_BUFF_LIMIT].min
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: max_debuff_limit
   #--------------------------------------------------------------------------
@@ -574,7 +574,7 @@ class Game_BattlerBase
     end
     return [[n.to_i, 0].max, YEA::BUFF_STATE_MANAGER::MAXIMUM_BUFF_LIMIT].min
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: buff_icon_index
   #--------------------------------------------------------------------------
@@ -582,19 +582,19 @@ class Game_BattlerBase
     if buff_level > 0
       return ICON_BUFF_START + ([buff_level - 1, 1].min) * 8 + param_id
     elsif buff_level < 0
-      return ICON_DEBUFF_START + ([-buff_level - 1, -1].max) * 8 + param_id 
+      return ICON_DEBUFF_START + ([-buff_level - 1, -1].max) * 8 + param_id
     else
       return 0
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: buff_turns
   #--------------------------------------------------------------------------
   def buff_turns(param_id)
     return @buff_turns.include?(param_id) ? @buff_turns[param_id] : 0
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: buff_level
   #--------------------------------------------------------------------------
@@ -604,7 +604,7 @@ class Game_BattlerBase
     debuff_maximum = max_debuff_limit(param_id)
     return [[@buffs[param_id], buff_maximum].min, -debuff_maximum].max
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: buff_change_turns
   #--------------------------------------------------------------------------
@@ -612,7 +612,7 @@ class Game_BattlerBase
     @buff_turns[param_id] = 0 if @buff_turns[param_id].nil?
     @buff_turns[param_id] = [value, 0].max
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: state_turns
   #--------------------------------------------------------------------------
@@ -620,7 +620,7 @@ class Game_BattlerBase
     state_id = state_id.id if state_id.is_a?(RPG::State)
     return @state_turns.include?(state_id) ? @state_turns[state_id] : 0
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: state_steps
   #--------------------------------------------------------------------------
@@ -628,7 +628,7 @@ class Game_BattlerBase
     state_id = state_id.id if state_id.is_a?(RPG::State)
     return @state_steps.include?(state_id) ? @state_steps[state_id] : 0
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: state_change_turns
   #--------------------------------------------------------------------------
@@ -637,7 +637,7 @@ class Game_BattlerBase
     @state_turns[state_id] = 0 if @state_turns[state_id].nil?
     @state_turns[state_id] = [value, 0].max
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: state_turn_mod
   #--------------------------------------------------------------------------
@@ -674,7 +674,7 @@ class Game_BattlerBase
     end
     return [n, 0].max
   end
-  
+
 end # Game_BattlerBase
 
 #==============================================================================
@@ -682,21 +682,21 @@ end # Game_BattlerBase
 #==============================================================================
 
 class Game_Battler < Game_BattlerBase
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: buff_max?
   #--------------------------------------------------------------------------
   def buff_max?(param_id)
     return @buffs[param_id] == max_buff_limit(param_id)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: debuff_max?
   #--------------------------------------------------------------------------
   def debuff_max?(param_id)
     return @buffs[param_id] == -max_debuff_limit(param_id)
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: add_state
   #--------------------------------------------------------------------------
@@ -711,14 +711,14 @@ class Game_Battler < Game_BattlerBase
       @result.added_states.push(state_id).uniq!
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: state_removed?
   #--------------------------------------------------------------------------
   def state_removed?(state_id)
     return false
   end
-  
+
   #--------------------------------------------------------------------------
   # overwrite method: reset_state_counts
   #--------------------------------------------------------------------------
@@ -727,7 +727,7 @@ class Game_Battler < Game_BattlerBase
     @state_turns[state_id] = state_turn_mod(state_id)
     @state_steps[state_id] = state.steps_to_remove
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: total_state_counts
   #--------------------------------------------------------------------------
@@ -736,7 +736,7 @@ class Game_Battler < Game_BattlerBase
     value = state_turn_mod(state_id)
     state_change_turns(state_id, value + state_turns(state_id))
   end
-  
+
   #--------------------------------------------------------------------------
   # alias method: item_user_effect
   #--------------------------------------------------------------------------
@@ -747,7 +747,7 @@ class Game_Battler < Game_BattlerBase
     apply_buff_turn_changes(user, item)
     apply_debuff_turn_changes(user, item)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: apply_state_turn_changes
   #--------------------------------------------------------------------------
@@ -764,7 +764,7 @@ class Game_Battler < Game_BattlerBase
       @result.success = true
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: field_state?
   #--------------------------------------------------------------------------
@@ -774,7 +774,7 @@ class Game_Battler < Game_BattlerBase
     return false unless SceneManager.scene_is?(Scene_Battle)
     return BattleManager.field_state?(state_id)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: apply_buff_turn_changes
   #--------------------------------------------------------------------------
@@ -789,7 +789,7 @@ class Game_Battler < Game_BattlerBase
       @result.success = true
     end
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: apply_debuff_turn_changes
   #--------------------------------------------------------------------------
@@ -804,7 +804,7 @@ class Game_Battler < Game_BattlerBase
       @result.success = true
     end
   end
-  
+
 end # Game_Battler
 
 #==============================================================================
@@ -812,7 +812,7 @@ end # Game_Battler
 #==============================================================================
 
 class Window_Base < Window
-  
+
   #--------------------------------------------------------------------------
   # alias method: draw_actor_icons
   #--------------------------------------------------------------------------
@@ -821,7 +821,7 @@ class Window_Base < Window
     window_base_draw_actor_icons_bsm(actor, dx, dy, dw)
     draw_actor_icon_turns(actor, dx, dy, dw)
   end
-  
+
   #--------------------------------------------------------------------------
   # new method: draw_actor_icon_turns
   #--------------------------------------------------------------------------
@@ -840,7 +840,7 @@ class Window_Base < Window
       next if state.icon_index <= 0
       turns = actor.state_turns(state.id).to_i
       if $imported["YEA-FieldStateEffects"] &&
-      BattleManager.field_state?(state.id)
+         BattleManager.field_state?(state.id)
         turns = BattleManager.field_state_turns(state.id)
       end
       if state.auto_removal_timing > 0 && turns < 100
@@ -860,11 +860,11 @@ class Window_Base < Window
     contents.font.out_color = Font.default_out_color
     reset_font_settings
   end
-  
+
 end # Window_Base
 
 #==============================================================================
-# 
+#
 # ▼ End of File
-# 
+#
 #==============================================================================
