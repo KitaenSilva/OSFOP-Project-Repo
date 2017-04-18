@@ -7,6 +7,6 @@ def getusername
     Win32API.new("Advapi32.dll", "GetUserName", [ "P", "P"], "I").call(name, size)
     return name.unpack("A*")[0].split(" ")[0].capitalize
    else
-    return name.unpack("A*")[0].split(" ")[0].capitalize
+     return name.unpack("A*")[0].split(" ")[0].capitalize
   end
 end
