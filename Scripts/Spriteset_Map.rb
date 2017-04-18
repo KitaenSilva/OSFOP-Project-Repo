@@ -28,7 +28,7 @@ class Spriteset_Map
     @viewport2 = Viewport.new
     @viewport3 = Viewport.new
     @viewport_lights = Viewport.new
-    @viewport_lights.z = 101
+    @viewport_lights.z = 99
     @viewport2.z = 50
     @viewport3.z = 100
   end

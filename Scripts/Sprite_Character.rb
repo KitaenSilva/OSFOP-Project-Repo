@@ -19,7 +19,8 @@ class Sprite_Character < Sprite_Base
     @character = character
     @balloon_duration = 0
     @sprite = Sprite.new(viewport)
-    @light_sprite = Sprite.new(light_viewport)
+    @light_sprite = Sprite.new
+    @light_sprite.z = 99
     @light_sprite.blend_type = 1
     update
   end
@@ -53,6 +54,10 @@ class Sprite_Character < Sprite_Base
   #--------------------------------------------------------------------------
   def tileset_bitmap(tile_id)
     Cache.tileset($game_map.tileset.tileset_names[5 + tile_id / 256])
+  end
+
+  def tileset_bitmap_lightmap(id)
+    Cache.lightmap_tileset($game_map.tileset.tileset_names[5 + id / 256])
   end
   #--------------------------------------------------------------------------
   # * Update Transfer Origin Bitmap
@@ -88,6 +93,23 @@ class Sprite_Character < Sprite_Base
     @sprite.src_rect.set(sx, sy, 32, 32)
     @sprite.ox = 16
     @sprite.oy = 32
+=begin
+    begin
+      @light_sprite.bitmap = tileset_bitmap_lightmap(@tile_id)
+      @light_sprite.visible = true
+      @light_sprite.src_rect.set(sx, sy, 32, 32)
+      @light_sprite.ox = 16
+      @light_sprite.oy = 32
+      @light_sprite.blend_type = 0
+      @light_sprite.z = 1
+       puts "Lightmap loaded for " + $game_map.tileset.tileset_names[5 + @tile_id / 256]
+    rescue => err
+      puts "LIGHTMAP CANNOT BE LOADED FOR " + $game_map.tileset.tileset_names[5 + @character.tile_id / 256] + ", cause: #{err}"
+      @light_sprite.bitmap = nil
+      @light_sprite.visible = false
+    end
+=end
+
   end
   #--------------------------------------------------------------------------
   # * Set Character Bitmap
@@ -137,7 +159,6 @@ class Sprite_Character < Sprite_Base
     move_animation(@character.screen_x - x, @character.screen_y - y)
     @light_sprite.x = @character.screen_x
     @light_sprite.y = @character.screen_y
-    @light_sprite.z = @character.screen_z
     @sprite.x = @character.screen_x
     @sprite.y = @character.screen_y
     @sprite.z = @character.screen_z
@@ -149,6 +170,7 @@ class Sprite_Character < Sprite_Base
     @sprite.opacity = @character.opacity
     @sprite.blend_type = @character.blend_type
     @sprite.bush_depth = @character.bush_depth
+    @light_sprite.bush_depth = @character.bush_depth
     @sprite.visible = !@character.transparent
     @light_sprite.visible = !@character.transparent
   end
