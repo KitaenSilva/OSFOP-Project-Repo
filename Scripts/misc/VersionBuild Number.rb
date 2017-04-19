@@ -22,7 +22,7 @@
 #FLAVORTEXT: Just any text before version number, not neccesary
 FLAVORTEXT = ""
 #VERSION: The Version, however you want to display it
-VERSION = "v0.0001"
+VERSION = "v0.0.1"
 #VERSION_ONLY: Whether you want to show build number or not
 VERSION_ONLY = true
 #RELEASE: Set to true to prevent build from rising each time game is started

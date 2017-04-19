@@ -55,3 +55,24 @@ Style/MultilineMethodCallIndentation:
 
 Style/IndentationConsistency:
   Enabled: true
+
+Style/IndentHash:
+  EnforcedStyle: consistent
+  Enabled: true
+Style/IndentArray:
+  EnforcedStyle: consistent
+  Enabled: true
+Style/FirstParameterIndentation:
+  EnforcedStyle: consistent
+  Enabled: true
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  Enabled: true
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  Enabled: true
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+  Enabled: true
+Style/ElseAlignment:
+  Enabled: true

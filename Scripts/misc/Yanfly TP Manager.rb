@@ -189,7 +189,7 @@ module YEA
         :name        => "Stoic",
         :icon        => 121,
         :description => "Raise TP by waiting in battle or receiving damage " +
-                        "from\nattacks.",
+          "from\nattacks.",
         :preserve_tp => false,
         :init_tp     => "rand * 25",
         :regen_tp    => "100 * trg",
@@ -306,7 +306,7 @@ module YEA
         :name        => "Breaker",
         :icon        => 215,
         :description => "Raise TP whenever user deals MP damage, receives MP " +
-                        "damage,\nor an ally receives MP damage.",
+          "damage,\nor an ally receives MP damage.",
         :preserve_tp => true,
         :init_tp     => "0",
         :regen_tp    => "0",

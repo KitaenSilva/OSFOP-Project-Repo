@@ -32,7 +32,7 @@ module EFE
 
   #[[item1, :type], [item2, :type], [result, :type]],
   #[[item1, :type], [item2, :type], [result, :type]],
-  [[1, :item], [2, :weapon], [3, :armor]],
+    [[1, :item], [2, :weapon], [3, :armor]],
   [[8, :item], [9, :item], [3, :armor]]
 
   ]

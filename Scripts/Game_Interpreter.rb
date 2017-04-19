@@ -1066,7 +1066,7 @@ class Game_Interpreter
   #--------------------------------------------------------------------------
   def command_284
     $game_map.change_parallax(@params[0], @params[1], @params[2],
-                              @params[3], @params[4])
+      @params[3], @params[4])
   end
   #--------------------------------------------------------------------------
   # * Get Location Info

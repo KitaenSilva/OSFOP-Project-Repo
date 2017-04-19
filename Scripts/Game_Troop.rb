@@ -130,7 +130,7 @@ class Game_Troop < Game_Unit
   def conditions_met?(page)
     c = page.condition
     if !c.turn_ending && !c.turn_valid && !c.enemy_valid &&
-       !c.actor_valid && !c.switch_valid
+        !c.actor_valid && !c.switch_valid
       return false      # Conditions not set: not executed
     end
     if @event_flags[page]

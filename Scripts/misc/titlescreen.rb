@@ -31,11 +31,14 @@ module MOG_HIJIRI_TITLE_SCRREN
   #Definição da duração do logo.
   LOGO_DURATION = 2
   #Definição do tempo de transição.
-  TRASITION_DURATION = 60
+  TRASITION_DURATION = 30
 end
 
 $imported = {} if $imported.nil?
 $imported[:mog_hijiri_title_screen] = true
+
+$displayedlogo = false
+$showedtransition = false
 
 #==============================================================================
 # ■ Scene Title
@@ -47,7 +50,8 @@ class Scene_Title
   # ● Main
   #--------------------------------------------------------------------------
   def main
-    execute_logo if LOGO
+    execute_logo if LOGO && !$displayedlogo
+    $displayedlogo = true
     Graphics.update
     Graphics.freeze
     execute_setup
@@ -72,7 +76,14 @@ class Scene_Title
   # ● Execute Lopp
   #--------------------------------------------------------------------------
   def execute_loop
-    Graphics.transition(TRASITION_DURATION)
+    if !$showedtransition
+      Graphics.transition(TRASITION_DURATION)
+    else
+      Graphics.transition(TRASITION_DURATION/6)
+    end
+
+    $showedtransition = true
+
     play_title_music
     loop do
       Input.update
@@ -81,7 +92,6 @@ class Scene_Title
       break if SceneManager.scene != self
     end
   end
-
 end
 
 
@@ -135,12 +145,12 @@ class Scene_Title
     if @logo_duration[0] == 0
       @logo.opacity += 5
       @logo_duration[0] = 1 if @logo.opacity >= 255
-     elsif @logo_duration[0] == 1
-       @logo_duration[1] -= 1
-       @logo_duration[0] = 2 if @logo_duration[1] <= 0
-     else
-       @logo.opacity -= 5
-       @logo_phase = false if @logo.opacity <= 0
+    elsif @logo_duration[0] == 1
+      @logo_duration[1] -= 1
+      @logo_duration[0] = 2 if @logo_duration[1] <= 0
+    else
+      @logo.opacity -= 5
+      @logo_phase = false if @logo.opacity <= 0
     end
   end
 
@@ -523,7 +533,7 @@ class Title_Commands < Sprite
       @float[0] += 1
     when 16..20
       @float[0] -= 1
-         else
+    else
       @float[0] = 0
       @float[1] = 0
     end
@@ -639,7 +649,11 @@ class Scene_Title
   # ● Update Background
   #--------------------------------------------------------------------------
   def update_background
-    @layout.opacity += 5
+    if !$showedtransition
+      @layout.opacity += 5
+    else
+      @layout.opacity += 25
+    end
     @background_scroll[2] += 1
     return if @background_scroll[2] < 4
     @background_scroll[2] = 0
@@ -691,7 +705,11 @@ class Scene_Title
   def update_character
     return if @character == nil
     update_character_float_effect
-    @character.opacity += 5
+    if !$showedtransition
+      @character.opacity += 5
+    else
+      @character.opacity += 25
+    end
     update_character_aura_effect
   end
 
@@ -707,7 +725,7 @@ class Scene_Title
       @char_zoom_speed[2] += 0.001
     when 121..240
       @char_zoom_speed[2] -= 0.001
-       else
+    else
       @char_zoom_speed[0] = 0
       @char_zoom_speed[2] = 0
       @character2.zoom_x = 1.00
@@ -733,7 +751,7 @@ class Scene_Title
       @character_float[2] -= 1
     when CHARACTER_FLOAT_RANGE..(CHARACTER_FLOAT_RANGE * 2) - 1
       @character_float[2] += 1
-      else
+    else
       @character_float = [0, 0, 0]
     end
     @character.y = @character_org[1] + @character_float[2]
@@ -872,5 +890,4 @@ class Scene_Title
     RPG::BGS.stop
     RPG::ME.stop
   end
-
 end

@@ -222,8 +222,8 @@ if $imported["SES - Instance Items"]
         item = oitem
         if item && item.unique
           args[0] = if item.is_a?(RPG::Weapon) then new_item(item, :weapon)
-          elsif item.is_a?(RPG::Armor) then args[0] = new_item(item, :armor)
-          elsif item.is_a?(RPG::Item) then args[0] = new_item(item, :item) end
+                    elsif item.is_a?(RPG::Armor) then args[0] = new_item(item, :armor)
+                    elsif item.is_a?(RPG::Item) then args[0] = new_item(item, :item) end
         end
         @inventory.gain_item(args[0], 1)
       end
