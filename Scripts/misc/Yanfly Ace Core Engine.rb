@@ -281,7 +281,7 @@ end # YEA
 #==============================================================================
 
 Graphics.resize_screen(YEA::CORE::RESIZE_WIDTH, YEA::CORE::RESIZE_HEIGHT)
-Font.default_name = YEA::CORE::FONT_NAME
+#Font.default_name = YEA::CORE::FONT_NAME
 Font.default_size = YEA::CORE::FONT_SIZE
 Font.default_bold = YEA::CORE::FONT_BOLD
 Font.default_italic = YEA::CORE::FONT_ITALIC
