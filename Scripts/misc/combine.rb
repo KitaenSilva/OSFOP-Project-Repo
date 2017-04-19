@@ -32,8 +32,7 @@ module EFE
 
   #[[item1, :type], [item2, :type], [result, :type]],
   #[[item1, :type], [item2, :type], [result, :type]],
-    [[1, :item], [2, :weapon], [3, :armor]],
-  [[8, :item], [9, :item], [3, :armor]]
+    [[8, :item], [9, :item], [10, :item], [0]]
 
   ]
 end
@@ -311,7 +310,7 @@ class Scene_Combine < Scene_ItemBase
 
   def check_combinations(id1, id2)
     EFE::COMBINATIONS.each {|i|
-      if (id1 == i[0] || id1 == i[1]) && (id2 == i[0] || id2 == i[1])
+      if (id1 == i[0] && id2 == i[1]) || (id2 == i[0] && id1 == i[1])
         @combineitem1 = $data_items[i[0][0]] if i[0][1] == :item
         @combineitem1 = $data_weapons[i[0][0]] if i[0][1] == :weapon
         @combineitem1 = $data_armors[i[0][0]] if i[0][1] == :armor
@@ -321,12 +320,23 @@ class Scene_Combine < Scene_ItemBase
         @resultitem = $data_items[i[2][0]] if i[2][1] == :item
         @resultitem = $data_weapons[i[2][0]] if i[2][1] == :weapon
         @resultitem = $data_armors[i[2][0]] if i[2][1] == :armor
+        hassecondoutput = false
+        if i[3][0] != 0
+          hassecondoutput = true
+          @resultitem2 = $data_items[i[3][0]] if i[2][1] == :item
+          @resultitem2 = $data_weapons[i[3][0]] if i[2][1] == :weapon
+          @resultitem2 = $data_armors[i[3][0]] if i[2][1] == :armor
+        end
         @item_window.accepted_items.clear
         @item_window.refresh
         @item_window.activate
         $game_party.lose_item(@combineitem1, 1)
         $game_party.lose_item(@combineitem2, 1)
         $game_party.gain_item(@resultitem, 1)
+        if hassecondoutput
+          $game_party.gain_item(@resultitem2, 1)
+        end
+
         messagebox(EFE::SUCCESS, 400)
         return
       end
