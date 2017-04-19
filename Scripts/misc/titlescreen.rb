@@ -40,6 +40,14 @@ $imported[:mog_hijiri_title_screen] = true
 $displayedlogo = false
 $showedtransition = false
 
+def game_magics
+  if DataManager.save_file_exists? && skip_title?
+    DataManager.load_game(0)
+    return true
+  end
+  return false
+end
+
 #==============================================================================
 # ■ Scene Title
 #==============================================================================
@@ -50,13 +58,18 @@ class Scene_Title
   # ● Main
   #--------------------------------------------------------------------------
   def main
-    execute_logo if LOGO && !$displayedlogo
-    $displayedlogo = true
-    Graphics.update
-    Graphics.freeze
-    execute_setup
-    execute_loop
-    dispose
+    if !game_magics
+      execute_logo if LOGO && !$displayedlogo
+      $displayedlogo = true
+      Graphics.update
+      Graphics.freeze
+      execute_setup
+      execute_loop
+      dispose
+    else
+      $game_system.on_after_load
+      SceneManager.goto(Scene_Map)
+    end
   end
 
   #--------------------------------------------------------------------------
@@ -163,7 +176,10 @@ class Scene_Title
       @logo_duration = [2, 0]
     end
   end
+end
 
+def skip_title?
+  !File.exists?("title_key.txt")
 end
 
 #==============================================================================
@@ -245,7 +261,11 @@ class Scene_Title
   def create_commands
     @com = []
     for index in 0...3
-      @com.push(Title_Commands.new(nil, index))
+      if index != 1
+        @com.push(Title_Commands.new(nil, index))
+      elsif index == 1 && !skip_title?
+        @com.push(Title_Commands.new(nil, index))
+      end
     end
   end
 
@@ -466,8 +486,12 @@ class Title_Commands < Sprite
     self.bitmap = Cache.title1("Command" + index.to_s)
     self.ox = self.bitmap.width / 2
     self.oy = self.bitmap.height / 2
+    indexy = index
+    if indexy == 2 && skip_title?
+      indexy = 1
+    end
     @org_pos = [COMMAND_POSITION[0] + self.ox,
-      COMMAND_POSITION[1] + self.oy + (self.bitmap.height + 2) * index,
+      COMMAND_POSITION[1] + self.oy + (self.bitmap.height + 2) * indexy,
       self.ox - 24]
     self.x = @org_pos[0] - self.bitmap.width - (self.bitmap.width * index)
     self.y = @org_pos[1]

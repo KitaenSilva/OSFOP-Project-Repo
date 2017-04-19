@@ -21,21 +21,21 @@
 #   All my other scripts and projects can be found here: http://daimonioustails.weebly.com/
 #
 #- Free to use in any project with credit given, donations always welcome!
- 
+
 class Window_Message < Window_Base
- 
+
   DEFAULT_SE_FREQ = 5
   DEFAULT_AUDIO_SOUND = "text1"
   DEFAULT_AUDIO_VOLUME = 75
-  DEFAULT_AUDIO_PITCH = [100,100]
- 
+  DEFAULT_AUDIO_PITCH = [100, 100]
+
   DISABLE_SOUND_SWITCH = 29
- 
+
   attr_accessor  :se
   attr_accessor  :freq
   attr_accessor  :volume
   attr_accessor  :pitch
- 
+
   alias mse_clear_instance_variables clear_instance_variables
   def clear_instance_variables
     mse_clear_instance_variables
@@ -61,11 +61,11 @@ class Window_Message < Window_Base
     wait_for_one_character
   end
 end
- 
+
 class Scene_Map
-  attr_accessor  :message_window
+  attr_accessor :message_window
 end
- 
+
 class Game_Interpreter
   def message_set(string, value, array, freq = -1)
     message_se(string)

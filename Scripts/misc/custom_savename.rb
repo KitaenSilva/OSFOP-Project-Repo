@@ -18,13 +18,13 @@
 #
 #--- Free to use in any project, commercial or non-commercial, with credit given
 # - - Though a donation's always a nice way to say thank you~ (I also accept actual thank you's)
- 
+
 module DataManager
 =begin Customization:
   SAVEFILENAME is the details before the number and extension
   SAVEFILEEXTENSION is the extension of the file, defail is Rvdata2
 =end
-  SAVEFILENAME   = "Feathernest"
+  SAVEFILENAME = "Feathernest"
   SAVEFILEEXTENSION = "hold"
   def self.save_file_exists?
     !Dir.glob(SAVEFILENAME + "*" + SAVEFILEEXTENSION).empty?
