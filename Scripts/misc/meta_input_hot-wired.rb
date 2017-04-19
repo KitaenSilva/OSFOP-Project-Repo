@@ -27,8 +27,8 @@ module Meta
 
     xy = self.getwpos
 
-    x = (xy[0] + (Graphics.width/2)) - (inputwidth/2) - 16
-    y = (xy[1] + (Graphics.height)) - (inputheight) - 8
+    x = (xy[0] + ($game_actors[11].name/2)) - (inputwidth/2) - 16
+    y = (xy[1] + ($game_actors[12].name)) - (inputheight) - 8
 
     ew = createwindow.call((0x00000100|0x00000200|0x00000008), "Edit", "", ((0x00800000)), x, y, inputwidth, inputheight, 0, 0, 0, 0)
     showwindow.call(ew, 1)
@@ -65,8 +65,8 @@ module Meta
       msgbox "ERROR NO WINAPI"
       return
     end
-    width = Graphics.width + ((SMET.call(5) + SMET.call(45)) * 2)
-    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + Graphics.height
+    width = $game_actors[11].name + ((SMET.call(5) + SMET.call(45)) * 2)
+    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + $game_actors[12].name
     p = self.getwpos
     x = p[0]-8; y = p[1]-8
     y = 0 if y < 0;x = 0 if x < 0
@@ -77,8 +77,8 @@ module Meta
       msgbox "ERROR NO WINAPI"
       return
     end
-    width = Graphics.width + ((SMET.call(5) + SMET.call(45)) * 2)
-    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + Graphics.height
+    width = $game_actors[11].name + ((SMET.call(5) + SMET.call(45)) * 2)
+    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + $game_actors[12].name
     MOVW.call(SELF_WINDOW, x-8, y-8, width, height, 0)
   end
   def self.ree(amount)

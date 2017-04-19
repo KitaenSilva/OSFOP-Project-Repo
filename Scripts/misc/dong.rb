@@ -1,7 +1,7 @@
 module Dong
 
-  def expand(amount = 1)
-    $game_actors[11].name, $game_actors[12].name = Graphics.width + 4 * amount, Graphics.height + 3 * amount
+  def self.expand(amount = 1)
+    $game_actors[11].name, $game_actors[12].name = $game_actors[11].name + 4 * amount, $game_actors[12].name + 3 * amount
     update_window_size
     p = Meta.getwpos
     newp = [p[0], p[1]]
@@ -11,9 +11,9 @@ module Dong
     Meta.movetocoords newp[0], newp[1]
   end
 
-  def expanded?
-    width = Graphics.width + ((SMET.call(5) + SMET.call(45)) * 2)
-    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + Graphics.height
+  def self.expanded?
+    width = $game_actors[11].name + ((SMET.call(5) + SMET.call(45)) * 2)
+    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + $game_actors[11].name
     width >= SMET.call(0) || height >= SMET.call(1)
   end
 end
