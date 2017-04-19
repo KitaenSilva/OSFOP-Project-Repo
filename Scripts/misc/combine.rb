@@ -22,7 +22,7 @@ Note : This script works on Items, Weapons and Armors
 module EFE
   COMBINE_BUTTON = "Combine"
   USE_BUTTON = "Use"
-  SUCCESS = "Items have been combined succesfully"
+  SUCCESS = "Combined!"
 
   #Item name will be colored when you select an item in the list.
   SELECTED_COLOR = 14
