@@ -58,15 +58,13 @@ module Meta
     full = r.unpack("llll")
     full[0] = full[0] + 8
     full[1] = full[1] + 8
-    full[0, 2]
+    full
   end
   def self.move(dx, dy)
     if Win32API == nil
       msgbox "ERROR NO WINAPI"
       return
     end
-    resw = SMET.call(0)
-    resh = SMET.call(1)
     width = Graphics.width + ((SMET.call(5) + SMET.call(45)) * 2)
     height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + Graphics.height
     p = self.getwpos

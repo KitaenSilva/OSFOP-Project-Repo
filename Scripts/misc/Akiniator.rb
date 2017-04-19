@@ -42,6 +42,3 @@ class Akiniator
     gaindata(data)
   end
 end
-
-A = Akiniator.new
-puts A.parse_questions.to_s
