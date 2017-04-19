@@ -32,7 +32,7 @@ module EFE
 
   #[[item1, :type], [item2, :type], [result, :type]],
   #[[item1, :type], [item2, :type], [result, :type]],
-    [[8, :item], [9, :item], [10, :item], [0]]
+    [[7, :item], [8, :item], [10, :item], [9, :item]]
 
   ]
 end
