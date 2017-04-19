@@ -114,29 +114,25 @@ module Meta
     self.movetocoords($ShakeMusic[3][0], $ShakeMusic[3][1])
   end
   def self.grablocation()
-    require "net/http"
-    require "uri"
-
-    uri = URI.parse("http://ip-api.com/json")
-
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-
-    response = http.request(request)
-    if response != nil
-      res = JSON.parse(response.body)
+    req = EFE.request("ip-api.com", "/json")
+    puts req
+    if req != nil
+      res = JSON.decode(req)
+      puts res
+      puts res["status"]
       if res["status"] == "success"
         if res["country"] == "United States"
-          $game_actors[9] = res["regionName"]
+          $location = res["regionName"]
         else
-          $game_actors[9] = res["country"]
+          $location = res["country"]
         end
       else
-        $game_actors[9] = "earth"
+        $location = "earth"
       end
     else
-      $game_actors[9] = "earth"
+      $location = "earth"
     end
+    return $location
   end
 end
 
