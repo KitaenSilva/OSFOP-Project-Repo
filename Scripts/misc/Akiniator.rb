@@ -10,10 +10,13 @@ class Akiniator
     @SIGNATURE = nil
     @STEP = 0
     @Currentanswers = []
+    @Question = ""
+    @Progress = 0
+    @haserr = false
     hello
   end
 
-  def parse_questions
+  def get_answers
     temp = []
     @Currentanswers.each_index { |index|
       temp << [index, @Currentanswers.at(index)["answer"]]
@@ -21,9 +24,22 @@ class Akiniator
     return temp
   end
 
+  def get_question
+    @Question
+  end
+
+  def progression
+    @Progress
+  end
+
   def gaindata(data)
-    @STEP = data["parameters"]["step"]
-    @Currentanswers = data["parameters"]["answers"]
+    @haserr =  data["completion"] != "OK"
+    if !@haserr
+      @STEP = data["parameters"]["step"]
+      @Currentanswers = data["parameters"]["answers"]
+      @Question = data["parameters"]["question"]
+      @Progress = data["parameters"]["progression"].to_f
+    end
   end
 
   def hello
@@ -33,12 +49,20 @@ class Akiniator
     @SIGNATURE = data["parameters"]["identification"]["signature"]
     @STEP = data["parameters"]["step_information"]["step"]
     @Currentanswers = data["parameters"]["step_information"]["answers"]
-    puts @SESS
-    puts @SIGNATURE
+    @Question = data["parameters"]["step_information"]["question"]
   end
 
   def sendanswer(index)
     data = JSON.decode EFE.request(@URL, "/ws/answer?session=#{@SESS}&signature=#{@SIGNATURE}&step=#{@STEP}&answer=#{index}")
     gaindata(data)
+  end
+
+  def whoisit
+    data = JSON.decode EFE.request(@URL, "/ws/list?session=#{@SESS}&signature=#{@SIGNATURE}&step=#{@STEP}")
+    if data["completion"] != "OK"
+      return "ERR"
+    else
+      return data["parameters"]["elements"][0]["element"]["name"]
+    end
   end
 end
