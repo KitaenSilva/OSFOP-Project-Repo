@@ -27,8 +27,8 @@ module Meta
 
     xy = self.getwpos
 
-    x = (xy[0] + ($game_actors[11].name/2)) - (inputwidth/2) - 16
-    y = (xy[1] + ($game_actors[12].name)) - (inputheight) - 8
+    x = (xy[0] + (Graphics.width/2)) - (inputwidth/2) - 16
+    y = (xy[1] + (Graphics.height)) - (inputheight) - 8
 
     ew = createwindow.call((0x00000100|0x00000200|0x00000008), "Edit", "", ((0x00800000)), x, y, inputwidth, inputheight, 0, 0, 0, 0)
     showwindow.call(ew, 1)
@@ -58,15 +58,17 @@ module Meta
     full = r.unpack("llll")
     full[0] = full[0] + 8
     full[1] = full[1] + 8
-    full
+    full[0, 2]
   end
   def self.move(dx, dy)
     if Win32API == nil
       msgbox "ERROR NO WINAPI"
       return
     end
-    width = $game_actors[11].name + ((SMET.call(5) + SMET.call(45)) * 2)
-    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + $game_actors[12].name
+    resw = SMET.call(0)
+    resh = SMET.call(1)
+    width = Graphics.width + ((SMET.call(5) + SMET.call(45)) * 2)
+    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + Graphics.height
     p = self.getwpos
     x = p[0]-8; y = p[1]-8
     y = 0 if y < 0;x = 0 if x < 0
@@ -77,8 +79,8 @@ module Meta
       msgbox "ERROR NO WINAPI"
       return
     end
-    width = $game_actors[11].name + ((SMET.call(5) + SMET.call(45)) * 2)
-    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + $game_actors[12].name
+    width = Graphics.width + ((SMET.call(5) + SMET.call(45)) * 2)
+    height = (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) + Graphics.height
     MOVW.call(SELF_WINDOW, x-8, y-8, width, height, 0)
   end
   def self.ree(amount)
@@ -112,25 +114,29 @@ module Meta
     self.movetocoords($ShakeMusic[3][0], $ShakeMusic[3][1])
   end
   def self.grablocation()
-    req = EFE.request("ip-api.com", "/json")
-    puts req
-    if req != nil
-      res = JSON.decode(req)
-      puts res
-      puts res["status"]
+    require "net/http"
+    require "uri"
+
+    uri = URI.parse("http://ip-api.com/json")
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+
+    response = http.request(request)
+    if response != nil
+      res = JSON.parse(response.body)
       if res["status"] == "success"
         if res["country"] == "United States"
-          $location = res["regionName"]
+          $game_actors[9] = res["regionName"]
         else
-          $location = res["country"]
+          $game_actors[9] = res["country"]
         end
       else
-        $location = "earth"
+        $game_actors[9] = "earth"
       end
     else
-      $location = "earth"
+      $game_actors[9] = "earth"
     end
-    return $location
   end
 end
 

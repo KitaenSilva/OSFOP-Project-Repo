@@ -45,7 +45,6 @@ class Scene_Base
   #--------------------------------------------------------------------------
   def update_basic
     Graphics.update
-    Schedule.run
     Input.update
     update_all_windows
   end
