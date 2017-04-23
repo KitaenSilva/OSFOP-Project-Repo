@@ -616,6 +616,8 @@ class Spriteset_Map
     @viewport1 = Viewport.new(dx, dy, dw, dh)
     @viewport2 = Viewport.new(dx, dy, dw, dh)
     @viewport3 = Viewport.new(dx, dy, dw, dh)
+    @viewport_lights = Viewport.new
+    @viewport_lights.z = 99
     @viewport2.z = 50
     @viewport3.z = 100
   end

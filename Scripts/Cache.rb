@@ -84,6 +84,10 @@ module Cache
   def self.lightmap(filename)
     self.load_bitmap("Graphics/Lightmaps/", filename)
   end
+
+  def self.lightmap_tileset(filename)
+    self.load_bitmap("Graphics/Lightmaps/", filename)
+  end
   #--------------------------------------------------------------------------
   # * Load Bitmap
   #--------------------------------------------------------------------------
