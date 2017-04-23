@@ -104,7 +104,7 @@ class Scene_Menu < Scene_MenuBase
   def on_formation_ok
     if @status_window.pending_index >= 0
       $game_party.swap_order(@status_window.index,
-                             @status_window.pending_index)
+        @status_window.pending_index)
       @status_window.pending_index = -1
       @status_window.redraw_item(@status_window.index)
     else

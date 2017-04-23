@@ -205,7 +205,7 @@ module GFISH
 #-------------------------------------------------------------------------------
 
   FISH[0] = [ # Purple Fish
-                 "Fish2",     # graphic
+    "Fish2", # graphic
                  5,           # speed
                  0,           # pull
                  1,           # move type
@@ -220,12 +220,12 @@ module GFISH
                 [23, 52],      # weight
                 true,         # stats
                 "",           # custom txt
-            ]
+  ]
 
 #-------------------------------------------------------------------------------
 
   FISH[1] = [ # Green Fish
-                 "Fish1",     # graphic
+    "Fish1", # graphic
                  8,           # speed
                  0,           # pull
                  1,           # move type
@@ -240,12 +240,12 @@ module GFISH
                 [20, 45],      # weight
                 true,         # stats
                 "",           # custom txt
-            ]
+  ]
 
 #-------------------------------------------------------------------------------
 
   FISH[2] = [ # Rock
-                 "rock",      # graphic
+    "rock", # graphic
                  0,           # speed
                  99,          # pull
                  -1,          # move type
@@ -260,12 +260,12 @@ module GFISH
                 [999, 999],    # weight
                 false,        # stats
                 "",           # custom txt
-            ]
+  ]
 
 #-------------------------------------------------------------------------------
 
   FISH[3] = [ # A chest!
-                 "chest",     # graphic
+    "chest", # graphic
                  5,           # speed
                  2,           # pull
                  0,           # move type
@@ -280,12 +280,12 @@ module GFISH
                 [200, 200],    # weight
                 false,        # stats
                 "",           # custom txt
-            ]
+  ]
 
 #-------------------------------------------------------------------------------
 
   FISH[4] = [ # A Monster!
-                 "jellyfish", # graphic
+    "jellyfish", # graphic
                  5,           # speed
                  1,           # pull
                  2,           # move type
@@ -300,7 +300,7 @@ module GFISH
                 [200, 200],    # weight
                 false, # stats
                 "You caught a MONSTER!", # custom txt
-            ]
+  ]
 
 #-------------------------------------------------------------------------------
 
@@ -746,7 +746,7 @@ class Game_Fishing
         @reely = -1 * [$game_player.equipped_rod.rod - @fish_hooked.pull, 1].max
       end
       caught_fish if @bait_x >= @end_x && @bait_y <= @surface_y &&
-                     @fish_hooked.move_type >= 0
+          @fish_hooked.move_type >= 0
     else
       @reelx = 0
       @reely = 0
@@ -887,9 +887,9 @@ class Game_Fish
 
   def near_bait?
     if @x.between?($game_fishing.bait_x - @range[0], $game_fishing.bait_x + @range[0]) &&
-       @y.between?($game_fishing.bait_y - @range[0], $game_fishing.bait_y + @range[0]) &&
-       $game_player.equipped_bait &&
-       @bait_type.include?($game_player.equipped_bait.bait[0])
+        @y.between?($game_fishing.bait_y - @range[0], $game_fishing.bait_y + @range[0]) &&
+        $game_player.equipped_bait &&
+        @bait_type.include?($game_player.equipped_bait.bait[0])
       return true
     end
     return false
@@ -928,7 +928,7 @@ class Game_Fish
 
   def update_nibble
     if @x.between?($game_fishing.bait_x - @range[1], $game_fishing.bait_x + @range[1]) &&
-       @y.between?($game_fishing.bait_y - @range[1], $game_fishing.bait_y + @range[1])
+        @y.between?($game_fishing.bait_y - @range[1], $game_fishing.bait_y + @range[1])
       @hooked = true
       $game_fishing.fish_hooked = self
       RPG::SE.new("Blow5", 100, 150).play

@@ -163,7 +163,7 @@ module YEA
     # forward. Hold down for the effect. Note that when held down, this will
     # speed up the messages, but still wait for the pauses. However, it will
     # automatically go to the next page when prompted.
-    TEXT_SKIP = :A # Input::A is the shift button on keyboard.
+    TEXT_SKIP = :B # Input::A is the shift button on keyboard.
 
     # This variable adjusts the number of visible rows shown in the message
     # window. If you do not wish to use this feature, set this constant to 0.
@@ -779,7 +779,7 @@ class Window_Message < Window_Base
     self.pause = true
     wait(10)
     Fiber.yield until Input.trigger?(:B) || Input.trigger?(:C) ||
-                      Input.press?(YEA::MESSAGE::TEXT_SKIP)
+        Input.press?(YEA::MESSAGE::TEXT_SKIP)
     Input.update
     self.pause = false
   end

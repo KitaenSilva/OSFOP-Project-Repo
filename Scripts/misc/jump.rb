@@ -59,7 +59,7 @@ module Galv_Jump
 #  SCRIPT SETUP OPTIONS
 #------------------------------------------------------------------------------#
 
-  DISABLE_SWITCH = 1         # Cannot jump when this switch is ON
+  DISABLE_SWITCH = 38        # Cannot jump when this switch is ON
 
   BUTTON = :X                # Button to press to jump. :X is "a" key.
 

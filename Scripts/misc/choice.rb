@@ -58,7 +58,7 @@ module Galv_Choice
 
   CHOICE_IMAGE = "Choice"   # Image for each choice located in /Graphics/System
   IMAGE_Y_OFFSET = 3        # Nudge your choice image vertically if needed
-  IMAGE_OPACITY = 215       # The opacity of the image
+  IMAGE_OPACITY = 170       # The opacity of the image
 
   CHOICE_HEIGHT = 45        # How tall each choice.
   CHOICE_ITEM_Y = 2         # Offset for choice item text

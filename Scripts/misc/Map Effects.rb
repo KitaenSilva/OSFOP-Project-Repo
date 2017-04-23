@@ -110,11 +110,11 @@ end
 class Game_Map_Effects
   include Zeus::Animation
   attr_accessor :active, :refresh_rate, :back, :x, :y, :ox, :oy, :angle,
-                :zoom_x, :zoom_y, :mirror, :opacity, :blend_type, :color, :tone,
-                :hue, :wave_amp, :wave_length, :wave_speed, :wave_phase,
-                :pixelize, :blur_division, :blur_fade, :blur_animation,
-                :gaussian_blur_length, :linear_blur_angle, :linear_blur_length,
-                :radial_blur_angle, :zoom_blur_length, :motion_blur_rate
+    :zoom_x, :zoom_y, :mirror, :opacity, :blend_type, :color, :tone,
+    :hue, :wave_amp, :wave_length, :wave_speed, :wave_phase,
+    :pixelize, :blur_division, :blur_fade, :blur_animation,
+    :gaussian_blur_length, :linear_blur_angle, :linear_blur_length,
+    :radial_blur_angle, :zoom_blur_length, :motion_blur_rate
   def initialize
     @active = true
     @refresh_rate = 30.0
@@ -394,12 +394,12 @@ class Spriteset_Map_Effects
   end
   def update_blur_opacity(sprite, id)
     sprite.opacity /= (id < 1 ? 2 : id+1) **
-                      (1 + @data.blur_fade / (@data.blur_division*20.0))
+      (1 + @data.blur_fade / (@data.blur_division*20.0))
   end
   def update_gaussian_blur(sprite, id)
     box, boy  = *Blur_Offset[(id-1)%8]
     offset    = ((id+3)/4) / ((@data.blur_division.to_i+3)/4).to_f *
-                @data.gaussian_blur_length
+      @data.gaussian_blur_length
     sprite.x += (offset.ceil * box).round
     sprite.y += (offset.ceil * boy).round
   end
