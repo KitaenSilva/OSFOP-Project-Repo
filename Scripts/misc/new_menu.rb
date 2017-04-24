@@ -240,8 +240,8 @@ class Window_Logo < Window_Base
     if @actor.name.include?("Kit") || @actor.name.include?("entity")
       if @actor.name.include?("entity")
         draw_actor_graphic(@actor, 24, 46)
-        else
-      draw_actor_graphic(@actor, 24, 48)
+      else
+        draw_actor_graphic(@actor, 24, 48)
       end
     else
       draw_actor_graphic(@actor, 24, 40)
