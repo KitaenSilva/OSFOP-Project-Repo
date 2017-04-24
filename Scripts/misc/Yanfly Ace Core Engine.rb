@@ -668,6 +668,8 @@ class Window_Base < Window
   #--------------------------------------------------------------------------
   # overwrite methods: color
   #--------------------------------------------------------------------------
+
+=begin
   def normal_color;      text_color(YEA::CORE::COLOURS[:normal]);      end;
   def system_color;      text_color(YEA::CORE::COLOURS[:system]);      end;
   def crisis_color;      text_color(YEA::CORE::COLOURS[:crisis]);      end;
@@ -683,7 +685,7 @@ class Window_Base < Window
   def tp_gauge_color1;   text_color(YEA::CORE::COLOURS[:tp_gauge1]);   end;
   def tp_gauge_color2;   text_color(YEA::CORE::COLOURS[:tp_gauge2]);   end;
   def tp_cost_color;     text_color(YEA::CORE::COLOURS[:tp_cost]);     end;
-
+=end
   #--------------------------------------------------------------------------
   # overwrite method: translucent_alpha
   #--------------------------------------------------------------------------

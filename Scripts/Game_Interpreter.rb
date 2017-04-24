@@ -1373,7 +1373,12 @@ class Game_Interpreter
   #--------------------------------------------------------------------------
   def command_351
     return if $game_party.in_battle
-    SceneManager.call(Scene_Menu)
+    begin
+      SceneManager.call(Scene_Menu)
+    rescue => e
+      puts "error when calling menu:"
+      puts e
+    end
     Window_MenuCommand::init_command_position
     Fiber.yield
   end
