@@ -1,43 +1,3 @@
-module MOD
-  Font.default_name      = ["THSpatial", "THSpatial", "THSpatial"]
-  Font.default_bold      = false
-  Font.default_italic    = false
-  Font.default_shadow    = false
-  Font.default_outline   = true
-  Font.default_color     = Color.new(255, 255, 255, 255)
-  Font.default_out_color = Color.new(0, 0, 0, 182)
-  WINDOW = ("Window")
-  LogoX = 0
-  LogoY = 0
-  HealthX = 0
-  HealthY = 48
-  ManaX = 160
-  ManaY = 48
-  LevelX = 0
-  LevelY = 123
-  ExpX = 160
-  ExpY = 123
-  CommandX = 0
-  CommandY = 198
-  GoldX = 160
-  GoldY = 198
-  Var1X = 0
-  Var1Y = 246
-  Var2X = 160
-  Var2Y = 246
-  Var3X = 0
-  Var3Y = 294
-  Var4X = 160
-  Var4Y = 294
-  MapX = 0
-  MapY = 342
-  StateX = 160
-  StateY = 342
-  ProX = 320
-  ProY = 0
-  ALIGNMENT = 2
-end
-
 # THESE ARE GIMMICKS FOR THE MENU SIMULATION
 
 $HUNGER = 0.9
@@ -67,6 +27,7 @@ class Scene_Menu < Scene_MenuBase
 
     create_location_window
     create_name_window
+    create_cg
   end
 
   def create_text_windows
@@ -74,14 +35,14 @@ class Scene_Menu < Scene_MenuBase
     @wt2 = Window_Text2.new
     @Lw = Window_Lore.new
 
-    @wt1.windowskin = Cache.system("Window")
-    @wt2.windowskin = Cache.system("Window")
-    @Lw.windowskin = Cache.system("Window")
+    @wt1.windowskin = Cache.system("Window_straight")
+    @wt2.windowskin = Cache.system("Window_straight")
+    @Lw.windowskin = Cache.system("Window_straight")
   end
 
   def create_stat_window
     @stat_window = Window_Stat.new
-    @stat_window.windowskin = Cache.system("Window")
+    @stat_window.windowskin = Cache.system("Window_straight")
   end
 
   def create_logo
@@ -128,17 +89,24 @@ class Scene_Menu < Scene_MenuBase
     @command_window.set_handler(:save,    method(:command_save))
     @command_window.set_handler(:end,     method(:command_end))
     @command_window.set_handler(:cancel,  method(:return_scene))
+    @command_window.windowskin = Cache.system("Window_straight")
   end
 
   def create_location_window
     @map_window = Window_Location.new
-    @map_window.windowskin = Cache.system("Window")
+    @map_window.windowskin = Cache.system("Window_straight")
   end
 
   def create_name_window
     @pro_window = Window_Name.new
-    @pro_window.windowskin = Cache.system("Window")
+    @pro_window.windowskin = Cache.system("Window_straight")
   end
+
+  def create_cg
+    @cg = Window_character_CG.new
+    @cg.windowskin = Cache.system("Window_character_CG")
+  end
+
 end
 
 class Window_Text1 < Window_Base
@@ -167,7 +135,7 @@ class Window_Text2 < Window_Base
   end
 end
 
-class Window_Lore <Window_Base 
+class Window_Lore <Window_Base
   def initialize
     super(0, 232, 272, 184)
     refresh
@@ -238,6 +206,27 @@ class Window_Location < Window_Base
   end
 end
 
+class Window_character_CG < Window_Base
+  def initialize
+    super(272, 48, 272, 320)
+    self.padding = 0
+    refresh
+  end
+
+  def refresh
+
+  end
+
+  def contents_width
+    width
+  end
+
+  def contents_height
+    height
+  end
+
+end
+
 class Window_Logo < Window_Base
   def initialize
     super(272, 0, 48, 48)
@@ -247,8 +236,16 @@ class Window_Logo < Window_Base
 
   def refresh
     self.contents.clear
-    @actor = $game_party.members[0]
-    draw_actor_graphic(@actor, 24, 40)
+    @actor = $game_actors[1]
+    if @actor.name.include?("Kit") || @actor.name.include?("entity")
+      if @actor.name.include?("entity")
+        draw_actor_graphic(@actor, 24, 46)
+        else
+      draw_actor_graphic(@actor, 24, 48)
+      end
+    else
+      draw_actor_graphic(@actor, 24, 40)
+    end
   end
 
   def contents_width
