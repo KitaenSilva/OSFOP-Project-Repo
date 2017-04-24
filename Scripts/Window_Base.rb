@@ -400,6 +400,8 @@ class Window_Base < Window
     n = character_index
     src_rect = Rect.new((n%4*3+1)*cw, (n/4*4)*ch, cw, ch)
     contents.blt(x - cw / 2, y - ch, bitmap, src_rect)
+    puts "values"
+    puts x - cw / 2, y - ch, bitmap, src_rect
   end
   #--------------------------------------------------------------------------
   # * Get HP Text Color
