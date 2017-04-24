@@ -33,11 +33,16 @@ class Scene_Menu < Scene_MenuBase
   def create_text_windows
     @wt1 = Window_Text1.new
     @wt2 = Window_Text2.new
-    @Lw = Window_Lore.new
+    @Lore = Window_Lore.new
+    @av = Lore_avatar.new("niko_wew")
+
+    @Lore.hook=@av
+
+    @Lore.refresh
 
     @wt1.windowskin = Cache.system("Window_straight")
     @wt2.windowskin = Cache.system("Window_straight")
-    @Lw.windowskin = Cache.system("Window_straight")
+    @Lore.windowskin = Cache.system("Lore_window")
   end
 
   def create_stat_window
@@ -135,19 +140,119 @@ class Window_Text2 < Window_Base
   end
 end
 
-class Window_Lore <Window_Base
+class Window_Lore < Window_Base
   def initialize
+    @line = 0
     super(0, 232, 272, 184)
-    refresh
+    self.padding = 0
   end
+
+  attr_accessor :hook
 
   def refresh
     self.contents.clear
+    @av = hook
     change_color(system_color)
-    draw_text(0, 0, 272 - (2 * standard_padding), line_height, "Insert lore here", 1)
+    contents.font.size = 16
+    autowrap(("a"*31)+"\n"+("b"*31)+"\n"+("c"*31)+"\n"+("d"*31)+"\n"+("e"*38)+"\n"+("f"*38)+"\n"+("g"*38)+"\n"+("h"*38)+"\n"+("i"*38)+"\n"+("j"*38)+"\n"+("k"*38)+"\n"+("l"*38)+"\n"+("m"*38)+"\n"+("n"*38)+"\n"+("n"*38))
   end
 
-  #NEEDS HEAVY WORK
+  def draw_line(text)
+    draw_text(3, (@line * 12)-3, 300, line_height, text)
+    @line += 1
+  end
+
+
+  def contents_width
+    width
+  end
+
+  def contents_height
+    height
+  end
+
+  def bind_avatar(av)
+    @la
+  end
+
+  def autowrap(text)
+    show(make(text))
+  end
+
+  def make(text)
+    Text_generator.make(text, @av.visible)
+  end
+
+  def show(generatedtext)
+    @line = 0
+    generatedtext.each do |line|
+      draw_line(line)
+    end
+  end
+end
+
+module Text_generator
+  def self.make(text, image)
+    work = []
+    @line = 0
+    text.split("\n").each do |line|
+      if image && @line < 4
+        result = make_line(line, 31, " " * 7)
+      else
+        result = make_line(line, 38)
+      end
+      result.each do |newline|
+        work.push(newline)
+        @line += 1
+      end
+    end
+    return work
+  end
+
+  def self.make_line(snippet, limit, append = "")
+    temp = []
+    currentline = ""
+    snippet.split(" ").each do |word|
+      work = currentline
+      if !work.empty?
+        work += " "
+      end
+      work += word
+      if work.length > limit
+        temp.push(append + currentline)
+        currentline = word
+      else
+        currentline = work
+      end
+    end
+    temp.push(append + currentline)
+    return temp
+  end
+end
+
+class Lore_avatar < Window_Base
+  def initialize(actorface)
+    super(1, 233, 50, 50)
+    @af = actorface
+    self.padding = 1
+    self.windowskin = Cache.system("Lore_avatar")
+    draw
+  end
+
+  def draw
+    bitmap = Cache.face(@af)
+    rect = Rect.new(0, 0, 96, 96)
+    contents.stretch_blt(Rect.new(0, 0, 48, 48), bitmap, rect)
+    bitmap.dispose
+  end
+
+  def contents_width
+    width
+  end
+
+  def contents_height
+    height
+  end
 end
 
 class Window_Stat < Window_Base
@@ -218,7 +323,9 @@ class Window_character_CG < Window_Base
   end
 
   def refresh
-
+    pic = Cache.face("niko_wew")
+    contents.stretch_blt(Rect.new(0, 0, 272, 320), pic, pic.rect)
+    pic.dispose
   end
 
   def contents_width
