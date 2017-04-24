@@ -296,11 +296,11 @@ class Window_MenuCommand < Window_Command
 
   def add_main_commands
     add_command("Inventory", :item, main_commands_enabled)
-    add_command("Magic",      :skill,  main_commands_enabled)
+    add_command("Magic",      :skill,  false)
     add_command("Equipments", :equip,  main_commands_enabled)
     add_command("Status",     :status, main_commands_enabled)
     add_command("Save",       :save,   main_commands_enabled)
-    add_command("Quit Game",  :end,    main_commands_enabled)
+    add_command("Quit Game",  :end,    true)
   end
 
   def add_original_commands
