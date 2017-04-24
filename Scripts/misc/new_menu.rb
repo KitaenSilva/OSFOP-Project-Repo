@@ -154,7 +154,9 @@ class Window_Lore < Window_Base
     @av = hook
     change_color(system_color)
     contents.font.size = 16
-    autowrap(("a"*31)+"\n"+("b"*31)+"\n"+("c"*31)+"\n"+("d"*31)+"\n"+("e"*38)+"\n"+("f"*38)+"\n"+("g"*38)+"\n"+("h"*38)+"\n"+("i"*38)+"\n"+("j"*38)+"\n"+("k"*38)+"\n"+("l"*38)+"\n"+("m"*38)+"\n"+("n"*38)+"\n"+("n"*38))
+    @av.visible = false
+    #autowrap(("a"*31)+"\n"+("b"*31)+"\n"+("c"*31)+"\n"+("d"*31)+"\n"+("e"*38)+"\n"+("f"*38)+"\n"+("g"*38)+"\n"+("h"*38)+"\n"+("i"*38)+"\n"+("j"*38)+"\n"+("k"*38)+"\n"+("l"*38)+"\n"+("m"*38)+"\n"+("n"*38)+"\n"+("n"*38))
+    autowrap("Insert some stuff here")
   end
 
   def draw_line(text)
@@ -323,9 +325,9 @@ class Window_character_CG < Window_Base
   end
 
   def refresh
-    pic = Cache.face("niko_wew")
-    contents.stretch_blt(Rect.new(0, 0, 272, 320), pic, pic.rect)
-    pic.dispose
+    #pic = Cache.face("niko_wew")
+    #contents.stretch_blt(Rect.new(0, 0, 272, 320), pic, pic.rect)
+    #pic.dispose
   end
 
   def contents_width
