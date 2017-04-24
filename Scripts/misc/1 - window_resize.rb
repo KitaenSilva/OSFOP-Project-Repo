@@ -64,5 +64,6 @@ module Window_Resize
 end
 
 def update_window_size
+  return if ($game_actors[11].name.kind_of? String) || ($game_actors[12].name.kind_of? String)
   Window_Resize.r($game_actors[11].name, $game_actors[12].name)
 end
