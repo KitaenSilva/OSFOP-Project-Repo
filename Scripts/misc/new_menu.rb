@@ -202,7 +202,11 @@ class Window_Location < Window_Base
     change_color(hp_gauge_color1)
     draw_text(0, 0, 250, line_height, "Location:")
     change_color(system_color)
-    draw_text(100, 0, 150, line_height, "#{$data_mapinfos[$game_map.map_id].name}", 1)
+    mapname = getmapname($data_mapinfos[$game_map.map_id].name)
+    if mapname.length > 14
+      contents.font.size = 16
+    end
+    draw_text(100, 0, 200, line_height, "#{mapname}")
   end
 end
 
