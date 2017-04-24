@@ -8,7 +8,11 @@ class Window_Command < Window_Selectable
   #--------------------------------------------------------------------------
   # * Object Initialization
   #--------------------------------------------------------------------------
-  def initialize(x, y)
+  def initialize(x, y, height_override = false, height = 0)
+    @horide = height_override
+    if @horide
+      @Height = height
+    end
     clear_command_list
     make_command_list
     super(x, y, window_width, window_height)
@@ -26,7 +30,12 @@ class Window_Command < Window_Selectable
   # * Get Window Height
   #--------------------------------------------------------------------------
   def window_height
-    fitting_height(visible_line_number)
+    if !@horide
+      fitting_height(visible_line_number)
+    else
+      @Height
+    end
+
   end
   #--------------------------------------------------------------------------
   # * Get Number of Lines to Show

@@ -1,0 +1,15 @@
+text_win1: 0, 0 - 136, 48
+text_win2: 136, 0 - 272, 48
+
+command_win: 0, 48 - 136, 232
+stat_win: 136, 48 - 272, 232
+
+blob_win: 0, 232 - 272, 416
+
+
+sprite_logo: 272, 0 - 320, 48
+name_win: 320, 0 - 544, 48
+
+character_cg: 272, 48 - 544, 368
+
+location_win: 272, 368 - 544, 416
