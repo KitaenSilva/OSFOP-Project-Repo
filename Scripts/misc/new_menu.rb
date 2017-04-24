@@ -59,23 +59,25 @@ class Scene_Menu < Scene_MenuBase
 
   def start
     super
+
     create_text_windows
     create_stat_window
     create_command_window
-create_logo
+    create_logo
 
     create_location_window
-    create_pro_window
+    create_name_window
   end
 
   def create_text_windows
     @wt1 = Window_Text1.new
     @wt2 = Window_Text2.new
+    @Lw = Window_Lore.new
 
     @wt1.windowskin = Cache.system("Window")
     @wt2.windowskin = Cache.system("Window")
+    @Lw.windowskin = Cache.system("Window")
   end
-
 
   def create_stat_window
     @stat_window = Window_Stat.new
@@ -83,9 +85,9 @@ create_logo
   end
 
   def create_logo
-      @lw = Window_Logo.new
-      @lw.windowskin = Cache.system("Logo")
-      end
+    @lw = Window_Logo.new
+    @lw.windowskin = Cache.system("Logo")
+  end
 
   def create_command_window
     def command_item
@@ -130,14 +132,12 @@ create_logo
 
   def create_location_window
     @map_window = Window_Location.new
-    @map_window.windowskin = Cache.system(MOD::WINDOW)
+    @map_window.windowskin = Cache.system("Window")
   end
 
-  def create_pro_window
-    @pro_window = Window_Pro.new((MOD::ProX), (MOD::ProY))
-    @pro_window.x = (MOD::ProX)
-    @pro_window.y = (MOD::ProY)
-    @pro_window.windowskin = Cache.system(MOD::WINDOW)
+  def create_name_window
+    @pro_window = Window_Name.new
+    @pro_window.windowskin = Cache.system("Window")
   end
 end
 
@@ -150,7 +150,7 @@ class Window_Text1 < Window_Base
   def refresh
     self.contents.clear
     change_color(system_color)
-    draw_text(0, 0, 115, line_height, "Commands", 1)
+    draw_text(0, 0, 115, line_height, "Commands:", 1)
   end
 end
 
@@ -163,8 +163,23 @@ class Window_Text2 < Window_Base
   def refresh
     self.contents.clear
     change_color(system_color)
-    draw_text(0, 0, 115, line_height, "Stats", 1)
+    draw_text(0, 0, 115, line_height, "Stats:", 1)
   end
+end
+
+class Window_Lore <Window_Base 
+  def initialize
+    super(0, 232, 272, 184)
+    refresh
+  end
+
+  def refresh
+    self.contents.clear
+    change_color(system_color)
+    draw_text(0, 0, 272 - (2 * standard_padding), line_height, "Insert lore here", 1)
+  end
+
+  #NEEDS HEAVY WORK
 end
 
 class Window_Stat < Window_Base
@@ -223,66 +238,39 @@ class Window_Location < Window_Base
   end
 end
 
-class Window_Logo  < Window_Base
-    def initialize
-        super(272, 0, 48, 48)
-        self.padding = 0
-        refresh
-    end
-    
-    def refresh
-self.contents.clear
-@actor = $game_party.members[0]
-draw_actor_graphic(@actor, 24, 40)
-    end
+class Window_Logo < Window_Base
+  def initialize
+    super(272, 0, 48, 48)
+    self.padding = 0
+    refresh
+  end
 
-    def contents_width
-        width
-    end
-    
-      def contents_height
+  def refresh
+    self.contents.clear
+    @actor = $game_party.members[0]
+    draw_actor_graphic(@actor, 24, 40)
+  end
+
+  def contents_width
+    width
+  end
+
+  def contents_height
     height
   end
-    
-    end
 
-class Window_Pro < Window_Base
-  def initialize(x, y)
-    super(x, y, 224, 300)
+end
+
+class Window_Name < Window_Base
+  def initialize
+    super(320, 0, 224, 48)
     refresh
   end
   def refresh
     self.contents.clear
     @actor = $game_party.members[0]
-    change_color(system_color)
-    draw_text(0, 0, width, line_height, "Character Identity Card:")
-         # Actor Face Position
-    contents.fill_rect(0, 25, 96, 96, Font.default_out_color)
-    draw_actor_face(@actor, 0, 25)
-         # Actor Sprite Position
-    contents.fill_rect(105, 25, width, 96, Font.default_out_color)
-    draw_actor_graphic(@actor, 151, 90)
-         # Actor Name Position
-    contents.fill_rect(0, 130, width, 44, Font.default_out_color)
-    change_color(system_color)
-    draw_text(5, 130, width, line_height, "Character Name:")
-    draw_actor_name(@actor, 5, 150)
-         # Actor Class Position
-    contents.fill_rect(0, 183, width, 44, Font.default_out_color)
-    change_color(system_color)
-    draw_text(5, 185, width, line_height, "Character Profile:")
-    draw_actor_class(@actor, 5, 204)
-         # Actor Parameters Position
-    contents.fill_rect(0, 236, width, height, Font.default_out_color)
-         #change_color(tp_gauge_color1)
-    draw_text(5, 238, 200, line_height, "I DON'T NEED THESE, WOO!")
-         #sprite.bitmap = Cache.picture("yellowgem")
-         #draw_actor_param(@actor, 5, 258, 2)
-         #draw_actor_param(@actor, 5, 278, 3)
-         #draw_actor_param(@actor, 5, 298, 4)
-         #draw_actor_param(@actor, 5, 318, 5)
-         #draw_actor_param(@actor, 5, 338, 6)
-         #draw_actor_param(@actor, 5, 358, 7)
+    draw_text(0, 0, width, line_height, "Name:")
+    draw_actor_name(@actor, 60, 0)
   end
 end
 
@@ -340,6 +328,7 @@ class Window_MenuCommand < Window_Command
 end
 
 if $game_actors != nil
+  #for in-game refresh stuffz, dont worry about dis
   $game_actors[11].name = 1088
   $game_actors[12].name = 832
   update_window_size
