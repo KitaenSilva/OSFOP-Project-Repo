@@ -33,6 +33,12 @@ $DIALOGUE =
       ["amentity_shame", "Uuuh... I never said that..."],
       ["amentity_83c", "But sure, why not?"]
     ], false
+  ],
+  [
+      {:messageUUID => 420},
+      [
+          ["rue_pchoo", "I haz become lazor."]
+      ], true
   ]
 ]
 
@@ -41,7 +47,7 @@ module Dialogue
   def self.newdialogue
     approved = []
     $DIALOGUE.each do |val|
-      if !Dialogue.disabled?(val)
+      if !Dialogue.disabled?(val[0][:messageUUID])
         approved.push(val)
       end
     end
@@ -51,6 +57,7 @@ module Dialogue
   def self.disable(*vals)
     vals.each do |val|
       $game_actors[13].name.push(val)
+      puts "Disabled " + val.to_s
     end
   end
 
@@ -70,6 +77,8 @@ class Dialoguetrail
     @UUID = data[0][:messageUUID]
     @DataTrail = data[1]
     @special = data[2]
+    print data
+    print "\n"
     return self
   end
 
@@ -106,10 +115,6 @@ class Dialoguetrail
     if changed?
       resetclock
       @index = @index + 1
-      puts "index updated"
-    end
-    if @DataTrail.length >= @index
-        puts @DataTrail.length, @index
     end
     return @DataTrail.length <= @index
   end
