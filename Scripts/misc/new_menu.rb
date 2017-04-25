@@ -28,13 +28,14 @@ class Scene_Menu < Scene_MenuBase
     create_location_window
     create_name_window
     create_cg
+    bind_command_window
   end
 
   def create_text_windows
     @wt1 = Window_Text1.new
     @wt2 = Window_Text2.new
-    @Lore = Window_Lore.new
-    @av = Lore_avatar.new("niko_wew")
+    @Lore = Window_Info.new
+    @av = Info_avatar.new("niko_wew")
 
     @Lore.hook=@av
 
@@ -112,6 +113,10 @@ class Scene_Menu < Scene_MenuBase
     @cg.windowskin = Cache.system("Window_character_CG")
   end
 
+  def bind_command_window
+    @command_window.hook_info(@Lore)
+  end
+
 end
 
 class Window_Text1 < Window_Base
@@ -140,7 +145,7 @@ class Window_Text2 < Window_Base
   end
 end
 
-class Window_Lore < Window_Base
+class Window_Info < Window_Base
   def initialize
     @line = 0
     super(0, 232, 272, 184)
@@ -156,14 +161,13 @@ class Window_Lore < Window_Base
     contents.font.size = 16
     @av.visible = false
     #autowrap(("a"*31)+"\n"+("b"*31)+"\n"+("c"*31)+"\n"+("d"*31)+"\n"+("e"*38)+"\n"+("f"*38)+"\n"+("g"*38)+"\n"+("h"*38)+"\n"+("i"*38)+"\n"+("j"*38)+"\n"+("k"*38)+"\n"+("l"*38)+"\n"+("m"*38)+"\n"+("n"*38)+"\n"+("n"*38))
-    autowrap("Insert some stuff here")
+    #autowrap("")
   end
 
   def draw_line(text)
     draw_text(3, (@line * 12)-3, 300, line_height, text)
     @line += 1
   end
-
 
   def contents_width
     width
@@ -191,6 +195,32 @@ class Window_Lore < Window_Base
       draw_line(line)
     end
   end
+
+def fullclean
+  self.contents.clear
+  avatar(false)
+  end
+
+  def clean
+    self.contents.clear
+  end
+
+  def put(text)
+    clean
+    contents.font.size = 16
+    autowrap(text)
+  end
+
+  def avatar(enable, av = "")
+    if enable
+      @av.visible = true
+      face = av
+      @av.draw(face)
+    else
+      @av.visible = false
+    end
+  end
+
 end
 
 module Text_generator
@@ -232,7 +262,7 @@ module Text_generator
   end
 end
 
-class Lore_avatar < Window_Base
+class Info_avatar < Window_Base
   def initialize(actorface)
     super(1, 233, 50, 50)
     @af = actorface
@@ -241,7 +271,11 @@ class Lore_avatar < Window_Base
     draw
   end
 
-  def draw
+  def draw(newface = "")
+    if newface != ""
+      @af = newface
+    end
+    self.contents.clear
     bitmap = Cache.face(@af)
     rect = Rect.new(0, 0, 96, 96)
     contents.stretch_blt(Rect.new(0, 0, 48, 48), bitmap, rect)
@@ -337,7 +371,6 @@ class Window_character_CG < Window_Base
   def contents_height
     height
   end
-
 end
 
 class Window_Logo < Window_Base
@@ -392,6 +425,9 @@ class Window_MenuCommand < Window_Command
   def initialize
     super(0, 48, true, 184)
     select_last
+    resetclock
+    @idle = Idlemanager.new
+    @isidle = false
   end
 
   def window_width
@@ -402,9 +438,13 @@ class Window_MenuCommand < Window_Command
     6
   end
 
+  def hook_info(window)
+    @iw = window
+    @idle.hook(window)
+  end
+
   def make_command_list
     add_main_commands
-    add_original_commands
   end
 
   def add_main_commands
@@ -414,9 +454,6 @@ class Window_MenuCommand < Window_Command
     add_command("Status",     :status, main_commands_enabled)
     add_command("Save",       :save,   main_commands_enabled)
     add_command("Quit Game",  :end,    true)
-  end
-
-  def add_original_commands
   end
 
   def main_commands_enabled
@@ -434,6 +471,115 @@ class Window_MenuCommand < Window_Command
 
   def select_last
     select_symbol(@@last_command_symbol)
+    @I = getindex
+  end
+
+  #Inactivity functions, dont mind these
+
+
+  def update
+    super
+    return unless @iw != nil
+    if activity?
+      resetclock
+      stopidle
+    elsif inactive? && !@isidle
+      startidle
+    elsif inactive? && @isidle
+      @idle.update
+    end
+
+  end
+
+  def inactive?
+    (Time.now - 10) > @lastactivity
+  end
+
+  def resetclock
+    @lastactivity = Time.now
+  end
+
+  def activity?
+    if @I != getindex
+      @I = getindex
+      return true
+    end
+    return false
+  end
+
+  def stopidle
+    @idle.stop
+    @isidle = false
+  end
+
+  def startidle
+    puts "starting idle..."
+    @idle.start
+    @isidle = true
+  end
+
+end
+
+class Idlemanager
+  def initialize
+    @shouldinterval = false
+  end
+
+  def hook(window)
+    @iw = window
+  end
+
+  def update
+    if @shouldinterval
+      if intervalactive?
+        @shouldinterval = false
+        puts "new dialogue"
+        start
+      end
+      return
+    end
+
+    if @first
+      @first = false
+      @iw.avatar(true, @dl.currentavatar)
+      @iw.put(@dl.currentline)
+      puts "putting " + @dl.currentline
+    elsif @dl.changed?
+      if @dl.last?
+        @dl.stop
+        startinterval
+        @iw.fullclean
+      else
+        @iw.avatar(true, @dl.currentavatar)
+        @iw.put(@dl.currentline)
+        puts "putting " + @dl.currentline
+      end
+    end
+  end
+
+  def startinterval
+    @interval = Time.now
+    @shouldinterval = true
+  end
+
+  def intervalactive?
+    (Time.now - 10) > @interval
+  end
+
+  def start
+    if @iw == nil
+      raise "Idle window was started, but without a hooked info-window"
+    end
+    # this will usually follow with a random number generator and stuff, but we only have dialogue atm
+    newdiag = Dialogue.newdialogue
+    @dl = Dialoguetrail.new(newdiag)
+    @dl.start
+    @first = true
+  end
+
+  def stop
+    @iw.clean
+    @dl.stop
   end
 end
 
@@ -441,5 +587,6 @@ if $game_actors != nil
   #for in-game refresh stuffz, dont worry about dis
   $game_actors[11].name = 1088
   $game_actors[12].name = 832
+  $game_actors[13].name = []
   update_window_size
 end

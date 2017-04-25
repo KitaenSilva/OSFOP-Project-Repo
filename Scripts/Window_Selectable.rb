@@ -103,6 +103,10 @@ class Window_Selectable < Window_Base
     update_cursor
     call_update_help
   end
+
+  def getindex
+    @index
+  end
   #--------------------------------------------------------------------------
   # * Select Item
   #--------------------------------------------------------------------------
