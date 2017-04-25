@@ -35,9 +35,9 @@ $DIALOGUE =
     ], false
   ],
   [
-      {:messageUUID => 420},
+    {:messageUUID => 420},
       [
-          ["rue_pchoo", "I haz become lazor."]
+        ["rue_pchoo", "I haz become lazor."]
       ], true
   ]
 ]

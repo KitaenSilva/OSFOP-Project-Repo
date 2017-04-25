@@ -196,9 +196,9 @@ class Window_Info < Window_Base
     end
   end
 
-def fullclean
-  self.contents.clear
-  avatar(false)
+  def fullclean
+    self.contents.clear
+    avatar(false)
   end
 
   def clean
@@ -578,8 +578,11 @@ class Idlemanager
   end
 
   def stop
-    @iw.clean
-    @dl.stop
+    if @dl != nil
+      @dl.stop
+      @dl = nil
+    end
+    @iw.fullclean
   end
 end
 
