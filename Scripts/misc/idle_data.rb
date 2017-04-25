@@ -120,7 +120,11 @@ class Dialoguetrail
   end
 
   def changed?
-    (Time.now - 5) > @lastactivity
+    if @DataTrail[@index].length > 2
+      (Time.now - @DataTrail[@index][2]) > @lastactivity
+    else
+      (Time.now - 5) > @lastactivity
+    end
   end
 
   def currentline
