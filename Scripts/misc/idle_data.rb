@@ -120,7 +120,7 @@ class Dialoguetrail
   end
 
   def changed?
-    if @DataTrail[@index].length > 2
+    if @DataTrail[@index] != nil && @DataTrail[@index].length > 2
       (Time.now - @DataTrail[@index][2]) > @lastactivity
     else
       (Time.now - 5) > @lastactivity

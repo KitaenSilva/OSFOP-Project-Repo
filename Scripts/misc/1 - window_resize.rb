@@ -67,3 +67,20 @@ def update_window_size
   return if ($game_actors[11].name.kind_of? String) || ($game_actors[12].name.kind_of? String)
   Window_Resize.r($game_actors[11].name, $game_actors[12].name)
 end
+
+def auto_size
+  maxx = (544 * 2) + (SMET.call(5) + SMET.call(45)) * 2
+  maxy = (416 * 2) + (SMET.call(6) + SMET.call(45)) * 2 + SMET.call(4) #TODO: GET SMET CALL FOR TASKBAR HEIGHT
+  if maxx >= SMET.call(0) || maxy >= (SMET.call(1) - 100)
+    if maxx >= SMET.call(0)
+            times = (maxx - SMET.call(0)) / 4
+      maxy = ((maxy / 3) - times) * 3
+      maxx = ((maxx / 4) - times) * 4
+    elsif maxy >= (SMET.call(1) - 100)
+      times = (maxy - (SMET.call(1) - 100)) / 3
+      maxy = ((maxy / 3) - times) * 3
+      maxx = ((maxx / 4) - times) * 4
+    end
+  end
+  return maxx,maxy
+end

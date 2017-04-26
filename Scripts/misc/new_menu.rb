@@ -588,10 +588,10 @@ end
 
 if $game_actors != nil
   #for in-game refresh stuffz, dont worry about dis
-  $game_actors[11].name = 1088
-  $game_actors[12].name = 832
+  $game_actors[11].name, $game_actors[12].name = auto_size
   puts $game_actors[13].name.to_s
   $game_actors[13].name = []
   update_window_size
   load "Scripts/misc/idle_data.rb"
+  load "Scripts/misc/1 - window_resize.rb"
 end
