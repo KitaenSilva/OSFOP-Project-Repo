@@ -359,7 +359,7 @@ class Window_character_CG < Window_Base
   end
 
   def refresh
-    pic = Cache.picture("test_cg")
+    pic = Cache.picture("CG_menu_Niko")
     contents.stretch_blt(Rect.new(0, 0, 272, 320), pic, pic.rect)
     pic.dispose
   end
