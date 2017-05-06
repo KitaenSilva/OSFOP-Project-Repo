@@ -63,7 +63,10 @@ module Dialogue
 
   def self.disabled?(val)
       #can be heavily modified
-    $game_actors[13].name.each do |check|
+    if $game_actors[13].name == val # If $game_actors[13].name is a string
+      return true
+    end
+    $game_actors[13].name.each do |check| # Or if it's an array...
       if check == val
         return true
       end
