@@ -55,6 +55,7 @@ module Dialogue
   end
 
   def self.disable(*vals)
+    checkarr
     vals.each do |val|
       $game_actors[13].name.push(val)
       puts "Disabled " + val.to_s
@@ -62,16 +63,19 @@ module Dialogue
   end
 
   def self.disabled?(val)
-      #can be heavily modified
-    if $game_actors[13].name == val # If $game_actors[13].name is a string
-      return true
-    end
-    $game_actors[13].name.each do |check| # Or if it's an array...
+    checkarr
+    $game_actors[13].name.each do |check|
       if check == val
         return true
       end
     end
     return false
+  end
+end
+
+def checkarr
+  if !$game_actors[13].name.is_a?(Array)
+    !$game_actors[13].name = []
   end
 end
 
